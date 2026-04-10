@@ -1,0 +1,66 @@
+<c-card class="dashboard-parent-card h-100">
+  <c-card-body>
+
+    <h2 class="fw-bold mb-4">Expense Breakdown</h2>
+
+    <div class="row g-4">
+
+      <div class="col-6">
+        <div class="metric-card">
+          <div class="metric-value text-primary">
+            ₹ {{ expenses.fuel | number:'1.2-2' }}
+          </div>
+          <div class="metric-label">Fuel</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="metric-card">
+          <div class="metric-value text-primary">
+            ₹ {{ expenses.food | number:'1.2-2' }}
+          </div>
+          <div class="metric-label">Food</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="metric-card">
+          <div class="metric-value text-primary">
+            ₹ {{ expenses.toll | number:'1.2-2' }}
+          </div>
+          <div class="metric-label">Toll</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="metric-card">
+          <div class="metric-value text-primary">
+            ₹ {{ expenses.parking | number:'1.2-2' }}
+          </div>
+          <div class="metric-label">Parking</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="metric-card">
+          <div class="metric-value text-primary">
+            ₹ {{ expenses.maintenance | number:'1.2-2' }}
+          </div>
+          <div class="metric-label">Maintenance</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="metric-card">
+          <div class="metric-value text-primary">
+            ₹ {{ expenses.driverAdvance | number:'1.2-2' }}
+          </div>
+          <div class="metric-label">Driver Advance</div>
+        </div>
+      </div>
+
+    </div>
+
+  </c-card-body>
+</c-card>
+

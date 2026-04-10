@@ -1,0 +1,239 @@
+// .sidebar {
+//   height: 100vh;
+//   width: 240px;
+//  font-family: 'Poppins', sans-serif;
+//   background: linear-gradient(
+//     to bottom,
+//     rgba(56, 83, 128, 0.1) 0%,
+//     rgba(56, 83, 128, 0.15) 54%,
+//     rgba(56, 83, 128, 0.5) 100%
+//   );
+//   border-bottom-right-radius: 35px;
+//   padding: 20px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+// }
+
+// .logo {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   font-weight: 700;
+//   color: #2f4b7c;
+//   margin-bottom: 15px;
+//   // border-bottom: 1px solid green;
+//   padding-bottom: 5px;
+// }
+
+// .logo img {
+//   width: 200px;
+// }
+
+// .menu {
+//   list-style: none;
+//   padding: 0;
+//   margin: 0;
+// }
+
+// .menu li {
+//   display: flex;
+//   align-items: center;
+//   gap: 24px;
+//   padding: 8px;
+//   border-radius: 10px;
+//   cursor: pointer;
+//   color: #4b5d7a;
+//   font-weight: 550;
+//   font-size: 16px;
+//   transition: 0.3s;
+// }
+
+// .menu-icon {
+//   width: 24px;     
+//   height: 24px;
+//   object-fit: contain;
+// }
+
+// .menu li:hover {
+//   background: #dbe3f5;
+// }
+
+// .menu li i {
+//   width: 40px;
+//   font-size: 28px;
+//   text-align: center;
+//   color: #ffffff; 
+// }
+
+// .sub-menu {
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 12px;
+//   border-radius: 10px;
+// }
+
+// .logout {
+//   margin-top: auto;
+//   color: #2f4b7c;
+// }
+
+
+
+
+// .menu-btn {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between; 
+//   width: 100%;
+//   gap: 25px;
+//   // justify-content: flex-start;
+//   padding: 10px 15px;
+//   border-radius: 5px;
+//   text-transform: none; 
+//   cursor: pointer;
+//   color: #4b5d7a;
+//   font-weight: 550;
+//   font-size: 16px;
+// }
+
+// .menu-btn:hover {
+//   background: #dbe3f5;
+// }
+
+// .menu-icon {
+//   width: 34px;
+//   height: 34px;
+//   margin-right: 20px;
+// }
+
+
+
+
+
+
+
+.sidebar {
+  height: 100vh;
+  width: 240px;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+  // direction: rtl; 
+  font-family: 'Poppins', sans-serif;
+    // background: linear-gradient(
+    //   to bottom,
+    //   rgba(56, 83, 128, 0.1) 0%,
+    //   rgba(56, 83, 128, 0.15) 54%,
+    //   rgba(56, 83, 128, 0.5) 100%
+    // );
+
+    background:url("/assets/images/sidebar-icon/Sidebar-background.png");
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-bottom-right-radius: 35px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.sidebar * {
+  direction: ltr;
+}
+
+.logo img {
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+
+/* MENU */
+.menu {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* MENU ITEM */
+.menu-item {
+  position: relative;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: #4b5d7a;
+  font-weight: 550;
+  display: flex;
+  font-size: 16px;
+  transition: 0.3s;
+  // border-bottom: 2px solid #ddd;
+  // margin-bottom: 5px;
+}
+
+.menu-item:hover {
+  background: #dbe3f5;
+}
+
+.menu-item img {
+  width: 34px;
+  height: 34px;
+  margin-right: 20px;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 18px;
+}
+
+.submenu-popup {
+  position: absolute;
+  top: 10px;
+  left: 100%;
+  margin-left: 5px;
+  width: 130px;
+  background: white;
+  border-radius: 0px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: 0.2s;
+  z-index: 9999;
+}
+
+.submenu-popup.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.submenu-item {
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.submenu-item:hover {
+  background: #f1f3f5;
+}
+
+.logout {
+  margin-top: auto;
+}

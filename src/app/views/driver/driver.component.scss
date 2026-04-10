@@ -1,0 +1,109 @@
+//   .main{
+//     width: 100%;
+//     height: calc(100vh - 93px);
+//     display: flex;
+//     display: block;
+//     overflow: hidden;
+//     justify-content:start;
+//     background-color:white; 
+//     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+//   }
+
+.main {
+  position: relative; 
+  width: 100%;
+  height: calc(100vh - 93px);
+  overflow: auto;      
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* ===== DATA LIST WRAPPER ===== */
+.data-list {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+/* ===== DATA TABLE ===== */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: #ffffff;
+}
+
+/* TABLE HEADER */
+.data-table thead th {
+//   background: #f1f5f9;
+  background: #000000;
+  font-weight: 600;
+//   color: #000000;
+  color: white;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+/* TABLE BODY */
+.data-table td {
+  padding: 1px;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  text-align: center;
+}
+
+/* ROW COLORS */
+.data-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* HOVER EFFECT */
+.data-table tbody tr:hover {
+  background-color: #eef2ff;
+}
+
+/* ACTION COLUMN */
+.data-table th:last-child,
+.data-table td:last-child {
+  text-align: right;
+}
+
+/* EMPTY STATE */
+.data-empty {
+  padding: 20px;
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* ACTION BUTTONS */
+.action-cell {
+  white-space: nowrap;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin-left: 6px;
+  font-size: 15px;
+  transition: transform 0.15s ease;
+}
+
+.icon-btn.edit {
+  color: #2563eb;
+}
+
+.icon-btn.delete {
+  color: #dc2626;
+}
+
+.icon-btn:hover {
+  transform: scale(1.1);
+}

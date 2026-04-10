@@ -1,0 +1,188 @@
+  <c-card class="auth-card">
+        <c-card-body> 
+
+          <form *ngIf="!isLegalDocumentsForm" [formGroup]="registerForm" (ngSubmit)="submit()">
+
+            <div class="login-toggle">
+              <button type="button" (click)="onRegistrationTypeChange('individual')" [class.active]="registrationType === 'individual'">Individual</button>
+              <button type="button" (click)="onRegistrationTypeChange('organization')" [class.active]="registrationType === 'organization'">Organization</button>
+            </div>
+
+          <c-row>
+            <c-col md="12">
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-user"></i></span>
+                <input formControlName="fullName" placeholder=" " />
+                <label>Full Name*</label>
+              </div>
+               <small class="text-danger position-absolute" *ngIf="f('fullName')?.touched && f('fullName')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
+                  Full Name is required!
+                </small>
+
+              <div *ngIf="registrationType==='organization'" class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-warehouse"></i></span>
+                <input formControlName="companyName" placeholder=" " />
+                <label>Company Name</label>
+              </div>
+              <small class="text-danger position-absolute" *ngIf="f('companyName')?.touched && f('companyName')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
+                  Company Name is required!
+              </small>
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-phone"></i></span>
+                <input formControlName="mobileno" type="tel" minlength="10" maxlength="10" placeholder=" " [readonly]="isMobileReadonly"/>
+                <label>Mobile Number*</label>
+              </div>
+              <small class="text-danger position-absolute" *ngIf="f('mobileno')?.touched && f('mobileno')?.errors" style="margin-top: -20px; margin-left: 10px;">
+                  <span *ngIf="f('mobileno')?.errors?.['required']">Mobile Number is required</span>
+                  <span *ngIf="f('mobileno')?.errors?.['pattern']">Invalid Mobile Number</span>
+              </small>
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-envelope"></i></span>
+                <input formControlName="email" type="email" placeholder=" " />
+                <label>Email Address *</label>
+              </div>
+              <small class="text-danger position-absolute" *ngIf="f('email')?.touched && f('email')?.errors" style="margin-top: -20px; margin-left: 10px;">
+                 <span *ngIf="f('email')?.errors?.['required']">Email is required</span>
+                 <span *ngIf="f('email')?.errors?.['email']">Invalid Email</span>
+              </small>
+
+                <!-- <div *ngIf="registrationType==='organization'" class="mbr floating-icon-input mb-4 d-flex justify-content-center gap-3" style="padding-right: 30px;">
+                     <span style="margin-right: -10px;">Factory</span><input type="checkbox" value="Factory" (change)="onAddressTypeChange($event)"/>
+                     <span style="margin-right: -10px;">Warehouse</span><input type="checkbox" value="Warehouse" (change)="onAddressTypeChange($event)"/>
+                     <span style="margin-right: -10px;">Office</span><input type="checkbox" value="Office" (change)="onAddressTypeChange($event)"/>
+                     <label>Address Type *</label>
+                 </div>
+                  <small class="text-danger position-absolute" *ngIf="f('address1')?.touched && f('address1')?.errors?.['required']" style="margin-top: -24px; margin-left: 10px;">
+                    Address Type is required
+                  </small> -->
+
+              <div *ngIf="registrationType==='organization'" class="mbr floating-icon-input mb-3 d-flex justify-content-center gap-3" style="padding-right: 30px; align-items: center; height: 24px;">
+                <span class="icon-box"><i class="fa-solid fa-location-dot" style="color:#6c757d;"></i></span>
+                <label style="font-size:13px; font-weight:600; margin-right:10px;"> Address Type *</label>
+                  <span style="font-size:14px;">Factory</span>
+                  <input type="checkbox" value="Factory" (change)="onAddressTypeChange($event)" style="width:14px; height:24px; margin:0 6px;" />
+                  <span style="font-size:14px;">Warehouse</span>
+                  <input type="checkbox" value="Warehouse" (change)="onAddressTypeChange($event)" style="width:14px; height:24px; margin:0 6px;" />
+                  <span style="font-size:14px;">Office</span>
+                  <input type="checkbox" value="Office" (change)="onAddressTypeChange($event)" style="width:14px; height:24px; margin:0 6px;" />
+                </div>
+                <small class="text-danger position-absolute"*ngIf="f('addressType')?.touched && f('addressType')?.errors?.['required']"
+                      style="margin-top:-6px; margin-left:10px;">Address Type is required!
+                </small>
+
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-house"></i></span>
+                <input formControlName="address1" placeholder=" " />
+                <label>Building, Apartment, Plot Number *</label>
+              </div>
+              <small class="text-danger position-absolute" *ngIf="f('address1')?.touched && f('address1')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
+                  Address is required!
+              </small>
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-house"></i></span>
+                <input formControlName="address2" placeholder=" " />
+                <label>Area, Street, Sector, Village *</label>
+              </div>
+             <small  class="text-danger position-absolute" *ngIf="f('address2')?.touched && f('address2')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
+                Address is required!
+             </small> 
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-location-dot"></i></span>
+                <input formControlName="pincode" type="number" placeholder=" " (change)="getPincodeLocation($event)" />
+                <label>Pincode *</label>
+              </div>
+              <small class="text-danger position-absolute" *ngIf="f('pincode')?.touched && f('pincode')?.errors" style="margin-top: -20px; margin-left: 10px;">
+                 <span *ngIf="f('pincode')?.errors?.['required']">Pincode required</span>
+                  <span *ngIf="f('pincode')?.errors?.['pattern']">Pincode must be 6 digits</span>
+                </small> 
+
+              <div class="floating-icon-input mb-3">
+                <span class="icon-box"><i class="fa-solid fa-landmark"></i></span>
+                <input formControlName="town" placeholder=" " />
+                <label>Town / Tehsil</label>
+              </div>
+
+              <div class="floating-icon-input1 mb-3">
+                <span class="icon-box1"><i class="fa-solid fa-map"></i></span>
+                <ng-select
+                  #stateSelect
+                  formControlName="state"
+                  [items]="stateList"
+                  bindLabel="state"
+                  bindValue="state"
+                  class="custom-ngselect"
+                  placeholder=" "
+                  appendTo="body"
+                  [ngClass]="{'has-value': stateControl?.value}"
+                  (change)="onStateChange($event)"
+                  (click)="getStateData()">
+                </ng-select>
+                <label class="floating-label1">State *</label>
+                <small class="text-danger position-absolute" *ngIf="f('state')?.touched && f('state')?.errors?.['required']" style="margin-top: -5px; margin-left: 10px;">
+                    State is required!
+               </small>
+              </div>
+               
+
+              <div class="floating-icon-input1 mb-3">
+                <span class="icon-box1"><i class="fa-solid fa-city"></i></span>
+                 <ng-select
+                    #districtSelect
+                    formControlName="district"
+                    [items]="cityList"
+                    bindLabel="region"
+                    bindValue="region"
+                    class="custom-ngselect"
+                    placeholder=" "
+                    appendTo="body"
+                    [ngClass]="{'has-value': districtControl?.value}"
+                    (change)="onDistrictChange($event)"
+                    (click)="getCityData()">
+                  </ng-select>
+                <label class="floating-label1">District / City *</label>
+                <small class="text-danger position-absolute" *ngIf="f('district')?.touched && f('district')?.errors?.['required']" style="margin-top: -5px; margin-left: 10px;">
+                   District is required!
+                </small>
+              </div>
+
+              <div class="floating-icon-input1 mb-3">
+                <span class="icon-box1"><i class="fa-solid fa-location-dot"></i></span>
+                <ng-select
+                  [items]="locations"
+                  formControlName="googleAddress"
+                  bindLabel="description"
+                  class="custom-ngselect"
+                  placeholder=" "
+                  appendTo="body"
+                  (search)="getGoogleLocation($event.term)">
+                </ng-select>
+                <label class="floating-label1">Google Address *</label>
+                <small class="text-danger position-absolute" *ngIf="f('googleAddress')?.touched && f('googleAddress')?.errors?.['required']" style="margin-top: -5px; margin-left: 10px;">
+                    Google Address is required!
+               </small>
+              </div>
+
+            </c-col>
+          </c-row>
+
+            <!-- <div class="d-grid mt-3">
+              <button cButton color="success" type="submit">
+                Submit Documents
+              </button>
+            </div> -->
+            <div class="d-flex mt-1 align-items-center justify-content-end">
+              <button cButton color="success" type="submit">
+                Update Profile
+              </button>
+            </div>
+
+        </form>
+
+        </c-card-body>
+      </c-card>

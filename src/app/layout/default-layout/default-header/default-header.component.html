@@ -1,0 +1,251 @@
+<!-- <c-header class="mb-4 d-print-none" position="sticky"> -->
+<ng-container >
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <button
+      [cSidebarToggle]="sidebarId"
+      cHeaderToggler
+      class="btn"
+      toggle="visible"
+      style="margin-inline-start: -14px;"
+      aria-label="Toggle sidebar navigation">
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+  
+    
+    <c-header-nav class="d-none d-md-flex align-items-center flex-grow-1">
+
+      <!-- Left Title -->
+      <c-nav-item *ngIf="currentTitle" class="me-auto d-flex align-items-center">
+        <!-- <span class="fw-bold">{{ currentTitle }}</span> -->
+        <span class="fw-bold">{{ contactPerson }}</span>
+      </c-nav-item>
+    
+      <!-- Right Section (Date filters + Icons + User) -->
+      <c-header-nav class="d-flex align-items-center ms-auto gap-3">
+    
+        <!-- Date Filters (moved before bell & user) -->
+        <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center">
+            <label class="fw-semibold me-1 mb-0 text-nowrap">From :</label>
+            <input type="date" class="form-control form-control-sm" [(ngModel)]="fromDate" />
+          </div>
+    
+          <div class="d-flex align-items-center">
+            <label class="fw-semibold ms-3 me-1 mb-0 text-nowrap">To :</label>
+            <input type="date" class="form-control form-control-sm" [(ngModel)]="toDate" />
+          </div>
+        </div>
+    
+        <!-- Bell Icon -->
+        <a cNavLink class="d-flex align-items-center">
+          <i class="fa-solid fa-bell" style="font-size: 22px;"></i>
+        </a>
+    
+        <!-- User Dropdown -->
+        <c-dropdown alignment="end" variant="nav-item">
+          <a cDropdownToggle [caret]="false" class="d-flex align-items-center" aria-label="User menu">
+            <i class="fas fa-user fa-lg" style="font-size: 22px; cursor: pointer;"></i>
+          </a>
+          <div cDropdownMenu class="p-2" style="min-width: 220px;"><!--routerLink="/profile"-->
+            <a cDropdownItem (click)="isProfileEdit = true"  class="fw-bold me-2" style="background-color: rgb(188, 188, 188); cursor: pointer;">My Profile! {{customerID}}</a>
+            <div class="dropdown-divider"></div>
+            <div class="px-2 py-1 small">
+              <p class="mb-1"><span class="fw-bold me-2">Company Name:</span>{{companyName}}</p>
+              <p class="mb-1"><span class="fw-bold me-2">User Name:</span>{{contactPerson}}</p>
+              <p class="mb-1"><span class="fw-bold me-2">Mobile:</span>{{contactNo}}</p>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button cDropdownItem (click)="logout()">Logout</button>
+          </div>
+        </c-dropdown>
+    
+      </c-header-nav>
+    </c-header-nav>
+    
+    
+ 
+
+    <!-- <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown" />
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+    </c-header-nav> -->
+
+    <c-header-nav class="mx-0">
+      <!-- <ng-container *ngTemplateOutlet="userDropdown" /> -->
+    </c-header-nav>
+
+  </c-container>
+
+  <!-- <c-container [fluid]="true" class="px-4">
+    <c-breadcrumb-router />
+  </c-container> -->
+  
+</ng-container>
+<!--</c-header>-->
+
+ <ng-template #userDropdown>
+  <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
+    <button [caret]="false" cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
+      <c-avatar
+        shape="rounded-1"
+        [size]="'md'"
+        src="./assets/images/avatars/8.jpg"
+        status="success"
+        textColor="primary"
+        alt="User avatar"
+      />
+    </button>
+    <ul cDropdownMenu class="pt-0 w-auto">
+      <li>
+        <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2 rounded-top">
+          Account
+        </h6>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilBell"></svg>
+          Updates
+          <c-badge class="ms-2 float-end" color="info"> 42</c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="/apps/email/inbox">
+          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
+          Messages
+          <c-badge class="ms-2 float-end" color="success">
+            42
+          </c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilTask"></svg>
+          Tasks
+          <c-badge class="ms-2 float-end" color="danger"> 42</c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilCommentSquare"></svg>
+          Comments
+          <c-badge class="ms-auto" color="warning"> 42</c-badge>
+        </a>
+      </li>
+      <li>
+        <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2">
+          Settings
+        </h6>
+      </li>
+      <li></li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilUser"></svg>
+          Profile
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilSettings"></svg>
+          Settings
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilCreditCard"></svg>
+          Payments
+          <c-badge class="ms-2 float-end" color="secondary">
+            42
+          </c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilFile"></svg>
+          Projects
+          <c-badge class="ms-2 float-end" color="primary">
+            42
+          </c-badge>
+        </a>
+      </li>
+      <li>
+        <hr cDropdownDivider />
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+          Lock Account
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+          Logout
+        </a>
+      </li>
+    </ul>
+  </c-dropdown>
+</ng-template> 
+
+<!-- <ng-template #themeDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button [caret]="false" cDropdownToggle aria-label="Open theme picker">
+      <svg cIcon [name]="icons()" size="lg"></svg>
+    </button>
+    <div cDropdownMenu>
+      @for (mode of colorModes; track mode.name) {
+        <button
+          (click)="colorMode.set(mode.name)"
+          [active]="colorMode()===mode.name"
+          [routerLink]="[]"
+          cDropdownItem
+          class="d-flex align-items-center"
+        >
+          <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+          {{ mode.text }}
+        </button>
+      }
+    </div>
+  </c-dropdown>
+</ng-template> -->
+
+
+<div class="modal fade show d-block custom-modal-backdrop" tabindex="-1" *ngIf="isProfileEdit" style="overflow-y: hidden;">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content profile-modal shadow">
+
+      <div class="modal-header modal-heading align-items-center" style="background-color: rgb(0, 0, 0); height: 50px;">
+        <h2 class="modal-title mt-3 text-white">Edit Profile</h2>
+        <button type="button" class="btn-close btn-close-white" (click)="isProfileEdit = false"></button>
+      </div>
+
+      <div class="modal-body p-0" style=" overflow-y: auto;max-height: calc(95vh - 50px); padding: 0;">
+        <app-profile-edit></app-profile-edit>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="modal fade show d-block custom-modal-backdrop" tabindex="-1" *ngIf="isProfileEdit">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content profile-modal shadow">
+
+      <div class="modal-header modal-heading">
+         <h4 class="modal-title mt-2">Edit Profile</h4>
+         <button type="button" class="btn-close btn-close-white" (click)="isProfileEdit = false"></button>
+      </div>
+
+      <div class="modal-body p-0">
+        <app-profile-edit></app-profile-edit>
+      </div>
+
+    </div>
+  </div>
+</div> -->
+

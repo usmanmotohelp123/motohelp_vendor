@@ -1,0 +1,8 @@
+<div *ngIf="message" class="alert" [ngClass]="cssClass">
+  <div class="alert-content">
+    <i [ngClass]="iconClass" class="icon"></i>
+    <span class="message-text">{{ message.text }}</span>
+  </div>
+</div>
+
+

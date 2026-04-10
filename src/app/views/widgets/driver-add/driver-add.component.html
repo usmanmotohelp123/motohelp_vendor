@@ -1,0 +1,166 @@
+<div class="container-fluid">
+    <div class="border-bottom d-flex justify-content-between">
+      <h2 mat-dialog-title style="margin-bottom: 0px;">Add Driver</h2>
+      <button class="btn btn-close-dark" (click)="close()">X</button>
+    </div>
+<form [formGroup]="driverForm" (ngSubmit)="submit()">
+ <mat-dialog-content>
+    <div class="row g-2">
+
+        <div class="col-12 col-md-5">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Licence Number</mat-label>
+            <input matInput />
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-5">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Date Of Birth</mat-label>
+            <input [matDatepicker]="dobPicker"  matInput/>
+            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-2 d-flex align-items-end">
+         <button mat-raised-button color="primary" class="w-100 validate-btn" [disabled]="isValidating || isValidated" (click)="validateLicence()" 
+          [ngClass]="{'btn-success': isValidated,'btn-primary': !isValidated}">
+            <!-- Normal -->
+            <span *ngIf="!isValidating && !isValidated">Validate</span>
+            <!-- Loading -->
+            <mat-progress-spinner *ngIf="isValidating" diameter="18" mode="indeterminate" color="accent"></mat-progress-spinner>
+            <!-- Success -->
+            <span *ngIf="isValidated" class="validated-content">Validated<mat-icon>check</mat-icon></span>
+         </button>
+    
+       </div>
+     </div> 
+
+     <div class="row g-2" style="margin-top: -5px;">
+        <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Licence Epiry</mat-label>
+            <input [matDatepicker]="expiryPicker"  matInput/>
+            <mat-datepicker-toggle matSuffix [for]="expiryPicker"></mat-datepicker-toggle>
+            <mat-datepicker #expiryPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Diver Age</mat-label>
+            <input type="number" matInput min="18" max="70"/>
+            </mat-form-field>
+        </div>
+
+         <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Diver Address</mat-label>
+            <input type="Text" matInput />
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row g-2" style="margin-top: -15px;">
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Full Name as per DL</mat-label>
+            <input type="Text" matInput />
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Phone Number</mat-label>
+            <input type="number" matInput />
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Family Contact</mat-label>
+            <input type="number" matInput />
+            </mat-form-field>
+        </div>
+      </div>
+
+       <div class="row g-2" style="margin-top: -15px;">
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Email</mat-label>
+            <input type="Text" matInput />
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Building</mat-label>
+            <input type="number" matInput />
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Streat Area</mat-label>
+            <input type="number" matInput />
+            </mat-form-field>
+        </div>
+     </div>
+
+     <div class="row g-2" style="margin-top: -15px;">
+        <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Pincode</mat-label>
+            <input type="Text" matInput />
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Tahsil/Town</mat-label>
+            <input type="number" matInput />
+            </mat-form-field>
+        </div>
+    </div>
+
+<div class="row g-2" style="margin-top: -12px;">
+    <!-- STATE -->
+    <div class="col-12 col-md-6 floating-ng-select">
+        <ng-select
+        formControlName="state"
+        [items]="stateList"
+        bindLabel="state"
+        bindValue="state"
+        class="custom-ngselect"
+        placeholder=" "
+        appendTo="body"
+        [ngClass]="{ 'has-value': stateControl?.value }"
+        (change)="onStateChange($event)"
+        (click)="getStateData()">
+        </ng-select>
+        <label class="floating-label">State *</label>
+    </div>
+    <!-- DISTRICT -->
+    <div class="col-12 col-md-6 floating-ng-select">
+        <ng-select
+        formControlName="district"
+        [items]="cityList"
+        bindLabel="region"
+        bindValue="region"
+        class="custom-ngselect"
+        placeholder=" "
+        appendTo="body"
+        [ngClass]="{ 'has-value': districtControl?.value }"
+        (change)="onDistrictChange($event)"
+        (click)="getCityData()">
+        </ng-select>
+        <label class="floating-label">District / City *</label>
+    </div>
+
+  </div>
+
+ </mat-dialog-content>
+</form>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close (click)="close()">Cancel</button>
+        <button mat-raised-button color="primary">Save</button>
+    </mat-dialog-actions>
+
+</div>

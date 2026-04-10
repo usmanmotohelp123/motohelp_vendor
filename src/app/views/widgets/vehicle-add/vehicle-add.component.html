@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="border-bottom">
+      <h2 mat-dialog-title style="margin-bottom: 0px;">Add Vehicle</h2>
+    </div>
+   <form [formGroup]="vehicleForm" (ngSubmit)="submit()"> 
+    <mat-dialog-content>
+        <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Vehicle Number</mat-label>
+            <input formControlName="vehicleNo" matInput/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Vehicle Type</mat-label>
+            <input formControlName="vehicleType" matInput />
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Model</mat-label>
+            <input formControlName="vehicleModel" matInput />
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="w-100" density="-3">
+            <mat-label>Capacity</mat-label>
+            <input formControlName="vehicleCapacity" matInput />
+        </mat-form-field>
+
+    </mat-dialog-content>
+   </form> 
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close (click)="close()">Cancel</button>
+        <button mat-raised-button color="primary">Save</button>
+    </mat-dialog-actions>
+</div>

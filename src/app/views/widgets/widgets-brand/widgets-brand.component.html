@@ -1,0 +1,36 @@
+<!--[xl]="i === 0 ? 4 : i === 2 ? 5 : 3"-->
+<div class="container px-0">
+  <c-row class="g-4">
+    @for (widget of brandData; track widget; let i = $index) {
+      <c-col sm="4" [xl]="i === 0 ? 6 : 6"  class="p-2"> 
+        <c-card class="h-100">
+          <c-card-body class="p-0" >
+
+            <div class="d-flex text-center">
+
+              <div  class="d-flex py-1 justify-content-center align-items-center" style="border-right: 1px black solid; padding-left: 10px; background-color: rgb(188, 188, 188); color:black">
+                <h2 class="fw-semibold mb-0 me-2 fs-6">{{ widget.title }}</h2>
+                <svg [name]="widget.icon" cIcon class="text-white" height="24" width="24" style="margin-right: 10px;"></svg>
+              </div>
+              
+              <div  *ngFor="let val of widget.values; let last = last" class="widget-item flex-fill py-1" [ngClass]="{ 'border-end': !last }"  (click)="openBrandDialog(widget.title)" style="cursor: pointer;">
+                <small class="fw-bold text-uppercase" style="font-size: .70rem;" >{{ val.title }}</small>
+                <div class="" style="font-size: .80rem;">{{ val.value }}</div>
+              </div>
+
+            </div>
+
+          </c-card-body>
+
+        </c-card>
+      </c-col>
+    }
+  </c-row>
+</div>
+
+
+
+
+
+
+

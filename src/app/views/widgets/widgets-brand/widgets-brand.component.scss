@@ -1,0 +1,49 @@
+.short-widget {
+    height: 160px !important; // Adjust height as needed
+    // padding: 0.5rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .short-widget svg {
+    height: 36px !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .short-widget .chart-wrapper {
+    height: 60px !important;
+  }
+  
+
+  /* nicer, subtle hover with transition */
+.widget-item {
+  transition: background-color .12s ease, color .12s ease;
+  border-radius: 4px;
+}
+
+.widget-item:hover {
+  background-color: rgba(107, 133, 163, 0.18);
+  color: #04333a;
+}
+
+/* active state if you want click-to-toggle style */
+.widget-item.active {
+  background-color: rgba(15, 231, 231, 0.28);
+}
+
+
+/* ===== Mobile (≤768px) ===== */
+@media (max-width: 1200px) {
+
+  c-col {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  .widget-container {
+    flex-direction: column;
+  }
+
+}
+

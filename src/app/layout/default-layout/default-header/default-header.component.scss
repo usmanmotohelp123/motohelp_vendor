@@ -1,0 +1,69 @@
+@media (max-width: 768px) {
+    .header-container {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .header-container .mx-auto {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+  c-header-nav, c-nav-item, a[cNavLink] {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-control-sm {
+    height: 32px !important;
+    font-size: 13px;
+    padding: 2px 6px;
+  }
+  
+
+
+/* dark screen behind modal */
+.custom-modal-backdrop {
+  background: rgba(0,0,0,0.6);
+  z-index: 1050;
+}
+
+// /* Modal wrapper */
+// .profile-modal {
+//   border-radius: 10px;
+//   overflow: hidden;
+//   animation: fadeIn 0.3s ease-in-out;
+//   max-height: 90vh;           /* REQUIRED for scroll in body */
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// /* Scroll only modal body */
+// .profile-modal .modal-body {
+//   overflow-y: auto;          
+//   max-height: calc(90vh - 50px); /* 50px header height */
+//   padding: 0;
+// }
+
+
+/* modal box style */
+.profile-modal {
+  border-radius: 10px;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* header theme */
+.modal-heading {
+  background: linear-gradient(90deg, #0d6efd, #4facfe);
+  color: #fff;
+  padding: 12px 20px;
+}
+
+/* Add subtle animation */
+@keyframes fadeIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+

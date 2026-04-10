@@ -1,0 +1,16 @@
+<c-card class="dashboard-parent-card h-100">
+  <c-card-body class="h-100 d-flex flex-column">
+
+    <h2 class="fw-bold mb-3">Daily Financials</h2>
+
+    <!-- THIS MUST FLEX -->
+    <div class="chart-wrapper flex-grow-1">
+      <c-chart
+        type="bar"
+        [data]="barData"
+        [options]="barOptions">
+      </c-chart>
+    </div>
+
+  </c-card-body>
+</c-card>

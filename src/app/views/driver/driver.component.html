@@ -1,0 +1,101 @@
+<div class="container-fluid main">
+    <div class="row header" style="border-bottom: 2px solid #d2d2d2;">
+        <div class="col-sm-12 d-flex" style="align-items: center; justify-content: center;">
+          <h1 style="font-weight: 700;
+            font-size: 1.7rem;
+            margin-bottom: 1px;
+            margin-top: 5px; color: rgb(120, 118, 118); ">Driver</h1>
+        </div>  
+     </div> 
+
+      <div class="data-list">
+
+    <!-- Empty State -->
+    <div *ngIf="drivers.length === 0" class="data-empty">
+        No Driver added yet
+    </div>
+
+    <table *ngIf="drivers.length > 0" class="data-table">
+
+        <thead>
+        <tr class="text-center">
+            <th>Sr.No</th>
+            <th>Licence No</th>
+            <th>Name</th>
+            <th>Mobile No</th>
+            <th>Licence Epiry Date</th>
+            <th>Status</th>
+            <th class="text-center">Action</th>
+        </tr>
+        </thead>
+
+        <!-- <tbody>
+        <tr *ngFor="let v of vehicles; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="fw-semibold text-nowrap">{{ v.vehicleNo }}</td>
+            <td>{{ v. }}</td>
+            <td>{{ v.model }}</td>
+            <td>{{ v.capacity }}</td>
+            <td>{{ v.status }}</td>
+            <td class="text-center action-cell">
+            <button class="icon-btn edit" title="Edit" (click)="editVehicle(v,i)">
+                <i class="fa fa-pen"></i>
+            </button>
+            <button class="icon-btn delete" title="Delete" (click)="deleteVehicle(i)">
+                <i class="fa fa-trash"></i>
+            </button>
+            </td>
+        </tr>
+        </tbody> -->
+
+    <tbody>
+        <tr *ngFor="let d of drivers; let i = index" class="text-center">
+            <td>{{ i + 1 }}</td>
+            <td class="fw-semibold text-nowrap">
+            {{ d.licenceNo }}
+            </td>
+            <td>{{ d.name }}</td>
+            <td>{{ d.mobile }}</td>
+            <td>{{ d.expiryDate }}</td>
+            <td>{{ d.status }}</td>
+            <td class="text-center action-cell">
+            <button class="icon-btn edit" title="Edit" (click)="editDriver(d, i)">
+                <i class="fa fa-pen"></i>
+            </button>
+
+            <button class="icon-btn delete" title="Delete" (click)="deleteDriver(i)">
+                <i class="fa fa-trash"></i>
+            </button>
+            </td>
+        </tr>
+   </tbody>
+
+
+    </table>
+
+ </div>
+
+ 
+  <button  (click)="addDriver()"
+    (mouseenter)="isHover=true"
+    (mouseleave)="isHover=false"
+    [style.transform]="isHover ? 'scale(1.1)' : 'scale(1)'"
+    [style.boxShadow]="isHover ? '0 6px 16px rgba(0,0,0,.45)' : '0 6px 18px rgba(0,0,0,.35)'"
+    style="position: absolute;
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #0159b0;
+        color: #fff;
+        font-size: 32px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 18px rgba(0,0,0,.35);
+        z-index: 1000;">+</button>    
+
+</div>     

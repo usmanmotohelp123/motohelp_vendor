@@ -1,0 +1,121 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette),
+    accent: mat.define-palette(mat.$pink-palette),
+  ),
+  typography: mat.define-typography-config(),
+  density: -1,
+));
+@include mat.all-component-themes($custom-theme);
+
+// @include mat.density($density: -1); 
+
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles with default layout.
+@import "@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+// Custom styles for this theme
+@import "theme";
+
+// Some temp fixes
+//@import "fixes";
+
+// If you want to add custom CSS you can put it here.
+@import "custom";
+
+// Examples
+// We use those styles to show code examples, you should remove them in your application.
+@import "examples";
+/* Resize the floating chat window */
+
+// For map
+@import "leaflet/dist/leaflet.css";
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #ffffff; /* your main background */
+}
+
+
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.mat-dialog-container {
+  z-index: 999999 !important;
+}
+
+/* Dialogflow Messenger global styles */
+df-messenger {
+    --df-messenger-button-titlebar-color: #0d6efd;
+    --df-messenger-chat-background-color: #ffffff;
+  
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+  
+  df-messenger .df-messenger-wrapper {
+    width: 300px !important;
+    height: 400px !important;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  
+  df-messenger .df-messenger-chat {
+    width: 300px !important;
+    height: 400px !important;
+  }
+
+
+
+/* Main sidebar styling */
+.custom-sidebar-wrapper {
+  // border-radius: 16px;
+  width: 250px;
+}
+
+/* Main nav items */
+.custom-sidebar-wrapper .nav-link {
+  background-color: #ffffff;
+  color: black;
+  // border-radius: 12px;
+  border: 0.2px solid brown;
+  margin-bottom: 10px;
+  padding: 10px 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Submenu items: smaller width, indented */
+.custom-sidebar-wrapper .nav-dropdown-items .nav-link {
+  font-size: 0.85rem;            /* slightly smaller text */
+  font-weight: 500;               /* lighter than main menu */
+  padding: 6px 12px;             /* smaller padding */
+  margin-left: 12px; 
+  color: black;            /* indentation to reduce width visually */
+  // border-radius: 8px;
+  width: calc(100% - 12px);      /* smaller width visually */
+}
+
+/* Submenu hover */
+.custom-sidebar-wrapper .nav-dropdown-items .nav-link:hover {
+  background-color: #f1f3f5;
+  box-shadow: none;
+  transform: translateY(0);
+}
+

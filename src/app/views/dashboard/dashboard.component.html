@@ -1,0 +1,152 @@
+<div class="container row align-items-stretch gx-2 gy-2">
+
+  <app-widgets-brand [withCharts]="true"></app-widgets-brand> 
+
+    <div class="col-sm-9" style="margin-top: 15px;" >
+      <c-card class="my-0" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" >
+    
+        
+        <div class="d-flex justify-content-between align-items-center px-2 py-1 rounded-top flex-wrap" *ngIf="selectedTrip">
+          
+          <div class="head">
+            <h1 class="fw-bold fs-6" style="margin-left: 20px; text-decoration:wavy; color: rgb(120, 118, 118); margin-top: 7px;">Active Trip</h1>
+          </div>
+    
+          
+          <!-- <div class="trip-strip d-flex flex-wrap gap-3 small fw-semibold text-muted">
+            
+            <div class="click-item px-1 border-end text-primary" style="cursor: pointer;" (click)="showModal = true">
+               <strong>Trip No:</strong> {{ trip.id || ''}}
+            </div>
+
+            <div class="px-1 border-end"><strong>Date:</strong> {{ trip.PostInsertDate || 25-10-2025}}</div>
+            <div class="px-1"><strong>Origin-Destination:</strong> {{trip.name || ''}}  </div>
+          </div> -->
+            <div class="trip-strip d-flex gap-3 small fw-semibold text-muted">
+              <div class="px-1 border-end text-primary" style="cursor:pointer">
+                <strong>Trip No:</strong> {{ selectedTrip.id }}
+              </div>
+              <div class="px-1 border-end">
+                <strong>Date:</strong> {{ selectedTrip.PostInsertDate }}
+              </div>
+              <div class="px-1">
+                <strong>Origin-Destination:</strong> {{ selectedTrip.name }}
+              </div>
+            </div>
+    
+          <div class="SelectF bd d-flex flex-column align-items-end" >
+            <label class="label1">Select Trip</label>
+            <select id="mapSelect" class="form-select form-select-lg shadow-sm rounded" 
+                    [(ngModel)]="selectedOption1"
+                    (change)="onOptionChange($event)" style="width: 250px; height: 38px; font-size: 14px;">
+              <option selected disabled value="">-- Select Trip --</option>
+              <option  *ngFor="let trip of allActiveTrips" [value]="trip.id">TripNo. - {{ trip.id || ''}} -- {{ trip.name || ''}}</option>
+            </select>
+          </div>
+
+        </div>
+
+    
+        <c-card-body style="padding: 0;">
+          <app-map-view #activeTrip (SelectOnMap)="enableSelectOnMap($event)" (activeTrips)="onChangeActiveTrips($event)"></app-map-view>
+        </c-card-body>
+      </c-card>
+    </div>
+    
+  <div class="col-sm-3" style="margin-top: 15px;">
+    <c-card class="my-0" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+      <c-card-body  style="padding: 0; background-color:white">
+
+        <div class="demo-ad text-center p-2" style="background-color: rgb(188, 188, 188); color: rgb(0, 0, 0); border-radius: 8px; margin: 8px;">
+          <h3 class="mb-2 fw-bold">Try MotoHelp Premium!</h3>
+          <p class="mb-2">Get advanced analytics and faster load tracking.</p>
+          <button class="btn btn-light btn-sm">Learn More</button>
+        </div>
+
+        
+        <div class="demo-image text-center p-2">
+          <img src="https://picsum.photos/200/150?random=2" alt="Demo Ad" class="img-fluid rounded" [style.height]="allActiveTrips.length > 0 ? '330px' : '270px'">
+        </div>
+
+      </c-card-body>
+    </c-card>
+  </div>
+
+  <div class="row g-3 mb-2 align-items-stretch" style="margin-left: 2px;">
+
+      <div class="col-xl-6 col-lg-6 col-md-12 d-flex">
+        <app-expense-breakdown-card class="stretch-card"></app-expense-breakdown-card>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-12 d-flex">
+        <app-daily-financials-card class="stretch-card"></app-daily-financials-card>
+      </div>
+
+  </div>
+
+  <div class="row g-3 align-items-stretch" style="margin-left: 2px;">
+
+      <div class="col-xl-6 col-lg-6 col-md-12 d-flex">
+        <app-driver-performance-card class="stretch-card"></app-driver-performance-card>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-12 d-flex">
+        <app-vehicle-health-card class="stretch-card"></app-vehicle-health-card>
+      </div>
+
+</div>
+
+
+
+</div>
+
+
+<!-- Angular Modal -->
+<div class="modal fade show d-block" tabindex="-1" *ngIf="showModal">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header text-white" style="background-color: rgb(188, 188, 188); height: 40px;">
+        <h4 class="modal-title mt-2">Trip Details</h4>
+        <button type="button" class="btn-close btn-close-white" (click)="showModal = false"></button>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-bordered table-sm align-middle mb-0" style="font-size: 12px;">
+          <tbody *ngFor="let trip of allActiveTrips">
+            <tr>
+              <td><strong>Driver Name</strong></td>
+              <td>{{ trip.DriverName || '' }}</td>
+              <td><strong>Vehicle Type</strong></td>
+              <td>{{ trip.VehicleType || '' }}</td>
+            </tr>
+            <tr>
+              <td><strong>Cargo Contain</strong></td>
+              <td>{{ trip.CargoContent || '' }}</td>
+              <td><strong>Packaging Type</strong></td>
+              <td>{{ trip.CargoPackageType || '' }}</td>
+            </tr>
+            <tr>
+              <td><strong>Total Km</strong></td>
+              <td>{{ trip.total_km || '' }}</td>
+              <td><strong>Covered Km</strong></td>
+              <td>{{ trip.covered_km || '' }}</td>
+            </tr>
+            <tr>
+              <td><strong>Pending Km</strong></td>
+              <td>{{ trip.pending_km || '' }}</td>
+              <td></td>
+              <td></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="showModal = false">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

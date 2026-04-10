@@ -1,0 +1,384 @@
+.main{
+    width: 100%;
+    // height: 100%;
+    height: calc(100vh - 93px);
+    display: flex;
+    display: block;
+    // align-items: center;
+    justify-content:start;
+    background-color:white; 
+    // margin-bottom: 10px;
+    // padding-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+
+  .nav-tabs .nav-link.active-tab {
+    border-bottom: 3px solid #0d6efd;
+  }
+
+  .active-tab {
+    border-bottom: 3px solid #0d6efd;
+    font-weight: bold;
+    color: black;
+  }
+
+//   .nav-tabs .nav-link {
+//     border: none;
+//     border-bottom: 3px solid transparent;
+//     color: #6c757d; /* Bootstrap secondary */
+//     transition: border-color 0.3s;
+//     cursor: pointer;
+//   }
+  
+//   .nav-tabs .nav-link.active-tab {
+//     color: #0d6efd; /* Bootstrap primary */
+//     font-weight: 600;
+//     border-bottom: 3px solid #0d6efd;
+//   }
+
+
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    height: 38px !important;
+    min-height: 38px !important;
+    align-items: center !important;
+  }
+  
+  ::ng-deep .mat-mdc-form-field-flex {
+    height: 38px !important;
+    align-items: center !important;
+  }
+  
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding: 0 8px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  ::ng-deep .mat-mdc-input-element {
+    height: 20px !important;
+    line-height: 20px !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+    align-items: center;
+  }
+  
+  ::ng-deep .mdc-notched-outline {
+    height: 38px !important;
+  }
+  
+  /* Adjust label position for MDC outline inputs */
+::ng-deep .mat-mdc-form-field.mat-mdc-form-field-type-mat-input .mdc-floating-label {
+  top: 50% !important;
+  transform: translateY(-50%) scale(1) !important;
+  // color: #6b6b6b !important; /* optional: for consistent label color */
+  font-size: 14px !important;
+}
+
+/* Keep label properly placed when floating (focused or filled) */
+::ng-deep .mat-mdc-form-field.mat-mdc-form-field-type-mat-input
+  .mdc-floating-label--float-above {
+  transform: translateY(-1.6em) scale(0.75) !important;
+}
+  
+
+  
+
+
+
+// .table-card-container {
+//   margin: 10px 0;
+//   padding: 10px 15px;
+// }
+
+// .table-header {
+//   margin-bottom: 14px;
+// }
+
+// .status-field {
+//   width: 250px;
+// }
+
+// .smart-table-wrapper {
+//   background: #ffffff;
+//   border-radius: 14px;
+//   padding: 0;
+//   box-shadow: 0px 5px 20px rgba(0,0,0,0.08);
+//   overflow-x: auto;
+//   overflow-y: auto;
+//   max-height: 430px;
+// }
+
+
+// .smart-table {
+//   width: max-content;
+//   min-width: 100%;
+//   border-collapse: collapse;
+// }
+
+// .smart-table th {
+//   background: #cdcdcd !important;
+//   color: #2b2b2b;
+//   font-weight: 600;
+//   padding: 12px 16px;
+//   border-bottom: 2px solid #e6e6e6;
+//   font-size: 14px;
+//   white-space: nowrap;
+// }
+
+// .smart-table td {
+//   padding: 11px 16px;
+//   font-size: 14px;
+//   color: #333;
+//   border-bottom: 1px solid #efefef;
+//   white-space: nowrap;
+// }
+
+// .smart-table tr:hover td {
+//   background: #f9fafb;
+// }
+
+// .status-pill {
+//   padding: 4px 12px;
+//   font-size: 12px;
+//   font-weight: 600;
+//   border-radius: 15px;
+//   text-transform: capitalize;
+// }
+
+// .status-pill.pending {
+//   background: #fff3cd;
+//   color: #856404;
+// }
+
+// .status-pill.progress {
+//   background: #d8e6ff;
+//   color: #2a4fbf;
+// }
+
+// .status-pill.completed {
+//   background: #d3f8df;
+//   color: #187a3d;
+// }
+
+
+
+// /* Glassmorphic Card */
+// .smart-table-wrapper {
+//   background: rgba(255, 255, 255, 0.35);
+//   backdrop-filter: blur(12px);
+//   border-radius: 18px;
+//   border: 1px solid rgba(255,255,255,0.3);
+//   box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+//   padding: 0;
+//   overflow-x: auto;
+//   overflow-y: auto;
+//   max-height: 430px;
+// }
+
+// /* Header */
+// .smart-table th {
+//   background: rgba(255,255,255,0.6) !important;
+//   font-weight: 700;
+//   color: #1b2531;
+//   padding: 14px;
+//   backdrop-filter: blur(6px);
+// }
+
+// /* Rows */
+// .smart-table td {
+//   padding: 12px 14px;
+//   color: #1d1d1d;
+//   font-size: 14px;
+//   border-bottom: 1px solid rgba(255,255,255,0.4);
+// }
+
+// .smart-table tr:hover td {
+//   background: rgba(255,255,255,0.45);
+// }
+
+
+
+
+
+// .smart-table-wrapper {
+//   background: #ffffff;
+//   border-radius: 14px;
+//   padding: 10px;
+//   box-shadow: 0px 4px 18px rgba(0,0,0,0.1);
+//   max-height: 430px;
+//   overflow: auto;
+// }
+
+// /* Header */
+// .smart-table th {
+//   background: #eef1f7 !important;
+//   text-transform: uppercase;
+//   font-size: 13px;
+//   letter-spacing: 0.4px;
+//   padding: 12px;
+// }
+
+// /* Rounded Rows */
+// .smart-table tr.mat-row td {
+//   background: #fff;
+//   margin: 6px 0;
+//   border-radius: 10px;
+//   padding: 12px;
+// }
+
+// .smart-table tr.mat-row:hover td {
+//   background: #f4f6fb;
+//   transform: translateX(3px);
+//   transition: 0.2s ease;
+// }
+
+// /* Alternate Row Stripe */
+// .smart-table tr.mat-row:nth-child(even) td {
+//   background: #f8faff;
+// }
+
+
+
+
+// .smart-table-wrapper {
+//   background: transparent;
+//   border-radius: 0;
+//   padding: 0;
+//   max-height: 450px;
+//   overflow-y: auto;
+// }
+
+// /* Each row looks like a card */
+// .smart-table tr.mat-row {
+//   box-shadow: 0px 3px 12px rgba(0,0,0,0.08);
+//   border-radius: 12px;
+//   background: #ffffff;
+//   margin-bottom: 12px;
+//   display: grid;
+//   grid-template-columns: repeat(12, 1fr);
+// }
+
+// /* Remove default borders */
+// .smart-table td, .smart-table th {
+//   border: none !important;
+// }
+
+// .smart-table th {
+//   background: #d8d8d8;
+// }
+
+// /* Cells */
+// .smart-table td {
+//   padding: 16px;
+// }
+
+// /* Header */
+// .smart-table tr.mat-header-row {
+//   display: none; /* header hidden for card layout */
+// }
+
+
+
+
+/* Tabs */
+::ng-deep .mat-tab-labels {
+  background: #fff;
+  border-radius: 8px;
+}
+
+::ng-deep .mat-tab-label {
+  font-weight: 600;
+  padding: 10px 20px !important;
+  font-size: 16px;
+  color: #545454 !important;
+  opacity: 0.6;
+}
+
+
+::ng-deep .mat-tab-label.mat-tab-label-active {
+  color: #1976d2 !important;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background: #1976d2 !important;
+  height: 3px;
+  border-radius: 5px;
+}
+
+
+.table-card-container {
+  margin: 5px 0;
+  padding: 10px 10px;
+  background-color: #ffffff;
+  min-height: calc(100vh - 100px);   
+  box-sizing: border-box;
+}
+
+/* TABLE WRAPPER */
+.pro-table-wrapper {
+  margin-top: 10px;
+  background: #ffffff;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: 0px 4px 18px rgba(0,0,0,0.1);
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* TABLE */
+.pro-table {
+  width: max-content;
+  min-width: 100%;
+  // border-collapse: separate;
+  border-spacing: 0 12px; 
+}
+
+/* HEADER */
+.pro-table th {
+  // background: linear-gradient(to bottom, #eef2f7, #e5e9f0);
+  background: linear-gradient(to bottom, #b7b8ba, #e5e9f0);
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: #333;
+  border-bottom: 1px solid #dce3eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ROWS (Floating Cards) */
+.pro-table tr.mat-row td {
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  white-space: nowrap;
+}
+
+/* Hover Effect */
+.pro-table tr.mat-row:hover td {
+  background: #f8faff;
+  transition: 0.2s ease;
+  transform: translateX(3px);
+}
+
+/* STATUS PILL */
+.pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pill.pending { background: #fff3cd; color: #856404; }
+.pill.processed { background: #e7e9ff; color: #3c45bd; }
+.pill.active { background: #dbe8ff; color: #1b4dbf; }
+.pill.completed { background: #d3f8df; color: #187a3d; }
+

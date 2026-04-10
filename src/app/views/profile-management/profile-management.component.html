@@ -1,0 +1,207 @@
+<!-- <div class="container-fluid main">
+    <div class="row header" style="border-bottom: 2px solid #d2d2d2;">
+        <div class="col-sm-12 d-flex" style="align-items: center; justify-content: center;">
+          <h1 style="font-weight: 700;
+             font-size: 1.2rem;
+           margin-top: -10px; margin-bottom: -10px; padding-bottom: 0; color: rgb(0, 0, 0); ">Profile</h1>
+        </div>  
+     </div> 
+
+
+  <div class="profile-container">
+
+    <div class="stepper">
+      <div class="step completed">
+        <div class="circle">✔</div>
+        <div>
+          <h5>Registration</h5>
+          <p>Completed successfully</p>
+        </div>
+      </div>
+
+      <div class="step" [class.completed]="hasVehicle">
+        <div class="circle">{{ hasVehicle ? '✔' : '2' }}</div>
+        <div>
+          <h5>Validate Vehicle</h5>
+          <p>Add at least 1 vehicle</p>
+        </div>
+      </div>
+
+      <div class="step" [class.locked]="!hasVehicle">
+        <div class="circle">3</div>
+        <div>
+          <h5>KYC Verification</h5>
+          <p>Unlock after vehicle added</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-cards">
+
+      <div class="card vehicle">
+        <i class="fa-solid fa-truck"></i>
+        <h4>Validate Vehicle</h4>
+        <p>{{ vehicles.length || 0 }} Added</p>
+
+        <button class="btn-primary" (click)="goToVehiclePage()">
+          Add Vehicle
+        </button>
+      </div>
+
+      <div class="card kyc" [class.disabled]="!hasVehicle">
+        <i class="fa-solid fa-building-columns"></i>
+        <h4>Bank / KYC Details</h4>
+        <p>{{ hasVehicle ? 'Unlocked' : 'Locked' }}</p>
+
+        <button class="btn-dark" [disabled]="!hasVehicle">
+          {{ hasVehicle ? 'Update' : 'Locked' }}
+        </button>
+      </div>
+
+    </div>
+
+    <div class="profile-form" *ngIf="hasVehicle">
+      <h3>Profile Details</h3>
+
+      <div class="form-grid">
+        <input placeholder="Company Name" />
+        <input placeholder="Owner Name" />
+        <input placeholder="Mobile Number" />
+        <input placeholder="Address" />
+      </div>
+
+      <button class="btn-success">Save Profile</button>
+    </div>
+
+  </div>
+
+  <button 
+    (mouseenter)="isHover=true"
+    (mouseleave)="isHover=false"
+    [style.transform]="isHover ? 'scale(1.1)' : 'scale(1)'"
+    [style.boxShadow]="isHover ? '0 6px 16px rgba(0,0,0,.45)' : '0 6px 18px rgba(0,0,0,.35)'"
+    style="position: absolute;
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #0159b0;
+        color: #fff;
+        font-size: 32px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 18px rgba(0,0,0,.35);
+        z-index: 1000;">+</button>    
+
+</div>      -->
+
+
+
+
+<div class="container-fluid main">
+    <div class="row header" style="border-bottom: 2px solid #d2d2d2;">
+        <div class="col-sm-12 d-flex" style="align-items: center; justify-content: center;">
+          <h1 style="font-weight: 700;
+             font-size: 1.2rem;
+           margin-top: -10px; margin-bottom: -10px; padding-bottom: 0; color: rgb(0, 0, 0); ">Profile</h1>
+        </div>  
+     </div> 
+
+  <div class="profile-container">
+    <div class="stepper">
+
+      <div class="step completed">
+        <div class="circle">✔</div>
+        <div class="text">
+          <h5>Registration</h5>
+          <p>Completed successfully</p>
+        </div>
+      </div>
+      <div class="line" [class.active]="hasVehicle"></div>
+
+      <div class="step" [class.completed]="hasVehicle" routerLink="/vehicle" style="cursor: pointer;">
+        <div class="circle" >{{ hasVehicle ? '✔' : '2' }}</div>
+        <div class="text">
+          <h5>Validate Vehicle</h5>
+          <p>Add at least 1 vehicle</p>
+        </div>
+      </div>
+
+      <div class="line" [class.active]="hasVehicle"></div>
+
+      <div class="step" [class.completed]="hasVehicle">
+        <div class="circle">3</div>
+        <div class="text">
+          <h5>KYC Verification</h5>
+          <p>Unlock after vehicle added</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row action-cards">
+
+      <!-- <div class="card vehicle">
+        <i class="fa-solid fa-truck"></i>
+        <h4>Validate Vehicle</h4>
+        <p>{{ vehicles.length || 0 }} Added</p>
+
+        <button class="btn-primary" (click)="goToVehiclePage()">
+          Add Vehicle
+        </button>
+      </div> -->
+
+      <div class="col-md-4 card kyc1" [class.disabled]="!hasVehicle">
+        <i class="fa-solid fa-building-columns"></i>
+        <h4>Bank / KYC Details</h4>
+        <p>{{ hasVehicle ? 'Unlocked' : 'Locked' }}</p>
+        <button class="btn-dark" [disabled]="!hasVehicle">
+          {{ hasVehicle ? 'Update' : 'Locked' }}
+        </button>
+      </div>
+      <div class="col-4"></div>
+      <div class="col-4"></div>
+    </div>
+
+    <div class="profile-form" *ngIf="hasVehicle">
+      <h3>Profile Details</h3>
+
+      <div class="form-grid">
+        <input placeholder="Company Name" />
+        <input placeholder="Owner Name" />
+        <input placeholder="Mobile Number" />
+        <input placeholder="Address" />
+      </div>
+
+      <button class="btn-success">Save Profile</button>
+    </div>
+
+  </div>
+
+  <button 
+    (mouseenter)="isHover=true"
+    (mouseleave)="isHover=false"
+    [style.transform]="isHover ? 'scale(1.1)' : 'scale(1)'"
+    [style.boxShadow]="isHover ? '0 6px 16px rgba(0,0,0,.45)' : '0 6px 18px rgba(0,0,0,.35)'"
+    style="position: absolute;
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #0159b0;
+        color: #fff;
+        font-size: 20px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 18px rgba(0,0,0,.35);
+        z-index: 1000;"><i class="fa-solid fa-pen"></i></button>
+
+</div>

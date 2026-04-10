@@ -1,0 +1,94 @@
+:host {
+  .legend {
+    small {
+      font-size: x-small;
+    }
+  }
+}
+
+.SelectF{
+  position: relative;
+  // margin-top: 5px;
+}
+.label1 {
+  position: absolute;
+  top: -10px;         
+  right: 180px;       
+  font-size: 12px;
+  font-weight: 500;
+  background-color: white;
+  color: #000000;
+  padding: 0 4px;    
+  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.trip-strip {
+  font-size: 13px;
+  color: #444;
+  background: #f9f9f9;
+}
+
+.trip-strip strong {
+  color: #222;
+  font-weight: 600;
+}
+
+.trip-strip > div {
+  margin-bottom: 5px; /* wraps nicely on small screens */
+}
+
+.c-card .form-select-sm {
+  height: 32px;
+  padding: 2px 8px;
+}
+
+
+/* Force angular components to stretch */
+.stretch-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+@media (max-width: 768px) {
+  .trip-strip {
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+  .bd select {
+    width: 100% !important;
+  }
+}
+
+
+.click-item {
+  transition: background-color .12s ease, color .12s ease;
+  border-radius: 4px;
+}
+
+.click-item:hover {
+  background-color: rgba(207, 210, 214, 0.33);
+  color: #04333a;
+}
+
+/* active state if you want click-to-toggle style */
+.click-item.active {
+  background-color: rgba(15, 231, 231, 0.28);
+}
+
+
+app-map-view {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.leaflet-container {
+  width: 100% !important;
+  max-width: 100% !important;
+}

@@ -1,0 +1,368 @@
+
+.auth-right {
+  width: 100%;
+  height: 97vh;            
+  overflow-y: auto;       
+  overflow-x: hidden;
+  padding: 5px;
+  background: #fff;
+}
+
+
+.auth-card {
+  border: none;
+  box-shadow: none;
+
+  height: auto;
+}
+
+/* FORM TITLE */
+.form-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* TOGGLE */
+.login-toggle {
+  display: flex;
+  // background: #f1f3f5;
+  border-radius: 30px;
+  padding: 4px;
+  margin-bottom: 30px;
+}
+
+.login-toggle button {
+  flex: 1;
+  border: none;
+  // background: transparent;
+   background: #f1f3f5;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: .3s;
+}
+
+.login-toggle button.active {
+  background: #0d6efd;
+  color: #fff;
+}
+
+/* SUBMIT BUTTON */
+.submit-btn {
+  background: #198754;
+  color: #fff;
+  border: none;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .auth-container {
+    flex-direction: column;
+  }
+  .auth-left {
+    width: 100%;
+    height: 200px;
+  }
+  .auth-right {
+    width: 100%;
+    padding: 25px;
+  }
+}
+// +++++++++++++++++++++++++
+
+
+
+
+
+.floating-icon-input {
+  position: relative;
+  border: 1px solid #ced4da;
+  // border-radius: .375rem;
+  border-radius: 30px;
+  padding-left: 45px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  transition: border-color .2s ease;
+
+}
+
+/* Focus Border Blue */
+.floating-icon-input:focus-within {
+  border-color: #006ac7;
+}
+
+.floating-icon-input input {
+  border: none;
+  width: 100%;
+  height: 34px;
+  padding: 12px 10px 10px;
+//  padding: 6px 10px 6px 6px;
+  font-size: 16px;
+  background: transparent;
+
+}
+
+.floating-icon-input select {
+  border: none;
+  width: 100%;
+  height: 34px;
+  padding: 6px 10px 6px 32px;
+//   padding: 6px 10px 6px 6px;
+  font-size: 16px;
+  background: transparent;
+}
+
+.floating-icon-input select:valid + label {
+  top: -3px;
+  font-size: 12px;
+  color: #006ac7;
+}
+
+select option {
+  padding: 6px 10px;
+  height: 100px;
+}
+
+.floating-icon-input input:focus,
+.floating-icon-input select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.floating-icon-input label {
+  position: absolute;
+  top: 50%;
+  left: 45px;
+  transform: translateY(-50%);
+  transition: 0.2s;
+  pointer-events: none;
+  color: #6c757d;
+  background: #fff;
+  padding: 0 4px;
+}
+
+/* FLOAT on Focus + Not Empty */
+.floating-icon-input input:not(:placeholder-shown) + label,
+.floating-icon-input input:focus + label,
+.floating-icon-input select:focus + label {
+  top: -3px;
+  font-size: 12px;
+  color: #006ac7;   /* BLUE FLOAT LABEL COLOR */
+}
+
+/* Icon color blue on focus */
+.floating-icon-input:focus-within .icon-box {
+  color: #006ac7;
+}
+
+.icon-box {
+  position: absolute;
+  left: 12px;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+}
+
+
+  .login-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px; 
+  }
+  .login-toggle button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    // background: white;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  .login-toggle button.active {
+    background: #007bff;
+    color: white;
+  }
+
+
+
+/* ========== NgSelect ========== */
+.floating-icon-input1 {
+  position: relative;
+}
+
+.position-relative1 {
+  position: relative;
+}
+
+.icon-box1 {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-size: 14px;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+/* ========== ng-select Container ========== */
+::ng-deep .custom-ngselect .ng-select-container {
+  height: 34px !important;
+  border: 1px solid #ced4da !important;
+  width: 100% !important;
+  // border-radius: 5px !important;
+  border-radius: 30px !important;
+  background-color: #fff !important;
+  padding-left: 45px !important; /* space for icon */
+  display: flex !important;
+  align-items: center !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease-in-out;
+}
+
+::ng-deep .custom-ngselect .ng-value-container {
+  padding-top: 2px !important;
+  padding-bottom: 0 !important;
+  align-items: center !important;
+}
+
+::ng-deep .custom-ngselect .ng-select-container:hover {
+  border-color: #28a745 !important;
+}
+
+::ng-deep .custom-ngselect .ng-select-container.ng-has-value {
+  border-color: #28a745 !important;
+}
+
+::ng-deep .custom-ngselect .ng-input {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+}
+
+::ng-deep .custom-ngselect .ng-input > input {
+  padding: 0 5px !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding-left: 35px!important;
+  line-height: normal !important;
+  align-self: center !important;
+  font-size: 14px !important;
+}
+
+::ng-deep .ng-dropdown-panel {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08) !important;
+  background: #fff !important;
+  margin-top: 2px !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option {
+  padding: 8px 14px !important;
+  font-size: 14px !important;
+  color: #333;
+  cursor: pointer;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option:hover {
+  background-color: #f5f5f5 !important;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option.ng-option-selected {
+  background-color: #28a745 !important;
+  color: #fff !important;
+}
+
+
+.floating-label1 {
+  position: absolute;
+  top: 9px;
+  left: 45px;
+  font-size: 14px;
+  color: #777;
+  background: #fff;
+  padding: 0 4px;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1500;
+}
+
+:host ::ng-deep .custom-ngselect.ng-select-focused ~ .floating-label1,
+:host ::ng-deep .custom-ngselect.has-value ~ .floating-label1 {
+  top: -11px;       
+  font-size: 11px;
+  color: #28a745;
+  background: #fff;
+  padding: 0 4px;
+}
+
+
+/* ========== Validation Message ========== */
+.text-danger {
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+}
+
+
+
+
+
+
+
+
+// Legal Documents
+
+/* Verify Button */
+.verify-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  background: #0d6efd;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.verify-btn.loading {
+  background: #ffc107;
+  color: #000;
+}
+
+.verify-btn.verified {
+  background: #198754;
+  color: #fff;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.verify-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}

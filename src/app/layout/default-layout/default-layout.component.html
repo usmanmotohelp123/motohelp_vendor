@@ -1,0 +1,65 @@
+ <!-- <c-sidebar
+      #sidebar1
+      class="d-print-none sidebar sidebar-fixed border-end"
+      id="sidebar1"
+      visible
+      style="border-radius: 5px;">
+
+  <c-sidebar-header class="border-bottom" style="border-bottom: 1px solid brown;">
+    <c-sidebar-brand [routerLink]="[]" style="height: 36px;" >
+
+      <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="CoreUI Logo"></svg>
+      <svg cIcon class="sidebar-brand-narrow" height="32" name="signet" title="CoreUI Logo"></svg>
+
+    <h2 style="font-weight: 700;">MotoHelp<i> Vendor</i></h2>
+    </c-sidebar-brand>
+  </c-sidebar-header>
+
+  <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
+    <div class="custom-sidebar-wrapper">
+      <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="none" compact />
+    </div>
+  </ng-scrollbar>
+
+</c-sidebar>
+
+<div class="wrapper d-flex flex-column min-vh-100">
+  <app-default-header [cShadowOnScroll]="'sm'" class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
+    position="sticky"
+    sidebarId="sidebar1"/>
+
+  <div class="body flex-grow-2 " style="margin-top: -18px;padding: 5px;">
+    <div class="h-auto px-1 container-fluid">
+      <router-outlet />
+  </div>
+ </div>
+</div> -->
+
+
+
+<!-- <div class="layout">
+  <div class="sidebar" [class.open]="isOpen">
+    <app-sidebar></app-sidebar>
+  </div>
+
+    <div class="main">
+      <app-navbar></app-navbar>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+</div> -->
+
+
+
+<div class="layout">
+  <div class="sidebar" >
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main">
+    <app-navbar style="padding-right: 7px; margin-left: -8px;" ></app-navbar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,871 @@
+// :host {
+//   background-color:white;
+// }
+
+// .auth-wrapper {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   height: 100vh;
+//   width: 100vw;
+//   overflow: hidden;
+// }
+
+// .auth-container {
+//   width: 95%;
+//   max-width: 1200px;
+//   display: flex;
+//   background: #fff;
+//   border-radius: 14px;
+//   overflow: hidden;
+//   box-shadow: 0 15px 40px rgba(0,0,0,.15);
+// }
+
+
+// .auth-left {
+//   width: 50%;
+//   height: 97vh;
+//   background-color: rgb(188, 188, 188);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   position: sticky;
+//   top: 0;
+// }
+
+// .brand-box {
+//   text-align: center;
+//   padding: 40px;
+// }
+
+// .brand-logo {
+//   width: 90px;
+//   margin-bottom: 20px;
+// }
+
+// .brand-box h2 {
+//   font-weight: 700;
+// }
+
+// .brand-box p {
+//   opacity: .9;
+//   font-size: 14px;
+// }
+
+// .auth-right {
+//   width: 50%;
+//   height: 97vh;            
+//   overflow-y: auto;       
+//   overflow-x: hidden;
+//   padding: 5px;
+//   background: #fff;
+// }
+
+
+// .auth-card {
+//   border: none;
+//   box-shadow: none;
+
+//   height: auto;
+// }
+
+// /* FORM TITLE */
+// .form-title {
+//   text-align: center;
+//   font-weight: 600;
+//   margin-bottom: 20px;
+// }
+
+// /* TOGGLE */
+// .login-toggle {
+//   display: flex;
+//   // background: #f1f3f5;
+//   border-radius: 30px;
+//   padding: 4px;
+//   margin-bottom: 30px;
+// }
+
+// .login-toggle button {
+//   flex: 1;
+//   border: none;
+//    background: #f1f3f5;
+//   padding: 10px;
+//   font-weight: 600;
+//   border-radius: 30px;
+//   transition: .3s;
+// }
+
+// .login-toggle button.active {
+//   background: #0d6efd;
+//   color: #fff;
+// }
+
+// .submit-btn {
+//   background: #198754;
+//   color: #fff;
+//   border: none;
+//   height: 48px;
+//   font-size: 16px;
+//   font-weight: 600;
+//   border-radius: 10px;
+// }
+
+// @media (max-width: 992px) {
+//   .auth-container {
+//     flex-direction: column;
+//   }
+//   .auth-left {
+//     width: 100%;
+//     height: 200px;
+//   }
+//   .auth-right {
+//     width: 100%;
+//     padding: 25px;
+//   }
+// }
+
+
+// // +++++++++++++++++++++++++
+
+
+
+// .floating-icon-input {
+//   position: relative;
+//   border: 1px solid #ced4da;
+//   border-radius: 5px;
+//   padding-left: 40px;
+//   background-color: #fff;
+//   display: flex;
+//   align-items: center;
+//   transition: border-color .2s ease;
+
+// }
+
+// .floating-icon-input:focus-within {
+//   border-color: #006ac7;
+// }
+
+// .floating-icon-input input {
+//   border: none;
+//   width: 100%;
+//   height: 34px;
+//   padding: 12px 10px 10px;
+//   font-size: 16px;
+//   background: transparent;
+
+// }
+
+// .floating-icon-input select {
+//   border: none;
+//   width: 100%;
+//   height: 34px;
+//   padding: 6px 10px 6px 32px;
+//   font-size: 16px;
+//   background: transparent;
+// }
+
+// .floating-icon-input select:valid + label {
+//   top: -3px;
+//   font-size: 12px;
+//   color: #006ac7;
+// }
+
+// select option {
+//   padding: 6px 10px;
+//   height: 100px;
+// }
+
+// .floating-icon-input input:focus,
+// .floating-icon-input select:focus {
+//   outline: none;
+//   box-shadow: none;
+// }
+
+// .floating-icon-input label {
+//   position: absolute;
+//   top: 50%;
+//   left: 45px;
+//   transform: translateY(-50%);
+//   transition: 0.2s;
+//   pointer-events: none;
+//   color: #6c757d;
+//   background: #fff;
+//   padding: 0 4px;
+// }
+
+// .floating-icon-input input:not(:placeholder-shown) + label,
+// .floating-icon-input input:focus + label,
+// .floating-icon-input select:focus + label {
+//   top: -3px;
+//   font-size: 12px;
+//   color: #006ac7;  
+// }
+
+// .floating-icon-input:focus-within .icon-box {
+//   color: #006ac7;
+// }
+
+// .icon-box {
+//   position: absolute;
+//   left: 12px;
+//   color: #6c757d;
+//   display: flex;
+//   align-items: center;
+// }
+
+
+//   .login-toggle {
+//     display: flex;
+//     justify-content: center;
+//     margin-bottom: 20px;
+//     gap: 10px; 
+//   }
+//   .login-toggle button {
+//     flex: 1;
+//     padding: 10px;
+//     border: 1px solid #ccc;
+//     background: #f5f5f5;
+//     cursor: pointer;
+//     border-radius: 20px;
+//   }
+//   .login-toggle button.active {
+//     background: #007bff;
+//     color: white;
+//   }
+
+
+// /* ========== NgSelect ========== */
+// .floating-icon-input1 {
+//   position: relative;
+// }
+
+// .position-relative1 {
+//   position: relative;
+// }
+
+// .icon-box1 {
+//   position: absolute;
+//   top: 50%;
+//   left: 10px;
+//   transform: translateY(-50%);
+//   color: #6c757d;
+//   font-size: 14px;
+//   z-index: 1100;
+//   pointer-events: none;
+// }
+
+// ::ng-deep .custom-ngselect .ng-select-container {
+//   height: 34px !important;
+//   border: 1px solid #ced4da !important;
+//   border-radius: 5px !important;
+//   background-color: #fff !important;
+//   padding-left: 45px !important; /* space for icon */
+//   display: flex !important;
+//   align-items: center !important;
+//   font-size: 14px !important;
+//   box-shadow: none !important;
+//   transition: border-color 0.2s ease-in-out;
+// }
+
+// ::ng-deep .custom-ngselect .ng-value-container {
+//   padding-top: 2px !important;
+//   padding-bottom: 0 !important;
+//   align-items: center !important;
+// }
+
+// ::ng-deep .custom-ngselect .ng-input {
+//   display: flex !important;
+//   align-items: center !important;
+//   height: 100% !important;
+// }
+
+// ::ng-deep .custom-ngselect .ng-input > input {
+//   padding: 0 5px !important;
+//   height: 100% !important;
+//   box-sizing: border-box !important;
+//   margin: 0 !important;
+//   padding-left: 45px!important;
+//   line-height: normal !important;
+//   align-self: center !important;
+//   font-size: 14px !important;
+// }
+
+
+// ::ng-deep .ng-dropdown-panel {
+//   border: 1px solid #e0e0e0 !important;
+//   border-radius: 6px !important;
+//   background: #fff !important;
+//   z-index: 9999 !important;
+//   min-width: 100% !important;
+//   max-width: 100% !important;
+//   box-sizing: border-box;
+//   margin-bottom: 10px !important;
+// }
+
+// ::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items { 
+//   overflow-y: auto !important;   
+//   overflow-x: hidden !important;
+// }
+
+
+// ::ng-deep .ng-dropdown-panel .ng-option {
+//   padding: 8px 14px !important;
+//   font-size: 14px !important;
+//   color: #333;
+//   cursor: pointer;
+// }
+
+// ::ng-deep .ng-dropdown-panel .ng-option:hover {
+//   background-color: #f5f5f5 !important;
+// }
+
+// ::ng-deep .ng-dropdown-panel .ng-option.ng-option-selected {
+//   background-color: #28a745 !important;
+//   color: #fff !important;
+// }
+
+
+// .floating-label1 {
+//   position: absolute;
+//   top: 9px;
+//   left: 45px;
+//   font-size: 14px;
+//   color: #777;
+//   background: #fff;
+//   padding: 0 4px;
+//   transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+//   pointer-events: none;
+//   z-index: 1500;
+// }
+
+// :host ::ng-deep .custom-ngselect.ng-select-focused ~ .floating-label1,
+// :host ::ng-deep .custom-ngselect.has-value ~ .floating-label1 {
+//   top: -11px;       
+//   font-size: 11px;
+//   color: #28a745;
+//   background: #fff;
+//   padding: 0 4px;
+// }
+
+// .text-danger {
+//   font-size: 12px;
+//   margin-top: 2px;
+//   display: block;
+// }
+
+//   /* Sign up */
+//   .sign-up {
+//     margin-top: 20px;
+//     font-size: 14px;
+//     color: #000;
+//   }
+  
+//   .sign-up a {
+//     color: #007bff;
+//     font-weight: 500;
+//     text-decoration: none;
+//     cursor: pointer;
+//   }
+
+
+
+// // Legal Documents
+// .verify-btn {
+//   width: 100%;
+//   height: 42px;
+//   border-radius: 8px;
+//   border: none;
+//   font-weight: 600;
+//   background: #0d6efd;
+//   color: #fff;
+//   transition: all 0.3s ease;
+// }
+
+// .verify-btn.loading {
+//   background: #ffc107;
+//   color: #000;
+// }
+
+// .verify-btn.verified {
+//   background: #198754;
+//   color: #fff;
+// }
+
+// .spinner {
+//   width: 16px;
+//   height: 16px;
+//   border: 2px solid rgba(0,0,0,0.2);
+//   border-top-color: #000;
+//   border-radius: 50%;
+//   display: inline-block;
+//   animation: spin 0.8s linear infinite;
+//   vertical-align: middle;
+// }
+
+// @keyframes spin {
+//   to { transform: rotate(360deg); }
+// }
+
+// .verify-btn:disabled {
+//   cursor: not-allowed;
+//   opacity: 0.9;
+// }
+
+
+
+
+
+
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid #ddd;
+  //  border: 2px solid #9a9a9a;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* INPUT PLACEHOLDER */
+input::placeholder {
+  font-weight: 600;
+  color: #555;
+  // color: #000; 
+}
+
+/* REMOVE PLACEHOLDER WHEN USER TYPES */
+input:not(:placeholder-shown)::placeholder {
+  color: transparent;
+}
+
+/* SELECT STYLE */
+select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid #ddd;
+  font-size: 16px;
+  font-weight: 600; /* bold */
+  color: #555; 
+  // color: #000; 
+}
+
+/* AFTER SELECT VALUE */
+select:not([value=""]) {
+  color: #000; 
+  font-weight: 600;
+}
+
+
+
+
+.auth-wrapper {
+  display: flex;
+  height: calc(100vh);
+  font-family: 'Segoe UI', sans-serif;
+  overflow-y: hidden;
+}
+
+/* LEFT PANEL */
+.left-panel {
+  width: 50%;
+  // background: #3f5b84;
+  background: #385380;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 120px;
+}
+
+.vendor-logo {
+  width: 550px;
+}
+
+
+//Vendor Register Form css
+/* RIGHT PANEL */
+.right-panel {
+  width: 50%;
+  // background: #f5f6f8;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* FORM */
+.form-box {
+  width: 100%;
+  max-width: 450px;
+}
+
+.title-wrapper {
+  text-align: center;  
+}
+
+/* TITLE */
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  display: inline-block;
+  border-bottom: 3.5px solid #000;
+}
+
+
+/* FORM CONTENT */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+
+/* MAIN CONTAINER */
+::ng-deep .ng-select .ng-select-container {
+  height: 52px !important;
+  border-radius: 14px !important;
+  border: 1px solid #ddd !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 14px !important;
+}
+
+/* VALUE CONTAINER */
+::ng-deep .ng-select .ng-value-container {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+/* PLACEHOLDER */
+::ng-deep .ng-select .ng-placeholder {
+  font-weight: 600 !important;
+  color: #555 !important;
+}
+
+/*  HIDE PLACEHOLDER PROPERLY */
+::ng-deep .ng-select.has-value .ng-placeholder {
+  display: none !important;
+}
+
+/*  FIX MERGING ISSUE (MOST IMPORTANT) */
+::ng-deep .ng-select.has-value .ng-value-container {
+  padding-left: 0 !important;
+}
+
+/* VALUE TEXT */
+::ng-deep .ng-select .ng-value-label {
+  font-weight: 600 !important;
+  color: #000 !important;
+}
+
+/* INPUT ALIGNMENT */
+::ng-deep .custom-ngselect .ng-input {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+}
+
+::ng-deep .custom-ngselect .ng-input > input {
+  padding-left: 12px !important;
+  font-size: 15px !important;
+}
+
+::ng-deep .ng-dropdown-panel {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  z-index: 9999 !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  margin-bottom: 10px !important;
+  max-height: 200px;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items { 
+  overflow-y: auto !important;   
+  overflow-x: hidden !important;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option {
+  padding: 8px 14px !important;
+  font-size: 14px !important;
+  color: #333;
+  cursor: pointer;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* CLEAR (X) BUTTON */
+::ng-deep .ng-select .ng-clear-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* DROPDOWN ARROW */
+::ng-deep .ng-select .ng-arrow-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+
+
+
+/* TWO COLUMN */
+.row-2 {
+  display: flex;
+  gap: 10px;
+}
+
+.row-2 > * {
+  flex: 1;
+}
+
+/* CARD */
+.card-box {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* BUTTON */
+.submit-btn {
+  background: #3f5b84;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* BOTTOM */
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* SIGNUP */
+.sign-up {
+  font-size: 14px;
+}
+
+.sign-up a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+//Error Css
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+}
+
+.input-wrapper .text-danger {
+  position: absolute;
+  bottom: -18px; 
+  left: 10px;
+  font-size: 12px;
+  color: red;
+  margin: 0;
+}
+
+
+
+//Legal docs Css
+/* ===== CONTAINER ===== */
+.legal-form {
+  max-width: 450px;
+  margin: auto;
+  padding: 20px;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* ===== TITLE ===== */
+.main-title {
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #000;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* ===== SECTION ===== */
+.section-title {
+  color: #3f5b84;
+  font-weight: 600;
+  margin: 20px 0 10px;
+}
+
+/* ===== INPUT GROUP ===== */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-weight: 600;
+  display: block;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  border: 2px solid #ddd;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* ===== BUTTONS ===== */
+.center-btn {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.validate-btn {
+  background: #3f5b84;
+  color: white;
+  border: none;
+  padding: 12px 50px;
+  border-radius: 12px;
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit-center {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.submit-btn {
+  background: #3f5b84;
+  color: #fff;
+  border: none;
+  padding: 10px 35px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+.verify-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  background: #0d6efd;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.verify-btn.loading {
+  background: #ffc107;
+  color: #000;
+}
+
+.verify-btn.verified {
+  background: #198754;
+  color: #fff;
+}
+
+.spinner {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  // border: 2px solid rgba(0,0,0,0.2);
+  // border-top-color: #000;
+  // border: 2px solid rgba(13, 230, 78, 0.845);
+  border: 2px solid #ffffff;
+  border-top-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.verify-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  margin: 25px 0;
+}
+
+/* ===== VEHICLE SECTION ===== */
+.vehicle-header {
+  display: flex;
+  gap: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.vehicle-header span {
+  // flex: 1;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+/* ===== VEHICLE ROW ===== */
+.vehicle-row {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.vehicle-row input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+/* ===== ADD BUTTON ===== */
+.add-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border: 2px solid #3f5b84;
+  background: transparent;
+  font-size: 22px;
+  color: #3f5b84;
+  cursor: pointer;
+  margin-bottom: 10px;
+}

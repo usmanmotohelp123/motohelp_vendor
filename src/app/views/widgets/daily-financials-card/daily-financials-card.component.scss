@@ -1,0 +1,15 @@
+.dashboard-parent-card {
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px;
+}
+
+.chart-wrapper {
+  flex: 1;
+  min-height: 280px; 
+}
+
+c-chart,
+canvas {
+  height: 100% !important;
+}
+
