@@ -9,16 +9,16 @@
         <div class="circle"></div>
       </div>
 
-      <div class="line active"></div>
+      <div class="line" [ngClass]="isVehicle !== 'N' ? 'active' : ''"></div>
 
-      <div class="step completed">
-        <div class="circle"></div>
+      <div class="step" [ngClass]="isVehicle === 'N' ? 'inactive' : 'completed'">
+        <div class="circle" [ngClass]="isVehicle === 'N' ? 'inactive' : 'completed'"></div>
       </div>
 
-      <div class="line"></div>
+      <div class="line" [ngClass]="isVehicle !== 'N' ? 'active' : ''"></div>
 
-      <div class="step">
-        <div class="circle inactive"></div>
+      <div class="step" [ngClass]="isVehicle === 'N' ? 'inactive' : 'completed'">
+        <div class="circle" [ngClass]="isVehicle === 'Y' ? 'inactive' : 'completed'"></div>
       </div>
 
     </div>
@@ -53,9 +53,9 @@
       <img src="assets/images/Vehicle.png" class="card-icon">
 
       <h3>Validate Vehicle</h3>
-      <p>0 Added</p>
+      <p>{{vehiclesCount}} Added</p>
 
-      <button class="btn-primary" (click)="validateVehicle=true">Add</button>
+      <button class="btn-primary" (click)="validateVehicleEnable()">Add</button>
     </div>
 
     <!-- KYC CARD -->
@@ -63,15 +63,21 @@
       <img src="assets/images/Bank.png" class="card-icon">
 
       <h3>Bank Details</h3>
-      <p class="locked">Locked</p>
+      <p *ngIf="isVehicle === 'N'" class="locked">Locked</p>
+      <p *ngIf="isVehicle === 'Y'" class="locked">Add Bank Kyc</p>
 
-      <button class="btn-disabled">Unlock</button>
+      <button *ngIf="isVehicle === 'N'" class="btn-disabled">Unlock</button>
+      <button *ngIf="isVehicle === 'Y'" class="btn-primary" (click)="validateBankEnable()">Add</button>
     </div>
 
   </div>
 
   <div class="validate-vehicles" *ngIf="validateVehicle">
      <app-validate-vehicle></app-validate-vehicle>
+  </div>
+
+   <div class="validate-vehicles" *ngIf="addKyc">
+     <app-add-bank></app-add-bank>
   </div>
 
 </div>

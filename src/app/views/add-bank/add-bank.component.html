@@ -1,0 +1,71 @@
+<div class="container-fluid">
+    <div class="head">
+        <h1>Bank Detail</h1>
+        <div class="underline"></div>
+    </div>
+
+<div class="bank">
+ <div class="bank-card">
+
+  <form [formGroup]="bankKycForm" (ngSubmit)="onSubmit()">
+  <div class="row g-3">
+
+    <div class="col-md-3">
+      <input class="form-control custom-input" placeholder="IFSC" formControlName="ifsc"/>
+    </div>
+
+    <div class="col-md"></div>
+
+    <div class="col-md-5">
+       <input class="form-control custom-input" placeholder="Bank Name & Branch" formControlName="bankName"/>
+    </div>
+
+    <div class="col-md"></div>
+
+    <div class="col-md-3">
+      <input class="form-control custom-input" placeholder="Account Number" formControlName="accountNumber"/>
+    </div>
+   </div>
+
+  <div class="row g-3 mt-2">
+    <div class="col-md-3">
+      <input class="form-control custom-input" placeholder="Confirm Account Number" formControlName="confirmAccountNumber"/>
+    </div>
+    <div class="col-md"></div>
+    <div class="col-md-5">
+      <input class="form-control custom-input" placeholder="Account Holder Name" formControlName="accountHolderName" />
+    </div>
+    <div class="col-md"></div>
+    <div class="col-md-3">
+      <!-- <input class="form-control custom-input" placeholder="Account Type" /> -->
+        <select class="form-control custom-input" formControlName="accountType">
+        <option value="">Select Type</option>
+        <option value="Savings">Savings</option>
+        <option value="Current">Current</option>
+      </select>
+    </div>
+   </div>
+
+   <div class="d-flex justify-content-center mt-4">
+    <div class="col-md-5">
+      <!-- <input class="form-control custom-input" placeholder="Add Your Passbook/Cheque Photo" /> -->
+          <input type="file" class="form-control custom-input" (change)="onFileChange($event)" />
+    </div>
+   </div>
+
+     <!-- ERROR MESSAGE -->
+   <!-- <div class="text-danger text-center mt-2" *ngIf="bankKycForm.errors?.mismatch">
+    Account numbers do not match
+   </div> -->
+
+  <!-- BUTTON -->
+  <div class="text-center mt-4">
+    <button type="submit" class="btn-validate-final">Save</button>
+  </div>
+
+  </form> 
+
+ </div>
+</div>
+
+</div>

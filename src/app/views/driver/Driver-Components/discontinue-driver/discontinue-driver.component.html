@@ -1,0 +1,122 @@
+<div class="container-fluid"><!-- (click)="showPin ? closePopup() : null"-->
+    <div class="head">
+        <h1>Discontinue Driver</h1>
+        <div class="underline"></div>
+    </div>
+   
+    <div class="search-box d-flex justify-content-center"  *ngIf="!showForm">
+        <div class="input-box">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" placeholder="Search Driver By Name, Number Or LicenseNo"/>
+        </div>
+    </div>
+
+
+    <div class="drivers" [class.show-popup]="showPin===true" *ngIf="!showForm">
+
+      <div class="row main-row">
+        <div class="col-md-6" *ngFor="let driver of drivers">
+           <div class="driver-card"  [class.show-popup]="showPin===true" (click)="handleVehicleClick($event, driver)">
+
+               <div class="d-flex justify-content-between" style="margin: 12px;">
+                <div class="left1">
+                  <div class="driver d-flex justify-content-between">  
+                    <img src="assets/images/Driver-D.png">  
+                    <h4>{{driver.full_name}}</h4>
+                  </div>
+                  <p>{{driver.contact_no}}</p>
+                 </div>
+                 <div class="driver d-flex justify-content-between">
+                   <img src="assets/images/License-Icon.png"> 
+                   <h4>{{driver.driving_license_no}}</h4>
+                 </div>
+               </div>
+
+               <div class="mid-line"></div>
+
+              <div class="d-flex justify-content-between align-items-center" style="margin: 12px;">
+                <div class="left2">
+                  <p>Expiry : {{driver.licenseExpiry}}</p>
+                 </div>
+                <div class="status-wrapper">
+                  <span class="icon-check">
+                     <i class="fa fa-check"></i>
+                   </span>
+                   <span class="status-text">
+                     {{driver.is_verified === false ? "Inactive" : "Active"}}
+                   </span>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+     <div class="popup" [class.show-popup]="showPin===true" (click)="$event.stopPropagation()">
+       <div class="d-flex justify-content-center p-4" style="flex-direction: column;">
+          <div class="popup-head">
+            <h2 class="text-center text-nowarap mb-4">Put Your MPin</h2>
+          </div>
+          <div class="popup-input">
+             <input class="form-control" placeholder="Enter Here" (keydown.enter)="verifyPin()"/>
+          </div>
+       </div>
+      </div>
+
+
+
+  <!-- FORM CARD -->
+  <div class="discontinue-card" *ngIf="showForm">
+
+    <div class="form-group">
+      <input class="form-control custom-input" placeholder="Driver Name" [(ngModel)]="driverName" disabled>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control custom-input" placeholder="Driver Mobile Number" [(ngModel)]="driverNumber" disabled>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control custom-input" placeholder="Driving License Number" [(ngModel)]="driverLicenseNumber" disabled>
+    </div>
+
+    <div class="form-group">
+      <textarea class="form-control custom-input textarea" placeholder="Reason" [(ngModel)]="remark"></textarea>
+    </div>
+    <!-- Rating -->
+    <!-- <div class="rating-box">
+        <span>Rating</span>
+        <div class="stars">
+         <i class="far fa-star" *ngFor="let star of [1,2,3,4,5]; let i=index" [class.active]="i < rating" (click)="rating = i+1"></i>
+        </div>
+        <span class="count">{{rating}} / 5</span>
+    </div> -->
+    <!-- <div class="rating-box">
+       <span>Rating</span>
+       <div class="stars">
+       <i *ngFor="let star of [1,2,3,4,5]; let i=index" class="fa-star" [ngClass]="i < rating ? 'fas active' : 'far'" (click)="rating = i+1"></i>
+       </div>
+       <span class="count">{{rating}} / 5</span>
+    </div> -->
+
+   <div class="rating-box">
+     <span>Rating</span>
+        <div class="stars">
+            <span *ngFor="let star of [1,2,3,4,5]; let i=index" (click)="setRating(i + 1);$event.stopPropagation()">
+                <i [ngClass]="i < rating ? 'fas fa-star active' : 'far fa-star'" style="cursor: pointer;"></i>
+            </span>
+        </div>
+        <span class="count">{{ rating }} / 5</span>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="button" class="submit-btn" (click)="deleteDriver()">Submit</button>
+    </div>
+
+ </div>
+
+
+</div>
+

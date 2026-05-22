@@ -1,0 +1,194 @@
+<div class="container">
+ 
+  <div class="left-content">
+
+    <div *ngIf="screen == 1" class="left-panel">
+
+      <div class="select-wrapper">
+        <select class="form-control custom-select" (change)="screen = 2">
+            <option>Select Vehicle No And Load Post id</option>
+            <option>MH02JM2628 - 262623</option>
+        </select>
+      </div>
+
+        <div class="vehicle-list">
+         <div class="list-item" *ngFor="let item of vehicleList" (click)="screen = 2">
+            MH02JM2628 - 262623
+         </div>
+        </div>
+
+    </div>
+
+    <!-- <div *ngIf="screen == 2" class="left-panel">
+        <div class="tracking-top">
+         <div>
+            <small style="margin-left: 40px;">Vehicle No</small>
+            <h4>MH02JM2628</h4>
+         </div>
+         <div>
+            <small>Load Post Id</small>
+            <h4>262623</h4>
+         </div>
+        </div>
+
+        <div class="timeline-box">
+            
+         <div class="timeline-row" *ngFor="let item of trackingData;let i=index">
+           
+           <div *ngIf="i !==3">
+            <div class="time">
+              09:00 AM
+            </div>
+
+            <div class="icon-box">
+             <span class="check-circle">
+                <i class="fa fa-check"></i>
+             </span>
+            </div>
+
+            <div class="status">
+              {{item}}
+            </div>
+           </div>
+
+            <div *ngIf="i===3" class="issue-card">
+             <div class="issue-header">
+                <span>10:00 AM</span>
+                <span>13-04-2026</span>
+                <span>Booking</span>
+             </div>
+             <p>
+               There is a problem with booking,
+               Request support for quick resolution.
+             </p>
+            </div>
+
+          </div>
+        </div>
+
+    </div> -->
+
+  <div *ngIf="screen == 2" class="left-panel">
+
+       <!-- TOP HEADER -->
+        <div class="tracking-top">
+           <div class="top-box">
+             <small>Vehicle No</small>
+             <h4>MH02JM2628</h4>
+            </div>
+
+            <div class="top-box">
+              <small>Load Post Id</small>
+              <h4>262623</h4>
+            </div>
+         </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline-box">
+
+      <div class="timeline-row" *ngFor="let item of trackingData; let i=index">
+
+        <ng-container *ngIf="i == 2; else normalRow">
+          <div class="bar" (click)="toggleIssueBox()"></div>
+          <div class="issue-card" *ngIf="isIssueBoxEnable">
+            <div class="issue-header">
+                <span>10:00 AM</span>
+                <span>13-04-2026</span>
+                <span>Booking</span>
+            </div>
+            <p>
+               There is a problem with booking,<br>
+               Request support for quick resolution.
+            </p>
+           </div>
+
+        </ng-container>
+
+        <!-- NORMAL ROW -->
+        <ng-template #normalRow>
+          <div class="time">09:00 AM</div>
+
+            <div class="icon-box">
+             <span class="check-circle">
+                <i class="fa fa-check"></i>
+             </span>
+            </div>
+           <div class="status">{{item}}</div>
+        </ng-template>
+
+      </div>
+
+     </div>
+
+  </div>
+
+
+
+
+    <!-- SCREEN 3 : ISSUE CARD -->
+    <div *ngIf="screen == 3" class="left-panel">
+       <div class="tracking-top">
+         <div>
+           <small>Vehicle No</small>
+           <h4>MH02JM2628</h4>
+         </div>
+         <div>
+           <small>Load Post Id</small>
+           <h4>262623</h4>
+         </div>
+        </div>
+
+        <div class="timeline-box">
+          <div class="timeline-row" *ngFor="let item of trackingData; let i=index">
+            <!-- ISSUE CARD -->
+            <div *ngIf="i==2" class="issue-card">
+             <div class="issue-header">
+                <span>10:00 AM</span>
+                <span>13-04-2026</span>
+                <span>Booking</span>
+             </div>
+             <p>
+               There is a problem with booking,
+               Request support for quick resolution.
+             </p>
+            </div>
+
+            <div class="time">
+               09:00 AM
+            </div>
+            <div class="icon-box">
+             <span class="check-circle">
+                <i class="fa fa-check"></i>
+             </span>
+            </div>
+            <div class="status">
+              {{item}}
+            </div>
+          </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SCREEN 4 : PROBLEM BOX -->
+    <div *ngIf="screen == 4" class="left-panel">
+       <div class="problem-box">
+         <h4>Problem Found</h4>
+         <p>
+           Booking issue detected for this load.
+         </p>
+         <button class="resolve-btn">
+            Resolve Now
+         </button>
+        </div>
+      </div>
+  </div>
+
+
+
+    <div class="right-content">
+      <div id="map"></div>
+    </div>
+</div>
+

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SharedService } from 'src/app/views/Services/shared.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule,MatMenuModule,MatButtonModule],
+  imports: [CommonModule,MatMenuModule,MatButtonModule,RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
@@ -22,13 +22,14 @@ vehicleOpen = false;
 driverOpen = false;
 
  activeMenu: string | null = null;
+ isFlageEnable: string = "N";
 
 constructor(private router: Router,private sharedService:SharedService) {
   
 }
 
 ngOnInit(): void {
-   
+   this.isFlageEnable = String(localStorage.getItem('flag'));
 }
 
 openDriverMenu() {

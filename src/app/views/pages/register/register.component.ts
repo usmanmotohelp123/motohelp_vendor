@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedService } from '../../Services/shared.service';
 import { LoginComponent } from '../login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 declare var google: any;
 
 @Component({
@@ -18,7 +19,7 @@ declare var google: any;
     standalone: true,
     imports: [ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent,
        FormDirective, InputGroupComponent,InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective,
-        CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,NgSelectModule,RouterModule]
+        CommonModule,FormsModule,ReactiveFormsModule,HttpClientModule,NgSelectModule,RouterModule,MatTooltipModule]
 })
 export class RegisterComponent implements OnInit {
 
@@ -105,6 +106,8 @@ constructor(private fb: FormBuilder,private route: ActivatedRoute,private allSer
         // aadhaar: ['', Validators.required],//Validators.pattern(/^[2-9]{1}[0-9]{11}$/)     
         pan: ['', [Validators.required,Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)]],  
         gst: ['', [Validators.pattern(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/)]],
+        chekMark:[''],
+        organisation:[''],
         // NoOfVehicle:['',Validators.required],
         // vehicles: this.fb.array([])
          vehicles: this.fb.array([
@@ -544,6 +547,23 @@ submit() {
         if(res.status === '00'){
           this.sharedService.success(res.message)
           // this.router.navigate(['/dashboard']);
+              localStorage.setItem('user',res.userDetails);
+              localStorage.setItem('vendorid', res.userDetails.vendorid);
+              localStorage.setItem('status', res.userDetails.status);
+              localStorage.setItem('role', res.userDetails.role);
+              localStorage.setItem('ownerName', res.userDetails.owner_name);
+              localStorage.setItem('companyName', res.userDetails.companyName);
+              localStorage.setItem('ContactNo', res.userDetails.mobileNo);
+              localStorage.setItem('companyType', res.userDetails.companyType);
+              localStorage.setItem('flag', res.userDetails.flag);
+              localStorage.setItem('kycVerify', res.userDetails.kyc_verify);
+              localStorage.setItem('landMark', res.userDetails.landMark);
+              localStorage.setItem('Address1', res.userDetails.address1);
+              localStorage.setItem('Address2', res.userDetails.address2);
+              localStorage.setItem('City', res.userDetails.City);
+              localStorage.setItem('Pincode', res.userDetails.pincode);
+              localStorage.setItem('State', res.userDetails.state);
+              localStorage.setItem('Tahsil', res.userDetails.Tahsil);
           this.router.navigate(['/newRegisterDashboard']);
         }else{
           this.sharedService.error(res.message)
@@ -578,6 +598,12 @@ submit() {
 
  // Legal Documents
  verify(type: 'aadhaar' | 'pan' | 'gst') {
+  
+   if(this.documentsForm.get('pan')?.value === '' && this.documentsForm.get('gst')?.value === ''){
+      // this.documentsForm.markAllAsTouched();
+      this.sharedService.error("PAN is Requierd!")
+      return;
+    }
     if (this.verifyState[type] !== 'idle') return;
     this.verifyState[type] = 'loading';
 
@@ -598,11 +624,14 @@ submit() {
                     const pan = gst.substring(2, 12);
                     this.documentsForm.get('pan')?.setValue(pan);
                   }
+                  this.documentsForm.get('organisation')?.setValue(res.data.tradeNam);
               }else{
+                this.verifyState[type] = 'idle'
                 this.sharedService.error(res.message)
               }
             },
             error: (err) => {
+               this.verifyState[type] = 'idle';
               console.error('OTP API Error:', err);
               if (err.status === 500) {
                 this.sharedService.error('Internal server error. Please try again later.');
@@ -626,10 +655,12 @@ submit() {
                 this.sharedService.success(res.message)
                 this.verifyState[type] = 'verified';
               }else{
+                this.verifyState[type] = 'idle'
                 this.sharedService.error(res.message)
               }
             },
             error: (err) => {
+              this.verifyState[type] = 'idle';
               console.error('OTP API Error:', err);
               if (err.status === 500) {
                 this.sharedService.error('Internal server error. Please try again later.');

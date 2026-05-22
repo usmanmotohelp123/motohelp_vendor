@@ -1,0 +1,224 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.left-content {
+    width: 23%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px);
+    background: #fff;
+    border-radius: 6px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 2px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+
+// .left-content{
+//   width: 20%;
+//   height: calc(100vh - 100px);
+//   background: #fff;
+//   border-radius: 6px;
+//   overflow-y: auto;
+//   padding: 10px;
+//   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+// }
+
+/* COMMON */
+.left-panel{
+  width: 100%;
+}
+
+/* SCREEN 1 */
+.select-wrapper{
+  margin-bottom: 1px;
+}
+
+.custom-select{
+  height: 45px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  font-size: 12px;
+  color: #979797;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.vehicle-list{
+//   border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 10px;
+  height: 550px;
+  overflow-y: auto;
+}
+
+.list-item{
+  padding: 8px 5px;
+  font-size: 18px;
+  color: #000000;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+}
+
+.list-item:hover{
+  background: #f5f5f5;
+}
+
+
+/* TOP */
+.tracking-top{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.tracking-top small {
+  font-size: 10px;
+  color: #999;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.tracking-top h4{
+  font-size: 18px;
+  color: #385380;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+/* TIMELINE */
+.timeline-row{
+  display: flex;
+//   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+
+.time{
+  width: 80px;
+  font-size: 13px;
+  color: #333;
+  margin-left: 5px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.icon-box{
+  width: 30px;
+  position: relative;
+}
+
+.check-circle{
+  width: 19px;
+  height: 19px;
+  background: #385380;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.icon-box::after{
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 19px;
+  width: 2px;
+  height: 25px;
+//   background: #ddd;
+   border-left: 2px dotted #000000; 
+}
+
+.timeline-row:last-child .icon-box::after{
+  display: none;
+}
+
+.status{
+  font-size: 16px;
+  color: #385380;
+  font-weight: 600;
+  margin-left: 8px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.5px;
+//   white-space: nowrap;
+}
+
+
+/* ISSUE CARD */
+.bar {
+    height: 3px;
+    width: 55px;
+    position: absolute;
+    background-color: #385380; 
+    top: -20px;
+    left: 5px;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: -18px;
+}
+
+.issue-card {
+  position: relative;  
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 1px;
+}
+
+.issue-card::after{
+  content: '';
+  position: absolute;
+  left: 93px;
+  top: 82px;
+  width: 2px;
+  height: 22px;
+//   background: #ddd;
+   border-left: 2px dotted #000000;
+}
+
+
+.issue-header{
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.issue-card p{
+  font-size: 12px;
+  color: #444;
+  margin: 0;
+}
+
+
+.right-content {
+    width: 77%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#map {
+  height: calc(100vh - 100px);
+  width: 100%;
+  border-radius: 5px;
+}

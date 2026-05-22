@@ -453,7 +453,6 @@
   <div class="right-panel">
 
     <div class="form-box">
-       
          <!-- <h1 class="title">Vendor Onboarding</h1> -->
          <div class="title-wrapper">
            <h1 class="title">Vendor Onboarding</h1>
@@ -471,7 +470,7 @@
               Company Name is required!
             </small>
           </div> 
-          <!-- COMPANY TYPE -->
+
           <!-- <ng-select
             formControlName="companyType"
             [items]="companyList"
@@ -488,9 +487,8 @@
               Company Type is required!
           </small>
          </div>
-          <!-- NAME / COMPANY -->
-          <!-- <input type="text" formControlName="fullName" placeholder="Full Name"> -->
 
+          <!-- <input type="text" formControlName="fullName" placeholder="Full Name"> -->
           <div class="input-wrapper">
             <input type="text" formControlName="owenerName" placeholder="Owner Name">
             <small class="text-danger" *ngIf="f('owenerName')?.touched && f('owenerName')?.errors?.['required']">
@@ -498,7 +496,6 @@
             </small>
           </div>
 
-          <!-- MOBILE -->
           <div class="input-wrapper">
             <input type="text" formControlName="mobileno" placeholder="Mobile Number" readonly>
             <small class="text-danger position-absolute" *ngIf="f('mobileno')?.touched && f('mobileno')?.errors">
@@ -507,7 +504,6 @@
             </small>
           </div> 
 
-          <!-- ADDRESS -->
          <div class="input-wrapper">
             <input type="text" formControlName="address1" placeholder="Building / Apartment / Plot No">
             <small class="text-danger" *ngIf="f('address1')?.touched && f('address1')?.errors?.['required']">
@@ -522,7 +518,6 @@
            </small> 
          </div>
 
-          <!-- PINCODE + STATE -->
           <div class="row">
             <div class="col-6">
               <div class="input-wrapper">
@@ -554,7 +549,6 @@
              </div>
           </div>
 
-          <!-- DISTRICT + TOWN -->
           <div class="row">
             <div class="col-6">
              <div class="input-wrapper">
@@ -591,7 +585,6 @@
         </div>
 
       </form>
-
      
       <!-- <form *ngIf="isAuthoritiesForm"
             [formGroup]="authorityForm"
@@ -639,9 +632,22 @@
           <input type="text" formControlName="gst" placeholder="Type GST Number">
         </div>
 
+        <div class="form-group1" style="margin-bottom: 15px;">
+          <label class="custom-check">
+            <input type="checkbox" formControlName="chekMark">
+            <span class="checkmark"></span>
+            <span class="label-text">No GST Registration</span>
+          </label>
+        </div>
+
         <div class="form-group">
           <label>PAN Number</label>
           <input type="text" formControlName="pan" placeholder="Type PAN Number">
+        </div>
+
+        <div class="form-group mt-2" >
+          <!-- <label>Name Of Organisation</label> -->
+          <input type="text" formControlName="organisation" placeholder="Name Of Organisation" readonly style="background-color: #ddd;">
         </div>
 
         <div class="center-btn">
@@ -659,10 +665,9 @@
           </div>
         </div>
 
-        <hr class="divider">
+        <!-- <hr class="divider"> -->
         <!-- ================= VEHICLES ================= -->
         <h2 class="section-title">Add Vehicles</h2>
-        <!-- Header -->
         <div class="vehicle-header">
           <span>Registration Number</span>
           <span>Loading Capacity</span>
@@ -671,28 +676,28 @@
           <div *ngFor="let vehicle of vehicles.controls; let i = index" [formGroupName]="i" class="vehicle-row">
             <div class="input-wrapper">
               <input formControlName="registrationNumber" placeholder="eg MH02JM2623">
-              <small class="text-danger position-absolute" *ngIf="vehicle.get('registrationNumber')?.touched && vehicle.get('registrationNumber')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                <span *ngIf="vehicle.get('registrationNumber')?.errors?.['required']">Registration Number Required!</span>
+              <small class="text-danger position-absolute" *ngIf="vehicle.get('registrationNumber')?.touched && vehicle.get('registrationNumber')?.errors" style="margin-top: -20px; margin-left: 2px;">
+                <span *ngIf="vehicle.get('registrationNumber')?.errors?.['required']">Registration No Required!</span>
               </small>
             </div>
             <div class="input-wrapper">
               <input formControlName="loadingCapacity" placeholder="20,000 KG">
-              <small class="text-danger position-absolute" *ngIf="vehicle.get('loadingCapacity')?.touched && vehicle.get('loadingCapacity')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                <span *ngIf="vehicle.get('loadingCapacity')?.errors?.['required']">Loading Capacity Required!</span>
+              <small class="text-danger position-absolute" *ngIf="vehicle.get('loadingCapacity')?.touched && vehicle.get('loadingCapacity')?.errors" style="margin-top: -20px; margin-left: 2px;">
+                <span *ngIf="vehicle.get('loadingCapacity')?.errors?.['required']">Capacity Is Required!</span>
               </small>
             </div>
-            <button type="button" class="add-btn" *ngIf="i === 0" (click)="addVehicle()"> +</button><!--*ngIf="i === vehicles.length - 1"-->
+            <button type="button" class="add-btn" *ngIf="i === 0" (click)="addVehicle()" matTooltip="Add Vehicle"> + </button><!--*ngIf="i === vehicles.length - 1"-->
           </div>
         </div>
-        <!-- Submit -->
-         <div class="d-flex justify-content-between align-items-center mt-4">
-            <button type="button" class="submit-btn" (click)="goToVendorRegisterForm()">
-              Back
-            </button>
-            <button type="submit" class="submit-btn">
-              Submit
-            </button>
-          </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+           <button type="button" class="submit-btn" (click)="goToVendorRegisterForm()">
+             Back
+           </button>
+           <button type="submit" class="submit-btn">
+             Submit
+           </button>
+        </div>
 
       </form>
 

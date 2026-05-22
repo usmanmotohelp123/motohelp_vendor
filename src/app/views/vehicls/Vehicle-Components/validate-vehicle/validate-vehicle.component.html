@@ -4,11 +4,166 @@
         <div class="underline"></div>
     </div>
    
-    <div class="search-box d-flex justify-content-center">
+    <div class="search-box d-flex justify-content-center" *ngIf="!showValidateForm">
         <div class="input-box">
             <i class="fa fa-search search-icon"></i>
             <input type="text" placeholder="Search Vehicle By Number"/>
         </div>
     </div>
+
+    <div class="vehicles" *ngIf="!showValidateForm">
+
+      <div class="row">
+        <div class="card1 col-md-6" *ngFor="let vehicle of vehicles">
+           <div class="vehicle-card">
+            <div class="left">
+                <h5>{{vehicle.registration_no}}</h5>
+                <p>Vehicle Verified Successfully</p>
+            </div>
+
+            <div class="right">
+              <div class="status-btn" [ngClass]="vehicle.verify_flag === 'N' ? 'validate' : 'verified'" (click)="vehicle.verify_flag === 'N' ? validateVehicle(vehicle)  : validatedVehicle(vehicle)">               
+                <span class="icon">
+                    <i class="fa fa-check"></i>
+                </span>
+                 <span class="text">
+                    <!-- {{ vehicle.verified ? 'Verified' : 'Validate' }} -->
+                      {{vehicle.verify_flag === 'N' ? 'validate' : 'verified'}}
+                 </span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+ <div class="validate-card" *ngIf="showValidateForm">
+
+  <form [formGroup]="vehicleForm">
+
+    <div class="row g-3">
+
+      <div class="col-md-3">
+        <input class="form-control custom-input" formControlName="registration_no"  readonly/><!--value="{{vehicleDetails.registration_no}}"-->
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-control custom-input" formControlName="body_type">
+          <option selected disabled value="">Body Type</option>
+          <option value="Open">Open</option>
+          <option value="Close">CLose</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input" formControlName="vehicle_weight" placeholder="Loading Capacity ( Weight )" readonly/><!--value="{{vehicleDetails.vehicle_weight}}"-->
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input" formControlName="segment" placeholder="Segment" readonly/><!--value="{{vehicleType}}"-->
+      </div>
+    <div class="d-flex justify-content-center">
+      <div class="col-md-3">
+        <input class="form-control custom-input small-input" formControlName="dhala_length" placeholder="Dhala Length ( ft )" />
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input small-input" formControlName="dhala_width" placeholder="Dhala Width ( ft )" />
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input small-input" formControlName="dhala_height" placeholder="Dhala Height ( ft )" />
+      </div>
+    </div>
+
+    </div>
+
+
+    <p class="mt-4 add-img-text">ADD REAL IMAGES OF VEHICLE</p>
+
+    <!-- <div class="row g-3">
+      <div class="col-md-3">
+        <div class="upload-box">
+          Add Front Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box">
+          Add Back Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box">
+          Add Front Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box">
+        Add Left Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+    </div> -->
+    
+    <div class="row g-3">
+
+      <div class="col-md-3">
+        <div class="upload-box" (click)="frontInput.click()">
+          {{ frontFileName || 'Add Front Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #frontInput (change)="onVehicleImageChange($event, 'front_img')" />
+        </div>
+        <!-- <img *ngIf="vehicleForm.value.front_img" [src]="vehicleForm.value.front_img" width="100" class="ml-2"/> -->
+      </div>
+
+      <!-- BACK -->
+      <div class="col-md-3">
+        <div class="upload-box" (click)="backInput.click()">
+          {{ backFileName || 'Add Back Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #backInput (change)="onVehicleImageChange($event, 'back_img')" />
+        </div>
+        <!-- <img *ngIf="vehicleForm.value.back_img" [src]="vehicleForm.value.back_img" width="100" class="ml-2"/> -->
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col-md-3">
+        <div class="upload-box" (click)="rightInput.click()">
+          {{ rightFileName || 'Add Right Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #rightInput (change)="onVehicleImageChange($event, 'right_img')" />
+        </div>
+        <!-- <img *ngIf="vehicleForm.value.right_img" [src]="vehicleForm.value.right_img" width="100" class="ml-2"/> -->
+      </div>
+
+      <!-- LEFT -->
+      <div class="col-md-3">
+        <div class="upload-box" (click)="leftInput.click()">
+          {{ leftFileName || 'Add Left Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #leftInput (change)="onVehicleImageChange($event, 'left_img')" />
+        </div>
+        <!-- <img *ngIf="vehicleForm.value.left_img" [src]="vehicleForm.value.left_img" width="100" class="mt-2"/> -->
+      </div>
+
+    </div>
+
+
+    <!-- BUTTON -->
+    <div class="text-center mt-4">
+      <button class="btn-validate-final" (click)="onSubmitVehicle()">Validate</button>
+    </div>
+
+  </form> 
+
+ </div>
+
 
 </div>

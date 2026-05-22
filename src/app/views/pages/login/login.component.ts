@@ -174,6 +174,7 @@ verifyOtp(mobileData: any) {
        
     }  
     else{
+      this.router.navigate(['/vendorDashboard']);
       this.sharedService.error(res.message)
       this.isOtpSent = false;
     }
