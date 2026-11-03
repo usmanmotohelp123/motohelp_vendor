@@ -73,77 +73,51 @@ export class DefaultLayoutComponent {
 
   @ViewChild('sidebar1', { static: false }) sidebar1Ref!: ElementRef;
 
-  isSidebarNarrow = false;
-  // menuRefs: any[] = [];
-  isOpen = false;
+
 
   constructor(private dialog: MatDialog,private router:Router,public sharedService:SharedService,private cd: ChangeDetectorRef) {}
 
 ngOnInit() {
    this.sharedService.sidebar$.subscribe(val => {
     console.log("sidebar received:", val); 
-      this.isOpen = val;
+      // this.isOpen = val;
        this.cd.detectChanges();
     });
 }
 
-  ngAfterViewInit(): void {
-    const sidebarElement = this.sidebar1Ref?.nativeElement;
+  // ngAfterViewInit(): void {
+  //   const sidebarElement = this.sidebar1Ref?.nativeElement;
 
-    if (sidebarElement) {
-      this.checkSidebarState(); // initial state
+  //   if (sidebarElement) {
+  //     this.checkSidebarState(); // initial state
 
-      const observer = new MutationObserver(() => {
-        this.checkSidebarState();
-      });
+  //     const observer = new MutationObserver(() => {
+  //       this.checkSidebarState();
+  //     });
 
-      observer.observe(sidebarElement, {
-        attributes: true,
-        attributeFilter: ['class']
-      });
-    }
-  }
+  //     observer.observe(sidebarElement, {
+  //       attributes: true,
+  //       attributeFilter: ['class']
+  //     });
+  //   }
+  // }
 
-  checkSidebarState() {
-    const classes = this.sidebar1Ref.nativeElement.classList;
-    this.isSidebarNarrow = classes.contains('c-sidebar-narrow');
-  }
+  // checkSidebarState() {
+  //   const classes = this.sidebar1Ref.nativeElement.classList;
+  //   this.isSidebarNarrow = classes.contains('c-sidebar-narrow');
+  // }
 
   
-// openSubmenu(item: any) {
-//   if (item.isDialog && item.children) {
-//     this.dialog.open(SubmenuDialogComponent, {
-//       width: '400px', // adjust dialog width
-//       data: item.children
-//     });
-//   }
-// }
+isSidebarCollapsed = false;
+
+toggleSidebar(): void {
+  this.isSidebarCollapsed = !this.isSidebarCollapsed;
+}
 
 
 
 
 
-// public navItems = navItems.map((item: any) => ({
-//     ...item,
-//     open: false    // 👈 dynamically add open property
-//   }));
-
-
-//   toggleMenu(item: any) {
-//     item.open = !item.open;
-//   }
-
-//   isActiveParent(item: any) {
-//     if (!item.children) return false;
-
-//     return item.children.some((c: any) =>
-//       this.router.url.includes(c.url)
-//     );
-//   }
-
-//   isActiveChild(sub: any) {
-//     return this.router.url.includes(sub.url);
-//   }
 
   
 }

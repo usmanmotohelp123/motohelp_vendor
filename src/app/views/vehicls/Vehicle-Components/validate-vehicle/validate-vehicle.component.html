@@ -1,14 +1,529 @@
 <div class="container-fluid">
-    <div class="head">
+  
+    <!-- <div class="head">
         <h1>Validate Vahicle</h1>
         <div class="underline"></div>
     </div>
    
-    <div class="search-box d-flex justify-content-center">
+    <div class="search-box d-flex justify-content-center" *ngIf="!showValidateForm">
         <div class="input-box">
             <i class="fa fa-search search-icon"></i>
             <input type="text" placeholder="Search Vehicle By Number"/>
         </div>
+    </div> -->
+
+    <!-- <div class="vehicles" *ngIf="!showValidateForm">
+      <div class="row">
+        <div class="card1 col-md-6" *ngFor="let vehicle of vehicles">
+
+           <div class="vehicle-card">
+            <div class="left">
+                <h5>{{vehicle.registration_no}}</h5>
+                <p>Vehicle Verified Successfully</p>
+            </div>
+
+            <div class="right">
+              <div class="status-btn" [ngClass]="vehicle.verify_flag === 'N' ? 'validate' : 'verified'" (click)="vehicle.verify_flag === 'N' ? validateVehicle(vehicle)  : validatedVehicle(vehicle)">               
+                <span class="icon">
+                    <i class="fa fa-check"></i>
+                </span>
+                 <span class="text">
+                      {{vehicle.verify_flag === 'N' ? 'validate' : 'verified'}}
+                 </span>
+              </div>
+            </div>
+
+           </div>
+
+        </div>
+      </div>
+    </div> -->
+   
+  <div class="vehicles-wrapper" *ngIf="!showValidateForm">
+    <div class="vehicles">
+    <form [formGroup]="addVehicleForm" (ngSubmit)="submitVehicles()">
+      <h3 class="vehicle-title text-nowrap">Add Vehicles</h3>
+       <div class="vehicle-header">
+          <span>Registration Number</span>
+          <span style="margin-left: 9%">Loading Capacity</span>
+        </div>
+        <div class="wraper d-flex"> 
+          <div formArrayName="vehicles">
+            <div *ngFor="let vehicle of vehicleControls.controls; let i = index" [formGroupName]="i" class="vehicle-row">
+              <div class="input-wrapper" style="width: 42%;">
+                <input formControlName="registrationNumber" placeholder="eg MH02JM2623" maxlength="15" (input)="convertRegistrationToUpperCase(i)">
+                <small class="text-danger" *ngIf="vehicle.get('registrationNumber')?.touched && vehicle.get('registrationNumber')?.errors">
+                    <span *ngIf="vehicle.get('registrationNumber')?.errors?.['required']">Registration No Required!</span>
+                </small>
+                </div>
+              <div class="input-wrapper" style="width: 38%;">
+                <input formControlName="loadingCapacity" placeholder="20,000 KG">
+                <small class="text-danger position-absolute" *ngIf="vehicle.get('loadingCapacity')?.touched && vehicle.get('loadingCapacity')?.errors">
+                  <span *ngIf="vehicle.get('loadingCapacity')?.errors?.['required']">Capacity Is Required!</span>
+                </small>
+              </div>
+              <button type="button" class="add-btn" *ngIf="i === 0" (click)="addVehicle()" matTooltip="Add Vehicle">+</button>
+            </div>
+          </div>
+          <div class="submit-wrapper">
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+      </div> 
+      </form>
+
+      <div class="tag-wrapre d-flex justify-content-between" style="padding-right: 4%">
+        <h3 class="vehicle-title text-nowrap">Validate Vehicle</h3>
+        <div class="vehicle-filter">
+          <label>
+            <input type="radio" name="vehicleFilter" value="verified" [(ngModel)]="vehicleFilter">
+            <span>Verified</span>
+          </label>
+          <label>
+            <input type="radio" name="vehicleFilter" value="unverified" [(ngModel)]="vehicleFilter">
+            <span>Unverified</span>
+          </label>
+          <label>
+            <input type="radio" name="vehicleFilter" value="all" [(ngModel)]="vehicleFilter">
+            <span>All</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="vehicle-search">
+        <i class="fa fa-search icon"></i>
+        <input type="text" [(ngModel)]="vehicleSearch" placeholder="Search Vehicle By Number">
+      </div>
+      <div class="vehicle-list">
+        <div class="vehicle-card" *ngFor="let vehicle of filteredVehicles()">
+          <div class="vehicle-info">
+            <h5>{{ vehicle.VehicleNo }}</h5>
+            <span class="vehicle-message" [ngClass]="{'success-message': vehicle.IsVerified === true,'error-message': vehicle.IsVerified === false || vehicle.IsVerified === null}">
+              ({{ vehicle.IsVerified === true ? 'Verified Successfully' : 'needs to be validated'}})
+            </span> 
+          </div>
+          <div class="vehicle-actions">
+            <div *ngIf="vehicle.IsVerified === true">
+              <!--class="verified-btn"-->
+              <!-- <span class="verified-icon">
+                <i class="fa fa-check verifid-i"></i>
+              </span>
+              <span>Verified</span> (click)="skipVehicle(vehicle)"-->
+              <button type="button" class="preview-btn" routerLink="/preview" >
+                Preview
+              </button>
+            </div>
+            <ng-container *ngIf="vehicle.IsVerified === false || vehicle.IsVerified === null">
+              <button type="button" class="validate-btn" (click)="validateVehicle(vehicle)">
+                Validate
+              </button>
+              <!-- <button type="button" class="skip-btn" (click)="skipVehicle(vehicle)">
+                Skip
+              </button> -->
+              <button type="button" class="edit-btn" (click)="editVehicle(vehicle)">
+                <!-- <i class="fa fa-pencil"></i> -->
+                  <img src="assets/images/figma-icons/edit-icon.png" alt="Edit">
+              </button>
+            </ng-container>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
+
+  <!-- VALIDATE VEHICLE OTP MODAL -->
+  <div class="custom-modal-backdrop otp-backdrop" *ngIf="showOtpModal" (click)="closeOtpModal()">
+    <div class="otp-modal" (click)="$event.stopPropagation()">
+      <button type="button" class="otp-close-btn" (click)="closeOtpModal()">×</button>
+      <div class="otp-title">
+        Check your SMS For OTP
+      </div>
+      <!-- OTP Inputs -->     
+       <div class="otp-inputs">
+        <input #otpInput type="text" maxlength="1" [(ngModel)]="otp[0]" (input)="moveToNext($event, 0)" (keydown.backspace)="moveToPrevious($event, 0)" >
+        <input #otpInput type="text" maxlength="1" [(ngModel)]="otp[1]" (input)="moveToNext($event, 1)" (keydown.backspace)="moveToPrevious($event, 1)">
+        <input #otpInput type="text" maxlength="1" [(ngModel)]="otp[2]" (input)="moveToNext($event, 2)" (keydown.backspace)="moveToPrevious($event, 2)" >
+        <input #otpInput type="text" maxlength="1" [(ngModel)]="otp[3]" (input)="moveToNext($event, 3)" (keydown.backspace)="moveToPrevious($event, 3)">
+      </div>
+      <div class="otp-timer">
+        Your OTP will expire in<strong>120</strong>seconds.
+      </div>
+      <button type="button" class="otp-submit-btn" (click)="submitOtp()">
+        Submit
+      </button>
+    </div>
+  </div>
+
+
+    <!-- Edit Vehicle -->
+    <div class="custom-modal-backdrop" *ngIf="showEditModal" (click)="closeEditModal()">
+      <div class="custom-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header-custom">
+          <h5>Edit Validate Vehicles</h5>
+          <button type="button" class="close-btn"(click)="closeEditModal()">×</button>
+        </div>
+        <form [formGroup]="editVehicleForm" (ngSubmit)="submitEditedVehicle()">
+          <div class="modal-body-custom">
+            <div class="edit-header">
+              <span>Registration Number</span>
+              <span>Loading Capacity</span>
+            </div>
+            <div class="edit-input-row">
+              <div class="edit-input-wrapper">
+                <input type="text" class="form-control" formControlName="registrationNumber" placeholder="eg MH02JM2623" maxlength="15"
+                  (input)="editVehicleForm.get('registrationNumber')?.setValue(editVehicleForm.get('registrationNumber')?.value?.toUpperCase(),{emitEvent: false})">
+                <small class="text-danger" *ngIf="editVehicleForm.get('registrationNumber')?.touched && editVehicleForm.get('registrationNumber')?.errors">
+                  Registration No Required!
+                </small>
+              </div>
+              <div class="edit-input-wrapper">
+                <input type="number" class="form-control" formControlName="loadingCapacity" placeholder="20,000.000 KG">
+                <small class="text-danger" *ngIf="editVehicleForm.get('loadingCapacity')?.touched && editVehicleForm.get('loadingCapacity')?.errors">
+                  Capacity Is Required!
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer-custom">
+            <button type="submit" class="modal-submit-btn">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
+  
+ <!-- <div class="validate-card" *ngIf="showValidateForm">
+
+  <form [formGroup]="vehicleForm">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <input class="form-control custom-input" formControlName="registration_no"  readonly/>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control custom-input" formControlName="body_type">
+          <option selected disabled value="">Body Type</option>
+          <option value="Open">Open</option>
+          <option value="Close">CLose</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control custom-input" formControlName="vehicle_weight" placeholder="Loading Capacity ( Weight )" readonly/>
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input" formControlName="segment" placeholder="Segment" readonly/>
+      </div>
+    <div class="d-flex justify-content-center">
+      <div class="col-md-3">
+        <input class="form-control custom-input small-input" formControlName="dhala_length" placeholder="Dhala Length ( ft )" />
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input small-input" formControlName="dhala_width" placeholder="Dhala Width ( ft )" />
+      </div>
+
+      <div class="col-md-3">
+        <input class="form-control custom-input small-input" formControlName="dhala_height" placeholder="Dhala Height ( ft )" />
+      </div>
+    </div>
+
+    </div>
+
+
+    <p class="mt-4 add-img-text">ADD REAL IMAGES OF VEHICLE</p>
+
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="upload-box">
+          Add Front Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box">
+          Add Back Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box">
+          Add Front Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box">
+        Add Left Side Image
+          <i class="fa fa-camera"></i>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row g-3">
+
+      <div class="col-md-3">
+        <div class="upload-box" (click)="frontInput.click()">
+          {{ frontFileName || 'Add Front Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #frontInput (change)="onVehicleImageChange($event, 'front_img')" />
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="upload-box" (click)="backInput.click()">
+          {{ backFileName || 'Add Back Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #backInput (change)="onVehicleImageChange($event, 'back_img')" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="upload-box" (click)="rightInput.click()">
+          {{ rightFileName || 'Add Right Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #rightInput (change)="onVehicleImageChange($event, 'right_img')" />
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="upload-box" (click)="leftInput.click()">
+          {{ leftFileName || 'Add Left Side Image' }}
+          <i class="fa fa-camera"></i>
+          <input type="file" hidden #leftInput (change)="onVehicleImageChange($event, 'left_img')" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn-validate-final" (click)="onSubmitVehicle()">Validate</button>
+    </div>
+
+  </form> 
+ </div> -->
+
+
+
+  <div class="validate-card" *ngIf="showValidateForm && !isValidated">
+    <form [formGroup]="vehicleForm">
+      <div class="validate-title-row justify-content-start">
+        <h3 class="validate-title">
+          Vehicles Specification
+        </h3>
+        <span class="vehicle-number">
+          Vehicle No : <b>{{ vehicleDetails.VehicleNo }}</b> <!--vehicleForm.get('VehicleNo')?.value-->
+        </span>
+      </div>
+      <div class="top-fields">
+        <input type="text" class="validate-input" formControlName="vehicle_weight"  placeholder="Loading Capacity (Weight)" readonly>
+        <input type="text" class="validate-input" formControlName="segment" placeholder="Segment" readonly>
+      </div>
+     <div class="body-type-wraper d-flex mt-4">
+      <div class="section-label text-nowrap">Body Type</div>
+      <!-- <div class="vehicle-type-grid">
+        <div class="vehicle-type" [class.selected]="vehicleForm.get('body_type')?.value === 'Open'" (click)="selectBodyType('Open')">
+          <img src="assets/images/vehicle-img/vhl-1.png" alt="Open Vehicle">
+        </div>
+        <div class="vehicle-type" [class.selected]="vehicleForm.get('body_type')?.value === 'Close'" (click)="selectBodyType('Close')" style="margin-left: -35px;">
+          <img src="assets/images/vehicle-img/vhl-2.png" alt="Close Vehicle">
+        </div>
+        <div class="vehicle-type" [class.selected]="vehicleForm.get('body_type')?.value === 'OpenSide'" (click)="selectBodyType('OpenSide')">
+          <img src="assets/images/vehicle-img/vhl-3.png" alt="Open Side Vehicle">
+        </div>
+        <div class="vehicle-type" [class.selected]="vehicleForm.get('body_type')?.value === 'Container'" (click)="selectBodyType('Container')" style="margin-left: -35px;">
+          <img src="assets/images/vehicle-img/vhl-4.png" alt="Container Vehicle">
+        </div>
+      </div> -->
+      <div class="vehicle-type-grid">
+        <div class="vehicle-type" *ngFor="let type of bodyType; let i = index"
+          [class.selected]="vehicleForm.get('body_type')?.value === type.bodytype"
+          (click)="selectBodyType(type)" [style.margin-left]="i % 2 !== 0 ? '-35px' : '0'">
+          <span style="position: absolute; left: 10px;top:-10px; z-index: 9999;background: white;">{{ type.bodytype }}</span>
+          <img [src]="baseUrl + type.front_image_url" [alt]=""><!--type.bodytype-->
+        </div>
+      </div>
+     </div>
+      <!-- HIDDEN BODY TYPE FORM CONTROL -->
+      <input type="hidden" formControlName="body_type">
+      <div class="dhala-fields">
+        <!-- <input type="text" class="dimension-input" formControlName="dhala_length" placeholder="Dhala Length">
+        <input type="text" class="dimension-input" formControlName="dhala_width" placeholder="Dhala Width">
+        <input type="text" class="dimension-input" formControlName="dhala_height" placeholder="Dhala Height"> -->
+        <div class="input-box1">
+         <input type="text" formControlName="dhala_length" placeholder="">
+         <label for="dob">Dhala Length (IN FT)</label>
+        </div> 
+        <div class="input-box1">
+          <input type="text" formControlName="dhala_width" placeholder="">
+          <label for="dob">Dhala Width (IN FT)</label>
+        </div>
+        <div class="input-box1">
+         <input type="text" formControlName="dhala_height" placeholder=""><!--class="dimension-input"-->
+          <label for="dob">Dhala Height (IN FT)</label>
+        </div>
+      </div>
+      <p class="add-img-text">Real Image of Vehicle</p>
+      <div class="vehicle-upload-grid">
+        <div class="upload-box" (click)="frontInput.click()">
+          <span>{{ frontFileName || 'Add Front Side Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #frontInput accept="image/*" (change)="onVehicleImageChange($event, 'front_img')">
+        </div>
+        <div class="upload-box" (click)="backInput.click()">
+          <span>{{ backFileName || 'Add Back Side Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #backInput accept="image/*" (change)="onVehicleImageChange($event, 'back_img')">
+        </div>
+        <div class="upload-box" (click)="rightInput.click()">
+          <span>
+            {{ rightFileName || 'Add Right Side Image' }}
+          </span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #rightInput accept="image/*" (change)="onVehicleImageChange($event, 'right_img')">
+        </div>
+        <div class="upload-box" (click)="leftInput.click()">
+          <span>{{ leftFileName || 'Add Left Side Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #leftInput accept="image/*" (change)="onVehicleImageChange($event, 'left_img')">
+        </div>
+        <div class="upload-box" (click)="floringInput.click()">
+          <span>{{ floringFileName || 'Add Dhala Floring Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #floringInput accept="image/*" (change)="onVehicleImageChange($event, 'floring_img')">
+        </div>
+        <div class="upload-box" (click)="extraInput.click()">
+          <span>{{ extraFileName || 'Add Extra Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #extraInput accept="image/*" (change)="onVehicleImageChange($event, 'extra_img')">
+        </div>
+      </div>
+      <div class="validate-button-wrapper">
+        <button type="button" class="btn-validate-final" (click)="onSubmitVehicle()">
+          Submit
+        </button>
+        <span class="preview" (click)="preview()" style="cursor: pointer;">Preview</span><!-- routerLink="/preview" -->
+      </div>
+    </form>
+  </div>
+
+  <div class="validate-card" *ngIf="showValidateForm && isValidated" style="margin-top: -32px; margin-bottom: 0;">
+     <!-- <form [formGroup]="vehicleForm"> -->
+       <div class="validate-title-row">
+        <h3 class="validate-title" style="margin: 0 0 0 30px; color: #385380;font-weight: 700; font-family: 'Poppins' sans-serif;">
+          Validate Vehicles
+        </h3>
+      </div>
+
+       <div class="vehicle-images">
+         <div class="vehicle-view vehicle-front">
+           <span class="dimension dimension-5ft"><strong>{{ vehicleForm.get('dhala_width')?.value }}ft</strong>-width</span>
+           <span class="dimension dimension-6ft"><strong>{{ vehicleForm.get('dhala_length')?.value }}ft</strong>-lenght</span>
+           <span class="dimension dimension-7ft" style="display: inline-block; width: 35px; text-align: center; white-space: normal; line-height: 1.1;"><strong>{{ vehicleForm.get('dhala_height')?.value }}ft</strong> hight</span>
+           <img class="vehicle-img" src="assets/images/vehicle-img/vehicle-front2.png" alt="Vehicle front">
+         </div>
+         <div class="vehicle-view1 vehicle-back">
+           <span class="dimension dimension-6ft"><strong>{{ vehicleForm.get('dhala_width')?.value }}ft</strong>-width</span>
+           <span class="dimension dimension-5ft"><strong>{{ vehicleForm.get('dhala_length')?.value }}ft</strong>-lenght</span>
+           <span class="dimension dimension-7ft" style="display: inline-block; width: 35px; text-align: center; white-space: normal; line-height: 1.1;"><strong>{{ vehicleForm.get('dhala_height')?.value }}ft</strong> hight</span>
+            <img class="vehicle-img" src="assets/images/vehicle-img/vehicle-back2.png" alt="Vehicle back">
+        </div>
+       </div>
+      <div class="validate-title-row" style="margin-bottom: 10px;">
+        <span class="vehicle-number" style="margin: 5px 0 0 30px; color: #385380;">
+          Vehicle No : <b>{{ vehicleForm.get('registration_no')?.value }}</b>
+        </span>
+      </div>
+
+     <!-- Vehicle Details Table -->
+      <div class="vehicle-detail-table">
+        <div class="detail-row">
+          <div class="detail-label">Loading Capacity</div>
+          <div class="detail-value">
+            {{ vehicleForm.get('vehicle_weight')?.value }}
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Make & Segment</div>
+          <div class="detail-value">
+            {{ vehicleForm.get('segment')?.value }}
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Body Type</div>
+          <div class="detail-value">
+            {{ vehicleForm.get('body_type')?.value }}
+          </div>
+        </div>
+        <div class="detail-row dhala-row">
+          <div class="detail-label">
+            Dhala Size
+          </div>
+          <div class="detail-value p-0">
+            <div class="dhala-table">
+              <div class="dhala-head">Length</div>
+              <div class="dhala-head">Width</div>
+              <div class="dhala-head">Height</div>
+              <div>{{ vehicleForm.get('dhala_length')?.value }} ft</div>
+              <div>{{ vehicleForm.get('dhala_width')?.value }} ft</div>
+              <div>{{ vehicleForm.get('dhala_height')?.value }} ft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Body Type And Size -->
+      <!-- <div class="body-type-size-title">
+        Body Type And Size
+      </div> -->
+      <!-- <div class="vehicle-size-images">
+        <img src="assets/images/vehicle-img/vhl-1.png"alt="Front View">
+        <img src="assets/images/vehicle-img/vhl-2.png" alt="Back View">
+      </div> -->
+      <p class="add-img-text">Real Image of Vehicle</p>
+      <div class="vehicle-upload-grid">
+        <div class="upload-box" ><!--(click)="frontInput.click()"-->
+          <span>{{ frontFileName || 'Add Front Side Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #frontInput accept="image/*" ><!--(change)="onVehicleImageChange($event, 'front_img')"-->
+        </div>
+        <div class="upload-box" ><!--(click)="backInput.click()"-->
+          <span>{{ backFileName || 'Add Back Side Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #backInput accept="image/*" ><!--(change)="onVehicleImageChange($event, 'back_img')"-->
+        </div>
+        <div class="upload-box" ><!--(click)="rightInput.click()"-->
+          <span>
+            {{ rightFileName || 'Add Right Side Image' }}
+          </span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #rightInput accept="image/*" ><!--(change)="onVehicleImageChange($event, 'right_img')"-->
+        </div>
+        <div class="upload-box" ><!--(click)="leftInput.click()"-->
+          <span>{{ leftFileName || 'Add Left Side Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #leftInput accept="image/*" ><!--(change)="onVehicleImageChange($event, 'left_img')"-->
+        </div>
+        <div class="upload-box" ><!--(click)="floringInput.click()"-->
+          <span>{{ floringFileName || 'Dhala Floring Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #floringInput accept="image/*" ><!--(change)="onVehicleImageChange($event, 'left_img')"-->
+        </div>
+        <div class="upload-box" ><!--(click)="leftInput.click()"-->
+          <span>{{ extraFileName || 'Add Extra Image' }}</span>
+          <i class="fa fa-camera ic"></i>
+          <input type="file" hidden #extraInput accept="image/*" ><!--(change)="onVehicleImageChange($event, 'left_img')"-->
+        </div>
+      </div>
+      <div class="validate-button-wrapper">
+        <button type="button" class="btn-validate-final" (click)="isValidated=false"><!--(click)="bankKyc()"-->
+          Next  <img src="assets/images/figma-icons/right-arr.png" alt="arr" style="width: 30px; height: 20px; object-fit: contain;">
+        </button>
+      </div>
+  </div>
+
 
 </div>

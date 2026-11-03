@@ -1,8 +1,6 @@
-<div class="navbar">
-
-  <!-- LEFT -->
+<!-- <div class="navbar">
   <div class="left">
-    <!-- <button (click)="toggleMenu()" style="border: none; font-size: large;">☰</button> -->
+    <button (click)="toggleMenu()" style="border: none; font-size: large;">☰</button>
     <button class="live-btn">
       📍 Live Tracking
     </button>
@@ -12,10 +10,31 @@
     </span>
   </div>
 
-  <!-- RIGHT -->
+
   <div class="right">
-    <!-- <i class="fa-solid fa-bell"></i> -->
       <img src="assets/images/Bell.png" class="menu-icon">
+  </div>
+
+</div> -->
+
+
+
+<div class="navbar" [class.sidebar-collapsed]="sidebarCollapsed">
+  <div class="left">
+    <button type="button" class="menu-toggle" (click)="toggle()" >
+      <!-- ☰ -->
+      <img src="assets/images/figma-icons/hum-burger.png" class="menu-icon" >
+    </button>
+    <!-- <button class="live-btn">
+      📍 Live Tracking
+    </button>
+    <span class="date">
+      From 04 / 04 / 2026 - To 04 / 04 / 2026
+    </span> -->
+  </div>
+  <div class="right">
+    <img src="assets/images/Bell.png" class="menu-icon" style="filter: brightness(0);">
+    <img src="assets/images/sidebar-icon/user-icon2.png" class="menu-icon" >
   </div>
 
 </div>

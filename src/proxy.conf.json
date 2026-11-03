@@ -1,7 +1,9 @@
+// "target": "https://motohelpindia.com/customer/v1/", 
+// "target": "https://prod.motohelpindia.com/vendor/v1/",
+
 {
   "/api": {
-    // "target": "https://motohelpindia.com/customer/v1/", 
-    "target": "https://prod.motohelpindia.com/vendor/v1/", 
+    "target": "https://uat.motohelpindia.com/vendor/v1", 
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",

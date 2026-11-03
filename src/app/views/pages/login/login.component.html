@@ -1,87 +1,4 @@
-
-<!-- <div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center" style="box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-  <c-container breakpoint="md">
-    <c-row class="justify-content-center">
-      <c-col lg="10" xl="9">
-        <c-card-group>
-
-          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white py-5" style="background-color: rgb(188, 188, 188);">
-            <c-card-body class="text-center d-flex align-items-center justify-content-center">
-              <div class="brand-box">
-                <img src="assets/images/letter-m.png" alt="Logo" class="brand-logo" />
-                <h2>MotoHelp Pvt Ltd</h2>
-                <p>Leading logistics & delivery platform</p>
-                <button [active]="true" cButton class="mt-3"  routerLink="/register" style="background-color: rgb(118, 111, 111);">
-                  Register Now!
-                </button>
-              </div>
-            </c-card-body>
-          </c-card>
-
-          <c-card class="p-4">
-            <c-card-body>
-              <div class="login-card">
-                <h2 class="title">Welcome! To MotoHelp</h2>
-              
-                <div class="login-toggle">
-                  <button type="button" (click)="loginType='otp'" [class.active]="loginType==='otp'">Mobile OTP</button>
-                  <button type="button" (click)="loginType='username'" [class.active]="loginType==='username'">Username</button>
-                </div>
-              
-                <form *ngIf="loginType==='username'" (submit)="login(userData)">
-                  <div class="form-group">
-                    <input type="text" name="email" placeholder=" " [(ngModel)]="userData.email" required>
-                    <label>Username</label>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" name="password" placeholder=" " [(ngModel)]="userData.password" required>
-                    <label>Password</label>
-                  </div>
-                  <div class="forget-pass">
-                    <a routerLink="/forget-password">Forgot Password?</a>
-                  </div>
-                  <button type="submit" class="btn-login">Login</button>
-                </form>
-              
-                <form *ngIf="loginType==='otp' && !isOtpSent" (submit)="sendOtp(mobileData)">
-                  <div class="form-group">
-                    <input type="text" name="mobile" placeholder=" " [(ngModel)]="mobileData.mobile" minlength="10" maxlength="10" required>
-                    <label>Mobile Number<span style="color: red;"> *</span></label>
-                  </div>
-                  <button  type="submit" class="btn-login">Send OTP</button>
-                  
-                </form>
-              
-                <form *ngIf="isOtpSent" (submit)="verifyOtp(mobileData)">
-                  <div class="form-group">
-                    <input type="text" name="otp" placeholder=" " [(ngModel)]="mobileData.otp" required>
-                    <label>Enter OTP</label>
-                  </div>
-                  <h4 style="text-align: center;" *ngIf="otpmessage && counter !== 0">{{otpmessage}}</h4>
-                  <button *ngIf="counter === 0" type="button" class="btn-login" (click)="resendOtp()">Resend OTP</button>
-                  <button *ngIf="counter !== 0" type="submit" class="btn-login">Verify OTP</button>
-                </form>
-              
-                <div class="sign-up">
-                  Don’t have an account? <a routerLink="/register">Sign Up</a>
-                </div>
-              </div>              
-
-
-            </c-card-body>
-          </c-card>
-
-        </c-card-group>
-      </c-col>
-    </c-row>
-  </c-container>
-</div> -->
-
-
-
-<div class="login-wrapper">
-
-  <!-- LEFT SIDE -->
+<!-- <div class="login-wrapper">
   <div class="left-panel">
     <div class="logo-box">
       <img src="assets/images/image-Vendor.png" class="logo" />
@@ -110,13 +27,6 @@
       </div>
 
       <p class="otp-text justify-content-start">Check your SMS For OTP</p>
-
-      <!-- <div class="otp-box justify-center">
-        <input maxlength="1" [(ngModel)]="otp1">
-        <input maxlength="1" [(ngModel)]="otp2">
-        <input maxlength="1" [(ngModel)]="otp3">
-        <input maxlength="1" [(ngModel)]="otp4">
-      </div> -->
       <div class="otp-box justify-center">
         <input  maxlength="1" [(ngModel)]="otp1"
               (input)="moveNext($event, otp2Ref)"
@@ -138,12 +48,63 @@
       </div>
 
       <p class="timer">Your OTP will expire in <span>{{counter}}</span> seconds.</p>
-      <!-- <p class="timer" *ngIf="otpmessage && counter !== 0">{{otpmessage}}</p> -->
       <button class="verify-btn" (click)="verifyOtp(mobileData)">
         Verify
       </button>
 
     </div>
+  </div>
+
+</div> -->
+
+
+
+
+<div class="login-wrapper">
+
+  <!-- LEFT SIDE -->
+  <div class="left-panel">
+    <div class="logo-box">
+      <img src="assets/images/figma-icons/Logo.png" class="logo" />
+      <h1 class="company">ABC Company</h1>
+      <div class="lang-section">
+        <h1>choose your preferred language</h1>
+        <label><input type="radio" name="lang" checked> English</label>
+        <label><input type="radio" name="lang"> Marathi</label>
+        <label><input type="radio" name="lang"> Hindi</label>
+        <label><input type="radio" name="lang"> Gujarati</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="form-box">
+
+      <h1>Hi, Welcome To Motohelp</h1>
+
+      <p class="subtitle">Enter Mobile number for verification</p>
+
+      <div class="mobile-input justify-center">
+        <select>
+          <option>+91</option>
+        </select>
+        <!-- <input type="number" [(ngModel)]="mobileData.mobile" placeholder="Enter Mobile Number" minlength="10" maxlength="10" required>(ngModelChange)="onMobileChange($event)" -->
+          <input type="tel" [(ngModel)]="mobileData.mobile" placeholder="Enter Mobile Number"
+              minlength="10" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" required/><!--(input)="mobileData.mobile = mobileData.mobile.slice(0, 10)"-->
+      </div>
+
+      <p *ngIf="isOtpSent" class="otp-text justify-content-start">Check your SMS For OTP</p>
+      <div *ngIf="isOtpSent" class="otp-box justify-center">
+        <input  maxlength="1" [(ngModel)]="otp1" (input)="moveNext($event, otp2Ref)"#otp1Ref>
+        <input  maxlength="1" [(ngModel)]="otp2" (input)="moveNext($event, otp3Ref)" (keydown.backspace)="movePrev($event, otp1Ref)" #otp2Ref>
+        <input  maxlength="1" [(ngModel)]="otp3" (input)="moveNext($event, otp4Ref)" (keydown.backspace)="movePrev($event, otp2Ref)" #otp3Ref>
+        <input  maxlength="1" [(ngModel)]="otp4" (keydown.backspace)="movePrev($event, otp3Ref)" #otp4Ref>
+      </div>
+       <p *ngIf="isOtpSent" class="timer">Your OTP will expire in <span>{{counter}}</span> seconds.</p>
+       <button *ngIf="!isOtpSent" type="submit" class="verify-btn" (click)="sendOtp()">Send OTP</button>
+       <button *ngIf="counter !== 0 && isOtpSent" class="verify-btn" (click)="verifyOtp(mobileData)">Verify</button>
+       <button *ngIf="counter === 0 && isOtpSent" type="button" class="verify-btn" (click)="resendOtp()">Resend OTP</button>
+      </div>
   </div>
 
 </div>

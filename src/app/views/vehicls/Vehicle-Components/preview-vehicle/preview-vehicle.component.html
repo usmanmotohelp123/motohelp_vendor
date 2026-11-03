@@ -1,0 +1,231 @@
+<!-- <div class="container-fluid">
+
+    <div class="validate-card">
+       <div class="validate-title-row">
+        <h3 class="validate-title" style="margin: 0 0 0 30px; color: #385380;font-weight: 700; font-family: 'Poppins' sans-serif;">
+          Validate Vehicles
+        </h3>
+      </div>
+
+       <div class="vehicle-images">
+         <div class="vehicle-view vehicle-front">
+           <span class="dimension dimension-5ft"><strong>5ft</strong>-width</span>
+           <span class="dimension dimension-6ft"><strong>6ft</strong>-lenght</span>
+           <span class="dimension dimension-7ft" style="display: inline-block; width: 35px; text-align: center; white-space: normal; line-height: 1.1;"><strong>7ft</strong> hight</span>
+           <img class="vehicle-img" src="assets/images/vehicle-img/vehicle-front2.png" alt="Vehicle front">
+         </div>
+         <div class="vehicle-view1 vehicle-back">
+           <span class="dimension dimension-6ft"><strong>5ft</strong>-width</span>
+           <span class="dimension dimension-5ft"><strong>6ft</strong>-lenght</span>
+           <span class="dimension dimension-7ft" style="display: inline-block; width: 35px; text-align: center; white-space: normal; line-height: 1.1;"><strong>7ft</strong> hight</span>
+            <img class="vehicle-img" src="assets/images/vehicle-img/vehicle-back2.png" alt="Vehicle back">
+        </div>
+       </div>
+      <div class="validate-title-row" style="margin-bottom: 10px;">
+        <span class="vehicle-number" style="margin: 5px 0 0 30px; color: #385380;">
+          Vehicle No : <b>{{ registration_no }}</b>
+        </span>
+      </div>
+      <div class="vehicle-detail-table">
+        <div class="detail-row">
+          <div class="detail-label">Loading Capacity</div>
+          <div class="detail-value">
+            {{ vehicle_weight }}
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Make & Segment</div>
+          <div class="detail-value">
+            {{ segment }}
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Body Type</div>
+          <div class="detail-value">
+            {{ body_type }}
+          </div>
+        </div>
+        <div class="detail-row dhala-row">
+          <div class="detail-label">
+            Dhala Size
+          </div>
+          <div class="detail-value p-0">
+            <div class="dhala-table">
+              <div class="dhala-head">Length</div>
+              <div class="dhala-head">Width</div>
+              <div class="dhala-head">Height</div>
+              <div>6 ft</div>
+              <div>5 ft</div>
+              <div>7 ft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="add-img-text">Real Image of Vehicle</p>
+
+      <div class="gallery">
+          <img src="assets/images/figma-icons/truck-icon.png">
+          <img src="assets/images/figma-icons/truck-icon.png">
+          <img src="assets/images/figma-icons/truck-icon.png">
+          <img src="assets/images/figma-icons/truck-icon.png">
+      </div>
+  </div>
+
+</div> -->
+
+
+
+<div class="container-fluid">
+  <div class="validate-card">
+    <div class="validate-title-row">
+      <h3 class="validate-title text-nowrap" style="margin: 0 0 0 10px; color: #385380;font-weight: 700; font-family: 'Poppins' sans-serif;">
+        Vehicle Preview
+      </h3>
+    </div>
+    <div class="validate-content">
+      <div class="vehicle-left">
+        <div class="vehicle-images">
+          <div class="vehicle-view vehicle-front">
+            <span class="dimension dimension-5ft">
+              <strong>{{ vehicleDetails.DhalaWidth }}ft</strong>-width
+            </span>
+            <span class="dimension dimension-6ft">
+              <strong>{{ vehicleDetails.DhalaLength }}ft</strong>-lenght
+            </span>
+            <span class="dimension dimension-7ft" style="display: inline-block; width: 35px; text-align: center; white-space: normal; line-height: 1.1;">
+              <strong>{{ vehicleDetails.DhalaHeight }}ft</strong> hight
+            </span>
+            <img class="vehicle-img" src="assets/images/vehicle-img/vehicle-front2.png" alt="Vehicle front">
+          </div>
+          <div class="vehicle-view1 vehicle-back">
+            <span class="dimension dimension-6ft">
+              <strong>{{ vehicleDetails.DhalaWidth }}ft</strong>-width
+            </span>
+            <span class="dimension dimension-5ft">
+              <strong>{{ vehicleDetails.DhalaLength }}ft</strong>-lenght
+            </span>
+            <span class="dimension dimension-7ft" style="display: inline-block; width: 35px; text-align: center; white-space: normal; line-height: 1.1;">
+              <strong>{{ vehicleDetails.DhalaHeight }}ft</strong> hight
+            </span>
+            <img class="vehicle-img" src="assets/images/vehicle-img/vehicle-back2.png" alt="Vehicle back">
+          </div>
+        </div>
+
+        <div class="validate-title-row" style="margin-bottom: 20px; justify-content: center;">
+          <span class="vehicle-number" style="margin: 40px 0 0 30px; color: #2E5A99;">
+            Vehicle No : <b>{{ vehicleDetails.VehicleNo }}</b>
+          </span>
+        </div>
+
+        <div class="vehicle-detail-table">
+          <div class="detail-row">
+            <div class="detail-label">Loading Capacity</div>
+            <div class="detail-value">
+              {{ vehicleDetails.LoadingCapacity }}
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Make & Segment</div>
+            <div class="detail-value">
+              {{ vehicleDetails.Segment }}
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Body Type</div>
+            <div class="detail-value">
+              {{ vehicleDetails.BodyType }}
+            </div>
+          </div>
+          <div class="detail-row dhala-row">
+            <div class="detail-label">
+              Dhala Size
+            </div>
+            <div class="detail-value p-0">
+              <div class="dhala-table">
+                <div class="dhala-head">Length</div>
+                <div class="dhala-head">Width</div>
+                <div class="dhala-head">Height</div>
+                <div>{{ vehicleDetails.DhalaLength }} ft</div>
+                <div>{{ vehicleDetails.DhalaWidth }} ft</div>
+                <div>{{ vehicleDetails.DhalaHeight }} ft</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- RIGHT SIDE -->
+      <div class="vehicle-right">
+        <p class="add-img-text d-flex justify-content-center">
+          <span>Real Image of Vehicle</span>
+        </p>
+        <!-- <div class="gallery">
+          <img src="assets/images/vehicle-img/dummy-vehicle.png">
+          <img src="assets/images/vehicle-img/dummy-vehicle.png">
+          <img src="assets/images/vehicle-img/dummy-vehicle.png">
+          <img src="assets/images/vehicle-img/dummy-vehicle.png">
+          <img src="assets/images/vehicle-img/dummy-vehicle.png">
+          <img src="assets/images/vehicle-img/dummy-vehicle.png">
+        </div> -->
+        <!-- <div class="gallery">
+         <div class="gallery-item">
+            <span class="gallery-label">Front Side</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Back Side</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Right Side</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Left Side</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Dhala Flaring</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Extra Image</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+        </div> -->
+        <div class="gallery">
+         <div class="gallery-item">
+            <span class="gallery-label">Front Side</span>
+            <img [src]="vehicleDetails.UploadedFrontImage">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Back Side</span>
+            <img [src]="vehicleDetails.UploadedBackImage">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Right Side</span>
+            <img [src]="vehicleDetails.UploadedRightImage">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Left Side</span>
+            <img [src]="vehicleDetails.UploadedLeftImage">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Dhala Flaring</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+         <div class="gallery-item">
+            <span class="gallery-label">Extra Image</span>
+            <img src="assets/images/vehicle-img/dummy-vehicle.png">
+         </div>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+
+</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
 // import { api } from '../../proxy.conf.json';
 
@@ -8,31 +8,145 @@ import { environment } from '../../environments/environment.prod';
 })
 export class AllServicesService {
 
-  private baseUrl = "/api";  // proxy prefix
-  // private baseUrl = environment.apiUrl;
+  // private baseUrl = "/api";  // proxy prefix
+
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-   postVendor(obj:any) {
-    return this.http.post(`${this.baseUrl}/VendorOnboarding`, obj); 
-  }
-
-  // https://motohelpindia.com/vendor/v1/VendorOnboarding
-
+ 
   sendOtp(obj:any){
-    return this.http.post(`${this.baseUrl}/sendOTP`, obj); 
+    return this.http.post(`${this.baseUrl}/send-otp`, obj); 
   }
 
   validateOtp(obj:any){
-    return this.http.post(`${this.baseUrl}/validateOTP`, obj); 
+    return this.http.post(`${this.baseUrl}/verify-otp`, obj); 
+  }
+
+  
+  getLoctionPincode(pincode:any){
+    return this.http.get(`${this.baseUrl}/location/pincode?search=${pincode}`); 
+  }
+
+  getStates(){
+    return this.http.get(`${this.baseUrl}/location/states`); 
+  }
+
+  getDistricts(currentState:any){
+    return this.http.get(`${this.baseUrl}/location/districts?state=${currentState}`); 
   }
 
   gstVerification(obj:any){
-     return this.http.post(`${this.baseUrl}/GST`, obj); 
+     return this.http.post(`${this.baseUrl}/kyc/gst`, obj); 
   }
 
   panVerification(obj:any){
-     return this.http.post(`${this.baseUrl}/pancard`, obj); 
+     return this.http.post(`${this.baseUrl}/kyc/pan`, obj); 
+  }
+
+  postVendor(obj:any) {
+    return this.http.post(`${this.baseUrl}/register`, obj); 
+  }
+
+  getVehicleCounts() {
+    return this.http.get(`${this.baseUrl}/dashboard/counts`); 
+  }
+
+  getVehicleByVendor() {
+    return this.http.post(`${this.baseUrl}/vehicle/vehicles`,{}); 
+  }
+
+  getBodyType(capacity:any){
+    return this.http.get(`${this.baseUrl}/vehicle/vehicle-type-details-by-capacity?LoadingCapacity=${capacity}`); 
+  }
+  
+  insertVehicleData(formData: FormData) {
+    return this.http.post(`${this.baseUrl}/vehicle/verify-rc`,formData);
+  }
+  
+  addVehicle(obj:any) {
+    return this.http.post(`${this.baseUrl}/vehicle/add-vehicle`,obj);
+  }
+
+  editVehicle(obj:any) {
+    return this.http.put(`${this.baseUrl}/vehicle/editvehicles`,obj);
+  }
+
+  addBankKyc(obj:any) {
+    return this.http.post(`${this.baseUrl}/kyc/bankdetails`, obj); 
+  }
+
+  getVehicleData(VehicleId:any){
+    return this.http.get(`${this.baseUrl}/vehicle/details?VehicleId=${VehicleId}`); 
+  }
+
+  getDriverByVendor() {
+    return this.http.post(`${this.baseUrl}/vehicle/drivers`, {}); 
+  }
+
+  getUnassignVehicle() {
+    return this.http.get(`${this.baseUrl}/vehicle/unassigned`); 
+  }
+
+  getUnassignDriver() {
+    return this.http.get(`${this.baseUrl}/vehicle/unassigneddrivers`); 
+  }
+
+  driverDetailsByScannerUID(vendorUserId:string,userId:string) {
+    return this.http.get(`${this.baseUrl}/verify?userId=${vendorUserId}&notificationId=${userId}`); 
+  }
+
+  driverDetailsByLicense(obj:any) {
+    return this.http.post(`${this.baseUrl}/kyc/driving-license/verify`, obj); 
+  }
+
+  postDriverData(obj:any) {
+    return this.http.post(`${this.baseUrl}/vehicle/driver-onboarding`, obj); 
+  }
+
+  // getDriverAvailable(obj:any) {
+  //   return this.http.post(`${this.baseUrl}/get_DriverAvailable`, obj); 
+  // }
+
+  // getVehicleAvailable(obj:any) {
+  //   return this.http.post(`${this.baseUrl}/get_VehicleAvailable`, obj); 
+  // }
+
+  getDriverVehicleAssign() {
+    return this.http.get(`${this.baseUrl}/vehicle/driver-vehicle-assignments`); 
+  }
+
+  assignVehicle(obj:any) {
+    return this.http.post(`${this.baseUrl}/vehicle/assign-vehicle`, obj); 
+  }
+
+  
+  diassignVehicle(obj:any) {
+    return this.http.post(`${this.baseUrl}/vehicle/deassign-vehicle`, obj); 
+  }
+
+  deleteVehicle(obj:any) {
+    return this.http.post(`${this.baseUrl}/vehicle/discontinue-vehicle`, obj); 
+  }
+
+  deleteDriver(obj:any) {
+    return this.http.post(`${this.baseUrl}/vehicle/discontinue-driver`, obj); 
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  getLocations(obj:any) {
+    return this.http.post(`${this.baseUrl}/get_state_region_district`, obj); 
   }
 
   getActiveLoadPost(obj:any){
@@ -60,14 +174,6 @@ export class AllServicesService {
     return this.http.post(`${this.baseUrl}/get_CargoTypes`, obj); 
   }
 
-  getLocations(obj:any) {
-    return this.http.post(`${this.baseUrl}/get_state_region_district`, obj); 
-  }
-
-
-  getLoctionPincode(obj:any){
-    return this.http.post(`${this.baseUrl}/pincode`, obj); 
-  }
 
   postNewLoad(obj:any) {
     return this.http.post(`${this.baseUrl}/Insert_customer_load_post`, obj); 
@@ -86,7 +192,7 @@ export class AllServicesService {
     return this.http.post(`${this.baseUrl}/customer_active_Trip`, obj); 
   }
 
-getCustomerCompletedTrip(obj:any) {
+ getCustomerCompletedTrip(obj:any) {
     return this.http.post(`${this.baseUrl}/customer_active_Trip`, obj); 
   }
   

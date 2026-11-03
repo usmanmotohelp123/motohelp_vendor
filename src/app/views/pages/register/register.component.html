@@ -1,451 +1,9 @@
-<!-- <div class="auth-wrapper">
-  <div class="auth-container">
-
-    <div class="auth-left">
-      <div class="brand-box">
-        <img src="assets/images/letter-m.png" alt="Logo" class="brand-logo" />
-        <h2>MotoHelp Pvt Ltd</h2>
-        <p>Leading logistics & delivery platform</p>
-      </div>
-    </div>
-
-  <div class="auth-right">
-
-   <c-card class="auth-card">
-    <c-card-body>
-
-        <form *ngIf="!isLegalDocumentsForm && !isAuthoritiesForm" [formGroup]="registerForm" (ngSubmit)="submitVendor()">
-          <h2 class="form-title text-primary">Vendor Onboarding</h2>
-          <c-row>
-            <c-col md="12">
-
-               <div class="floating-icon-input1 mb-3">
-                <span class="icon-box1"><i class="fa-solid fa-map"></i></span>
-                <ng-select
-                  #companySelect
-                  formControlName="companyType"
-                  [(ngModel)]="company"
-                  [items]="companyList"
-                  bindLabel="name"
-                  bindValue="name"
-                  class="custom-ngselect"
-                  placeholder=" "
-                  appendTo=".floating-icon-input1"
-                  dropdownPosition="auto"
-                  [ngClass]="{'has-value': companyControl?.value}">
-                </ng-select>
-                <label class="floating-label1">Select Company Type *</label>
-                <small class="text-danger position-absolute" *ngIf="f('companyType')?.touched && f('companyType')?.errors?.['required']" style="margin-top: -5px; margin-left: 10px;">
-                    State is required!
-               </small>
-              </div>
-
-              <div *ngIf="['OWENER/INDIVIDUAL','CHALAK MALAK'].includes(registerForm.get('companyType')?.value)" class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-user"></i></span>
-                <input type="text" formControlName="fullName" placeholder=" " />
-                <label>Full Name As Per Aadhaar*</label>
-              </div>
-               <small class="text-danger position-absolute" *ngIf="f('fullName')?.touched && f('fullName')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
-                  Full Name is required!
-                </small>
-
-              <div *ngIf="!['OWENER/INDIVIDUAL','CHALAK MALAK'].includes(registerForm.get('companyType')?.value)" class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-warehouse"></i></span>
-                <input type="text" formControlName="companyName" placeholder=" " />
-                <label>Company Name</label>
-              </div>
-              <small class="text-danger position-absolute" *ngIf="f('companyName')?.touched && f('companyName')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
-                  Company Name is required!
-              </small>
-
-              <div *ngIf="!['OWENER/INDIVIDUAL','CHALAK MALAK'].includes(registerForm.get('companyType')?.value)" class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-warehouse"></i></span>
-                <input type="text" formControlName="owenerName" placeholder=" " />
-                <label>Owener Name</label>
-              </div>
-              <small class="text-danger position-absolute" *ngIf="f('owenerName')?.touched && f('owenerName')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
-                  Owener Name is required!
-              </small>
-
-              <div class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-phone"></i></span>
-                <input formControlName="mobileno" type="tel" minlength="10" maxlength="10" placeholder=" " [readonly]="isMobileReadonly"/>
-                <label>Mobile Number*</label>
-              </div>
-              <small class="text-danger position-absolute" *ngIf="f('mobileno')?.touched && f('mobileno')?.errors" style="margin-top: -20px; margin-left: 10px;">
-                  <span *ngIf="f('mobileno')?.errors?.['required']">Mobile Number is required</span>
-                  <span *ngIf="f('mobileno')?.errors?.['pattern']">Invalid Mobile Number</span>
-              </small>
-
-              <div class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-house"></i></span>
-                <input type="text" formControlName="address1" placeholder=" " />
-                <label>Building, Apartment, Plot Number *</label>
-              </div>
-              <small class="text-danger position-absolute" *ngIf="f('address1')?.touched && f('address1')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
-                  Address is required!
-              </small>
-
-              <div class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-house"></i></span>
-                <input type="text" formControlName="address2" placeholder=" " />
-                <label>Area, Street, Sector, Village *</label>
-              </div>
-             <small  class="text-danger position-absolute" *ngIf="f('address2')?.touched && f('address2')?.errors?.['required']" style="margin-top: -20px; margin-left: 10px;">
-                Address is required!
-             </small> 
-
-
-              <div class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-location-dot"></i></span>
-                <input formControlName="pincode" [(ngModel)]="pincode" type="number" placeholder=" " (change)="getPincodeLocation($event)" />
-                <label>Pincode *</label>
-              </div>
-              <small class="text-danger position-absolute" *ngIf="f('pincode')?.touched && f('pincode')?.errors" style="margin-top: -20px; margin-left: 10px;">
-                 <span *ngIf="f('pincode')?.errors?.['required']">Pincode required</span>
-                  <span *ngIf="f('pincode')?.errors?.['pattern']">Pincode must be 6 digits</span>
-                </small> 
-
-              <div class="floating-icon-input1 mb-3">
-                <span class="icon-box1"><i class="fa-solid fa-map"></i></span>
-                <ng-select
-                  #stateSelect
-                  formControlName="state"
-                  [(ngModel)]="state"
-                  [items]="stateList"
-                  bindLabel="state"
-                  bindValue="state"
-                  class="custom-ngselect"
-                  placeholder=" "
-                  appendTo=".floating-icon-input1"
-                  dropdownPosition="auto"
-                  [ngClass]="{'has-value': stateControl?.value}"
-                  (change)="onStateChange($event)"
-                  (click)="getStateData()">
-                </ng-select>
-                <label class="floating-label1">State *</label>
-                <small class="text-danger position-absolute" *ngIf="f('state')?.touched && f('state')?.errors?.['required']" style="margin-top: -5px; margin-left: 10px;">
-                    State is required!
-               </small>
-              </div>
-               
-              <div class="floating-icon-input1 mb-3">
-                <span class="icon-box1"><i class="fa-solid fa-city"></i></span>
-                 <ng-select
-                    #districtSelect
-                    formControlName="district"
-                    [items]="cityList"
-                    bindLabel="region"
-                    bindValue="region"
-                    class="custom-ngselect"
-                    placeholder=" "
-                    appendTo=".floating-icon-input1"
-                    dropdownPosition="auto"
-                    [ngClass]="{'has-value': districtControl?.value}"
-                    (change)="onDistrictChange($event)"
-                    (click)="getCityData()">
-                  </ng-select>
-                <label class="floating-label1">District / City *</label>
-                <small class="text-danger position-absolute" *ngIf="f('district')?.touched && f('district')?.errors?.['required']" style="margin-top: -5px; margin-left: 10px;">
-                   District is required!
-                </small>
-              </div>
-
-              <div class="floating-icon-input mb-3">
-                <span class="icon-box"><i class="fa-solid fa-landmark"></i></span>
-                <input formControlName="town" placeholder=" " />
-                <label>Town / Tehsil</label>
-              </div>
-
-            </c-col>
-          </c-row>
-
-          <div class="d-flex align-items-center justify-content-between">
-          <div class="sign-up mt-3">
-              Already have an account? <a routerLink="/login">Login</a>
-          </div>
-
-            <div class="d-flex mt-3 align-items-center justify-content-end">
-              <button cButton color="dark" type="submit">
-                Submit
-              </button>
-            </div>
-
-          </div>
-
-        </form>
-
-      <form *ngIf="isAuthoritiesForm" [formGroup]="authorityForm" (ngSubmit)="submitAthority()">
-        <div class="row mt-2">
-          <div class="col-12 text-start">
-            <h1 class="text-center text-primary mb-4">Operating Authority Other Than User</h1>
-          </div>
-        </div>
-
-            <c-col md="12" class="mb-3">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <div class="floating-icon-input">
-                    <span class="icon-box">
-                    <i class="fa-solid fa-id-card"></i>
-                    </span>
-                    <input type="number" formControlName="NoOfAuthority" placeholder=" "/>
-                    <label>Maximum Authorities*</label>
-                  </div>
-                </div>
-              </div>
-                <small class="text-danger position-absolute" *ngIf="h('NoOfAuthority')?.touched && h('NoOfAuthority')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                 <span *ngIf="h('NoOfAuthority')?.errors?.['required']">At Least One Authority is required!</span>
-                </small>
-            </c-col>
-
-          <div formArrayName="authorities">
-            <div *ngFor="let authority of authorities.controls; let i = index;trackBy: trackByIndex" [formGroupName]="i"> 
-
-              <c-col md="12" class="mb-4 p-2 card card-shadow">
-                <h3 class="" style="color: black; margin-bottom: 4px;">Authority #{{i+1}}</h3>
-
-                <div class="row mb-3">
-                  <div class="col-6">
-                    <div class="floating-icon-input" style="padding-left: 5px;">
-                      <select formControlName="designation" required style="padding-left: 5px;">
-                        <option value="" disabled></option>
-                        <option value="Ass. Manager">Ass. Manager</option>
-                        <option value="Authority">Authority</option>
-                        <option value="Depty Manager">Depty Manager</option>
-                        <option value="Fleet Operation Authority">Fleet Operation Authority</option>
-                        <option value="Genaral Manager">Genaral Manager</option>
-                        <option value="Incharge">Incharge</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Officer">Officer</option>
-                        <option value="Officer Finance">Officer Finance</option>
-                        <option value="Operation Head">Operation Head</option>
-                        <option value="Operational Manager">Operational Manager</option>
-                      </select>
-                      <label style="left: 3px;">Designation *</label>
-                    </div>
-                    <small class="text-danger position-absolute" *ngIf="authority.get('designation')?.touched && authority.get('designation')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                    <span *ngIf="authority.get('designation')?.errors?.['required']">Designation Is Required!</span>
-                    </small>
-                  </div>
-
-                  <div class="col-6">
-                    <div class="floating-icon-input" style="padding-left: 5px;">
-                      <input type="text" formControlName="name" placeholder=" " />
-                      <label style="left: 5px;">Full Name *</label>
-                    </div>
-                    <small class="text-danger position-absolute" *ngIf="authority.get('name')?.touched && authority.get('name')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                    <span *ngIf="authority.get('name')?.errors?.['required']">Name Is Required!</span>
-                    </small>
-                  </div>
-
-                </div>
-
-                <div class="row mb-3">
-
-                  <div class="col-6">
-                    <div class="floating-icon-input" style="padding-left: 5px;">
-                        <input type="text" formControlName="mobile" placeholder=" " />
-                        <label style="left: 5px;">Mobile Number *</label>
-                    </div>
-                    <small class="text-danger position-absolute" *ngIf="authority.get('mobile')?.touched && authority.get('mobile')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                    <span *ngIf="authority.get('mobile')?.errors?.['required']">Mobile Number Is Required!</span>
-                    </small>
-                  </div>
-
-                  <div class="col-6">
-                    <div class="floating-icon-input" style="padding-left: 5px;">
-                      <input type="email" formControlName="email" placeholder=" " />
-                      <label style="left: 5px;">Email Address *</label>
-                    </div>
-                  </div>
-
-                </div>
-
-              </c-col>
-            </div>
-           </div>
-
-        <div class="row mt-4">
-          <div class="col-6" *ngIf="authorityForm.get('NoOfAuthority')?.value>0">
-            <button cButton color="success" type="button" (click)="goToVendorRegisterForm()">
-              Back
-            </button>
-          </div>
-
-          <div class="col-6" *ngIf="authorityForm.get('NoOfAuthority')?.value==0 || authorityForm.get('NoOfAuthority')?.value==null">
-            <button cButton color="dark" type="button" (click)="skip()">
-              Skip
-            </button>
-          </div>
-
-          <div class="col-6 text-end">
-            <button cButton color="dark" type="submit">
-              Submit
-            </button>
-          </div>
-
-        </div>
-          
-      </form>
-
-        <form *ngIf="isLegalDocumentsForm" [formGroup]="documentsForm" (ngSubmit)="submitDocuments()">
-          <h1 class="text-center mb-4">Legal Documents</h1>
-            <c-row>
-
-              <c-col md="12" class="mb-3">
-                <div class="row align-items-center">
-
-                <div class="col-12">
-                  <div class="floating-icon-input">
-                    <span class="icon-box">
-                      <i class="fa-solid fa-file-invoice"></i>
-                      </span>
-                    <input type="text" formControlName="gst" placeholder=" "/>
-                    <label>GST Number </label>
-                  </div>
-                </div>
-                  </div>
-                    <small class="text-danger position-absolute" *ngIf="g('gst')?.touched && g('gst')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                      <span *ngIf="g('gst')?.errors?.['pattern']">Enter Valid Gst Number!</span> 
-                    </small>
-
-                </c-col>          
-
-            <c-col md="12" class="mb-3">
-              <div class="row align-items-center">
-
-                <div class="col-12">
-                <div class="floating-icon-input">
-                  <span class="icon-box">
-                    <i class="fa-solid fa-address-card"></i>
-                  </span>
-                  <input type="text" formControlName="pan" placeholder=" "/>
-                  <label>PAN Number *</label>
-                  </div>
-                </div>
-
-                </div>
-                  <small class="text-danger position-absolute" *ngIf="g('pan')?.touched && g('pan')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                    <span *ngIf="g('pan')?.errors?.['required']">PAN Number is required!</span>
-                    <span *ngIf="g('pan')?.errors?.['pattern']">Enter Valid Pan Number!</span> 
-                  </small>
-
-            </c-col>
-
-            <c-col md="12" class="mb-3">
-              <div class="row align-items-center justify-content-end">
-                <div class="col-9"></div>
-                <div class="col-3" *ngIf = "documentsForm.get('gst')?.value !== ''">
-                  <button type="button" class="verify-btn" [class.loading]="verifyState.gst === 'loading'" [class.verified]="verifyState.gst === 'verified'"
-                    [disabled]="verifyState.gst !== 'idle'" (click)="verify('gst')">
-                    <span *ngIf="verifyState.gst === 'idle'">Verify</span>
-                    <span *ngIf="verifyState.gst === 'loading'" class="spinner"></span>
-                    <span *ngIf="verifyState.gst === 'loading'"> Verifying…</span>
-                    <span *ngIf="verifyState.gst === 'verified'"><i class="fa-solid fa-check"></i> Verified</span>
-                  </button>
-                 </div>
-                 <div class="col-3" *ngIf = "documentsForm.get('pan')?.value !== ''">
-                  <button type="button" class="verify-btn" [class.loading]="verifyState.pan === 'loading'" [class.verified]="verifyState.pan === 'verified'"
-                    [disabled]="verifyState.pan !== 'idle'" (click)="verify('pan')">
-                    <span *ngIf="verifyState.pan === 'idle'">Verify</span>
-                    <span *ngIf="verifyState.pan === 'loading'" class="spinner"></span>
-                    <span *ngIf="verifyState.pan === 'loading'"> Verifying…</span>
-                    <span *ngIf="verifyState.pan === 'verified'"><i class="fa-solid fa-check"></i> Verified</span>
-                  </button>
-                  </div>
-                </div>
-             </c-col>
-              
-              <c-col md="12" class="mb-3">
-                <div class="row align-items-center">
-
-                  <div class="col-12">
-                    <div class="floating-icon-input">
-                      <span class="icon-box">
-                      <i class="fa-solid fa-id-card"></i>
-                      </span>
-                      <input type="number" formControlName="NoOfVehicle" placeholder=" "/>
-                      <label>Number Of Vehicle *</label>
-                    </div>
-                  </div>
-
-                  </div>
-                  <small class="text-danger position-absolute" *ngIf="g('NoOfVehicle')?.touched && g('NoOfVehicle')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                  <span *ngIf="g('NoOfVehicle')?.errors?.['required']">At Least One Vehicle is required!</span>
-                  </small>
-              </c-col>
-
-            <div formArrayName="vehicles">
-              <div *ngFor="let vehicle of vehicles.controls; let i = index" [formGroupName]="i">
-
-                <c-col md="12" class="mb-3">
-                  <div class="row">
-                    <div class="col-7">
-                      <div class="floating-icon-input" style="padding-left: 5px;">
-                        <input type="text" formControlName="registrationNumber" placeholder=" " />
-                        <label style="left: 5px;">Registration Number *</label>
-                      </div>
-                      <small class="text-danger position-absolute" *ngIf="vehicle.get('registrationNumber')?.touched && vehicle.get('registrationNumber')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                      <span *ngIf="vehicle.get('registrationNumber')?.errors?.['required']">Registration Number Required!</span>
-                      </small>
-                    </div>
-
-                    <div class="col-5">
-                      <div class="floating-icon-input" style="padding-left: 5px;">
-                        <input type="number" formControlName="loadingCapacity" placeholder=" " />
-                        <label style="left: 5px;">Loading Capacity In(Kg) *</label>
-                      </div>
-                      <small class="text-danger position-absolute" *ngIf="vehicle.get('loadingCapacity')?.touched && vehicle.get('loadingCapacity')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                      <span *ngIf="vehicle.get('loadingCapacity')?.errors?.['required']">Loading Capacity Required!</span>
-                      </small>
-                    </div>
-
-                  </div>
-                </c-col>
-
-              </div>
-
-            </div>
-
-            </c-row>
-
-            <div class="row mt-3">
-
-              <div class="col-6">
-                <button cButton color="success" type="button" (click)="goToAuthorityForm()">
-                  Back
-                </button>
-              </div>
-
-              <div class="col-6 text-end">
-                <button cButton color="dark" type="submit">
-                  Submit
-                </button>
-              </div>
-
-            </div>
-
-        </form>
-
-    </c-card-body>
-  </c-card>
-
- </div>
-
-</div>
-</div> -->
-
-
-
-
 
 <div class="auth-wrapper">
-
-  <!-- LEFT PANEL -->
-  <div class="left-panel">
-    <div class="left-content">
-      <img src="assets/images/image-Vendor.png" class="vendor-logo" />
+   <div class="left-panel">
+    <div class="logo-box">
+      <img src="assets/images/figma-icons/Logo.png" class="logo" />
+      <h1 class="company">ABC Company</h1>
     </div>
   </div>
 
@@ -453,88 +11,81 @@
   <div class="right-panel">
 
     <div class="form-box">
-       
-         <!-- <h1 class="title">Vendor Onboarding</h1> -->
          <div class="title-wrapper">
            <h1 class="title">Vendor Onboarding</h1>
         </div>
-      <!-- ================= STEP 1 ================= -->
-      <form *ngIf="!isLegalDocumentsForm && !isAuthoritiesForm"
-            [formGroup]="registerForm"
-            (ngSubmit)="submitVendor()">
-
+ 
+      <form *ngIf="!isLegalDocumentsForm && !isAuthoritiesForm" [formGroup]="registerForm" (ngSubmit)="submitVendor()">
         <div class="form-content">
-
           <div class="input-wrapper">
-           <input type="text" formControlName="companyName" placeholder="Company Name">
-            <small class="text-danger" *ngIf="f('companyName')?.touched && f('companyName')?.errors?.['required']">
-              Company Name is required!
+           <input type="text" formControlName="vendorName" placeholder=" ">
+           <label for="vendorName">Vendor Name</label>
+            <small class="text-danger" *ngIf="f('vendorName')?.touched && f('vendorName')?.errors?.['required']">
+              Vendor Name is required!
             </small>
           </div> 
-          <!-- COMPANY TYPE -->
-          <!-- <ng-select
-            formControlName="companyType"
-            [items]="companyList"
-            bindLabel="name"
-            bindValue="name"
-            placeholder="Select Company Type">
-          </ng-select> -->
-         <div class="input-wrapper">
-          <select formControlName="companyType" placeholder="Select Company Type">
-            <option selected disabled value="">Select Company Type</option>
+
+         <div class="select-wrapper">
+          <select formControlName="organizationType" placeholder=" " [class.has-value]="!!f('organizationType')?.value">
+            <!-- <option selected disabled value="">Organization Type</option> -->
+            <option value="" disabled hidden></option>
             <option *ngFor="let company of companyList" [value]="company.name">{{company.name}}</option>
           </select>
-          <small class="text-danger" *ngIf="f('companyType')?.touched && f('companyType')?.errors?.['required']">
-              Company Type is required!
+           <label for="organizationType">Organization Type</label>
+          <small class="text-danger" *ngIf="f('organizationType')?.touched && f('organizationType')?.errors?.['required']">
+              Organization Type is required!
           </small>
          </div>
-          <!-- NAME / COMPANY -->
-          <!-- <input type="text" formControlName="fullName" placeholder="Full Name"> -->
 
+          <!-- <input type="text" formControlName="fullName" placeholder="Full Name"> -->
           <div class="input-wrapper">
-            <input type="text" formControlName="owenerName" placeholder="Owner Name">
-            <small class="text-danger" *ngIf="f('owenerName')?.touched && f('owenerName')?.errors?.['required']">
-              Owener Name is required!
+            <input type="text" formControlName="authorizesPerson" placeholder="">
+            <label for="organizationType">Authorizes Person</label>
+            <small class="text-danger" *ngIf="f('authorizesPerson')?.touched && f('authorizesPerson')?.errors?.['required']">
+              Authorizes Person is required!
             </small>
           </div>
 
-          <!-- MOBILE -->
           <div class="input-wrapper">
-            <input type="text" formControlName="mobileno" placeholder="Mobile Number" readonly>
+            <input type="text" formControlName="mobileno" placeholder="" readonly>
+             <label for="organizationType">Mobile Number</label>
             <small class="text-danger position-absolute" *ngIf="f('mobileno')?.touched && f('mobileno')?.errors">
               <span *ngIf="f('mobileno')?.errors?.['required']">Mobile Number is required</span>
               <span *ngIf="f('mobileno')?.errors?.['pattern']">Invalid Mobile Number</span>
             </small>
           </div> 
 
-          <!-- ADDRESS -->
          <div class="input-wrapper">
-            <input type="text" formControlName="address1" placeholder="Building / Apartment / Plot No">
+            <input type="text" formControlName="address1" placeholder="">
+             <label for="organizationType">Building / Apartment / Plot No</label>
             <small class="text-danger" *ngIf="f('address1')?.touched && f('address1')?.errors?.['required']">
                 Address is required!
             </small>
          </div>
 
          <div class="input-wrapper">
-           <input type="text" formControlName="address2" placeholder="Area / Street / Sector / Village">
+           <input type="text" formControlName="address2" placeholder="">
+           <label for="organizationType">Area / Street / Sector / Village</label>
            <small  class="text-danger" *ngIf="f('address2')?.touched && f('address2')?.errors?.['required']">
              Address is required!
            </small> 
          </div>
 
-          <!-- PINCODE + STATE -->
           <div class="row">
+
             <div class="col-6">
               <div class="input-wrapper">
-              <input formControlName="pincode" placeholder="Pincode" (change)="getPincodeLocation($event)">
+              <input type="number" formControlName="pincode" placeholder="" (change)="getPincodeLocation($event)">
+              <label for="organizationType">Pincode</label>
               <small class="text-danger" *ngIf="f('pincode')?.touched && f('pincode')?.errors">
                 <span *ngIf="f('pincode')?.errors?.['required']">Pincode required</span>
                 <span *ngIf="f('pincode')?.errors?.['pattern']">Pincode must be 6 digits</span>
               </small>
               </div> 
              </div>
+
               <div class="col-6">
-               <div class="input-wrapper">
+               <!-- <div class="input-wrapper">
                 <ng-select
                   formControlName="state"
                   [items]="stateList"
@@ -550,19 +101,29 @@
                  <small class="text-danger position-absolute" *ngIf="f('state')?.touched && f('state')?.errors?.['required']">
                     State is required!
                 </small>
-               </div>
+               </div> -->
+                <div class="select-wrapper">
+                  <select formControlName="state" placeholder="" [class.has-value]="!!f('state')?.value" (change)="onStateChange($event)" (click)="getStateData()">
+                    <!-- <option selected disabled value="">Select state</option> -->
+                    <option value="" disabled hidden></option>
+                    <option *ngFor="let state of stateList" [value]="state.state">{{state.state}}</option>
+                  </select>
+                  <label for="organizationType">State</label>
+                  <small class="text-danger" *ngIf="f('state')?.touched && f('state')?.errors?.['required']">
+                     State is required!
+                  </small>
+                </div>
              </div>
           </div>
 
-          <!-- DISTRICT + TOWN -->
           <div class="row">
             <div class="col-6">
-             <div class="input-wrapper">
+             <!-- <div class="input-wrapper">
               <ng-select
                 formControlName="district"
                 [items]="cityList"
-                bindLabel="region"
-                bindValue="region"
+                bindLabel="district"
+                bindValue="district"
                 class="custom-ngselect"
                 placeholder="District"
                 dropdownPosition="auto"
@@ -573,20 +134,33 @@
               <small class="text-danger position-absolute" *ngIf="f('district')?.touched && f('district')?.errors?.['required']">
                    District is required!
               </small>
-             </div>
+             </div> -->
+                <div class="select-wrapper">
+                  <select formControlName="district" placeholder="" [class.has-value]="!!f('district')?.value" (change)="onDistrictChange($event)" (click)="getCityData()">
+                    <!-- <option selected disabled value="">Select district</option> -->
+                    <option value="" disabled hidden></option> 
+                    <option *ngFor="let district of cityList" [value]="district.district">{{district.district}}</option>
+                  </select>
+                  <label for="organizationType">District</label>
+                  <small class="text-danger" *ngIf="f('district')?.touched && f('district')?.errors?.['required']">
+                     District is required!
+                  </small>
+                </div>
              </div>
             <div class="col-6">
-              <input formControlName="town" placeholder="Town / Tehsil">
+              <div class="input-wrapper">
+               <input formControlName="town" placeholder="">
+               <label for="organizationType">Town / Tehsil</label>
+              </div>
             </div>
           </div>
 
         </div>
 
-        <div class="bottom-row">
-          <div class="sign-up">
+        <div class="bottom-row d-flex justify-content-center align-item-center">
+          <!-- <div class="sign-up">
             Already have an account? <a routerLink="/login">Login</a>
-          </div>
-
+          </div> -->
           <button class="submit-btn" type="submit">Next →</button>
         </div>
 
@@ -630,18 +204,31 @@
 
       </form> -->
 
+
       <!--Legal Documents-->
       <form *ngIf="isLegalDocumentsForm" [formGroup]="documentsForm" (ngSubmit)="submitDocuments()" class="legal-form">
-        <!-- <h1 class="main-title">VENDOR ONBOARDING</h1> -->
-        <h2 class="section-title">Legal Documents</h2>
+        <h2 class="section-title">KYC Validation</h2>
         <div class="form-group">
           <label>GST Number</label>
           <input type="text" formControlName="gst" placeholder="Type GST Number">
         </div>
 
+        <div class="form-group1" style="margin-bottom: 15px;" *ngIf="verifyState.gst !== 'verified'">
+          <label class="custom-check">
+            <input type="checkbox" formControlName="chekMark" (change)="onNoGstChange($event)">
+            <span class="checkmark"></span>
+            <span class="label-text">No GST Registration</span>
+          </label>
+        </div>
+
         <div class="form-group">
           <label>PAN Number</label>
           <input type="text" formControlName="pan" placeholder="Type PAN Number">
+        </div>
+
+        <div class="form-group mt-2 nameOrg" >
+          <!-- <label>Name Of Organisation</label> -->
+          <input type="text" formControlName="organisation" placeholder="Name Of Organisation Or Owner" readonly>
         </div>
 
         <div class="center-btn">
@@ -659,44 +246,41 @@
           </div>
         </div>
 
-        <hr class="divider">
+        <!-- <hr class="divider"> -->
         <!-- ================= VEHICLES ================= -->
         <h2 class="section-title">Add Vehicles</h2>
-        <!-- Header -->
         <div class="vehicle-header">
           <span>Registration Number</span>
-          <span>Loading Capacity</span>
+          <span style="margin-left: 5px;">Loading Capacity</span>
         </div>
         <div formArrayName="vehicles">
           <div *ngFor="let vehicle of vehicles.controls; let i = index" [formGroupName]="i" class="vehicle-row">
-            <div class="input-wrapper">
-              <input formControlName="registrationNumber" placeholder="eg MH02JM2623">
-              <small class="text-danger position-absolute" *ngIf="vehicle.get('registrationNumber')?.touched && vehicle.get('registrationNumber')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                <span *ngIf="vehicle.get('registrationNumber')?.errors?.['required']">Registration Number Required!</span>
+            <div class="input-wrapper" style="width: 42%;">
+              <input formControlName="registrationNumber" placeholder="eg MH02JM2623" maxlength="15" (input)="convertRegistrationToUpperCase(i)">
+              <small class="text-danger position-absolute" *ngIf="vehicle.get('registrationNumber')?.touched && vehicle.get('registrationNumber')?.errors" style="margin-top: -20px; margin-left: 2px;">
+                <span *ngIf="vehicle.get('registrationNumber')?.errors?.['required']">Registration No Required!</span>
               </small>
             </div>
-            <div class="input-wrapper">
+            <div class="input-wrapper" style="width: 38%;">
               <input formControlName="loadingCapacity" placeholder="20,000 KG">
-              <small class="text-danger position-absolute" *ngIf="vehicle.get('loadingCapacity')?.touched && vehicle.get('loadingCapacity')?.errors" style="margin-top: -5px; margin-left: 5px;">
-                <span *ngIf="vehicle.get('loadingCapacity')?.errors?.['required']">Loading Capacity Required!</span>
+              <small class="text-danger position-absolute" *ngIf="vehicle.get('loadingCapacity')?.touched && vehicle.get('loadingCapacity')?.errors" style="margin-top: -20px; margin-left: 2px;">
+                <span *ngIf="vehicle.get('loadingCapacity')?.errors?.['required']">Capacity Is Required!</span>
               </small>
             </div>
-            <button type="button" class="add-btn" *ngIf="i === 0" (click)="addVehicle()"> +</button><!--*ngIf="i === vehicles.length - 1"-->
+            <button type="button" class="add-btn" *ngIf="i === 0" (click)="addVehicle()" matTooltip="Add Vehicle" style="margin-left: -2px;">+</button><!--*ngIf="i === vehicles.length - 1"-->
           </div>
         </div>
-        <!-- Submit -->
-         <div class="d-flex justify-content-between align-items-center mt-4">
-            <button type="button" class="submit-btn" (click)="goToVendorRegisterForm()">
-              Back
-            </button>
-            <button type="submit" class="submit-btn">
-              Submit
-            </button>
-          </div>
+
+        <div class="d-flex justify-content-center align-item-center mt-3">
+           <button type="submit" class="submit-btn mt-2">
+             Submit
+           </button>
+        </div>
 
       </form>
 
     </div>
 
   </div>
+
 </div>

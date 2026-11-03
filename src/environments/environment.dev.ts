@@ -1,6 +1,7 @@
 
 export const environment = {
     production: false,
-    // apiUrl: 'neotechnet.com:9000/customer/v1/'
-     apiUrl: 'https://motohelpindia.com/customer/v1/'
+    //  apiUrl: 'https://uat.motohelpindia.com/customer/v1'
+    //  apiUrl: 'https://uat.motohelpindia.com/vendor/v1'
+        apiUrl:'https://stag.motohelpindia.com/api/v1/vendor'
   };

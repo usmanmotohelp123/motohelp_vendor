@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="head">
+        <h1 class="text-nowrap">Driver List</h1>
+        <div class="underline"></div>
+    </div>
+   
+    <div class="search-box d-flex justify-content-center">
+        <div class="input-box">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" placeholder="Search Driver By Name, Number Or LicenseNo"/>
+        </div>
+    </div>
+
+    <div class="drivers">
+      
+      <!-- <div class="row main-row">
+        <div class="col-md-6" *ngFor="let driver of drivers">
+           <div class="driver-card">
+
+               <div class="d-flex justify-content-between" style="margin: 12px;">
+                <div class="left1">
+                  <div class="driver d-flex justify-content-between">  
+                    <img src="assets/images/Driver-D.png">  
+                    <h4>{{driver.driverName}}</h4>
+                  </div>
+                  <p>{{driver.mobileNo}}</p>
+                 </div>
+                 <div class="driver d-flex justify-content-between">
+                   <img src="assets/images/License-Icon.png"> 
+                   <h4 class="">{{driver.licenseNo}}</h4>
+                 </div>
+               </div>
+
+               <div class="mid-line"></div>
+
+              <div class="d-flex justify-content-between align-items-center" style="margin: 12px;">
+                <div class="left2">
+                  <p>Expiry : {{driver.licenseExpiry}}</p>
+                 </div>
+                <div class="status-wrapper">
+                  <span class="icon-check">
+                     <i class="fa fa-check"></i>
+                   </span>
+                   <span class="status-text">
+                     Inactive
+                   </span>
+                </div>
+              </div>
+
+          </div>
+
+        </div>
+       
+      </div> -->
+
+      <div class="row main-row">
+        <div class="col-md-6" *ngFor="let driver of drivers">
+           <div class="driver-card">
+
+               <div class="d-flex justify-content-between" style="margin: 12px;">
+                <div class="left1">
+                  <div class="driver d-flex justify-content-between">  
+                    <img src="assets/images/Driver-D.png">  
+                    <h4>{{driver.FullName}}</h4>
+                  </div>
+                  <p>{{driver.Mobile}}</p>
+                 </div>
+                 <div class="driver d-flex justify-content-between">
+                   <img src="assets/images/License-Icon.png"> 
+                   <h4>{{driver.driving_license_no}}</h4>
+                 </div>
+               </div>
+
+               <div class="mid-line"></div>
+
+              <div class="d-flex justify-content-between align-items-center" style="margin: 12px;">
+                <div class="left2">
+                  <p>Expiry : {{driver.licenseExpiry}}</p>
+                 </div>
+                <div class="status-wrapper">
+                  <span class="icon-check">
+                     <i class="fa fa-check"></i>
+                   </span>
+                   <span class="status-text">
+                     {{driver.is_verified === false ? "Inactive" : "Active"}}
+                   </span>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-12 d-flex justify-content-center mt-0">
+             <button class="verify-btn" routerLink="/driverList">Onboard Driver</button>
+        </div>
+    </div> -->
+  
+
+</div>
+

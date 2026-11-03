@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="head">
+        <h1 class="text-nowrap">Vehicle Expiry</h1>
+        <div class="underline"></div>
+    </div>
+
+     <div class="search-box d-flex justify-content-center">
+       <div class="input-box">
+         <i class="fa fa-search search-icon"></i>
+         <input type="text" placeholder="Search Vehicle Number"/>
+       </div>
+     </div>
+
+   <div class="card-container">
+    <div class="vehicle-info-card" *ngFor="let v of vehicles">
+
+      <!-- HEADER -->
+      <div class="card-header text-center mt-3 mb-1">
+        <i class="fa fa-truck" style="margin-right: 15px;"></i>
+        <span>{{v.vehicleNo}}</span>
+      </div>
+
+      <!-- BODY -->
+      <div class="card-body">
+         <div>
+            <p><span>Vehicle Fitness Validity :</span></p>
+            <p><span>Vehicle Insurance Validity :</span></p>
+            <p><span>PUC (Pollution Under Control) :</span></p>
+         </div>
+
+         <div>
+            <p>{{v.fitness}}</p>
+            <p>{{v.insurance}}</p>
+            <p>{{v.puc}}</p>
+          </div>
+
+          <div>
+            <p><span>Vehicle Permit Validity :</span></p>
+            <p><span>Vehicle Road Tax Validity :</span></p>
+            <p><span>xxxxxxxxxxxxxxxxxxxx :</span></p>
+          </div>
+
+          <div>
+            <p>{{v.permit}}</p>
+            <p>{{v.roadTax}}</p>
+            <p> {{v.other}}</p>
+          </div>
+
+      </div>
+
+    </div>
+   </div> 
+
+
+
+</div>

@@ -1,159 +1,157 @@
-// :host {
-//   background-color:white;
+// .login-wrapper {
+//   display: flex;
+//   height: 100vh;
+//   font-family: 'Segoe UI', sans-serif;
+//   background-color: white;
 // }
 
-//   /* Center container */
-//   .login-container {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     min-height: 100vh;
-//     // background: #f0f4f8; /* Light background */
-//      background-color:white;
-//     padding: 15px;
-//   }
+// .left-panel {
+//   width: 50%;
+//   background: #385380;
+//   color: white;
+//   display: flex;
+//   align-items: top;
+//   justify-content: center;
+//   border-top-right-radius: 120px;
+// }
 
-// .login-card {
-//     background: #ffffff;
-//     padding: 40px 30px;
-//     border-radius: 15px;
-//     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-//     width: 100%;
-//     max-width: 500px;
-//     text-align: center;
-//     transition: transform 0.3s ease;
-//   }
-  
-//   .login-card:hover {
-//     transform: translateY(-5px);
-//   }
-  
-//   /* Title */
-//   .title {
-//     font-size: 24px;
-//     font-weight: 600;
-//     margin-bottom: 25px;
-//     color: #333;
-//   }
-
-//   .login-toggle {
-//     display: flex;
-//     justify-content: center;
-//     margin-bottom: 20px;
-//     gap: 10px; 
-//   }
-//   .login-toggle button {
-//     flex: 1;
-//     padding: 10px;
-//     border: 1px solid #ccc;
-//     background: #f5f5f5;
-//     cursor: pointer;
-//     border-radius: 20px;
-//   }
-//   .login-toggle button.active {
-//     background: #007bff;
-//     color: white;
-//   }
-  
-
-
-// .brand-box {
+// .logo-box {
 //   text-align: center;
-//   padding: 40px;
 // }
 
-// .brand-logo {
-//   width: 90px;
-//   margin-bottom: 20px;
+// .logo {
+//   width: 350px;
+//   margin-bottom: -60px;
 // }
 
-// .brand-box h2 {
+
+// .lang-section h1 {
+//   margin-bottom: 5px;
+//   font-size: 24px;
+//   font-weight: bold;
+// }
+
+// .lang-section label {
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+//   margin: 15px 0;
+//   margin-left: 40%;
+//   font-size: 16px;
+//   cursor: pointer;
+  
+// }
+
+// .lang-section input[type="radio"] {
+//   transform: scale(1.5);   
+//   margin-right: 10px;    
+//   cursor: pointer;
+// }
+
+
+// .right-panel {
+//   width: 50%;
+//   background: #ffffff; 
+//   display: flex;       
+//   justify-content: center;
+//   padding-top: 120px;
+// }
+
+// .form-box {
+//   width: 100%;
+//   max-width: 500px;
+//   text-align: center;
+// }
+
+// .form-box h1 {
+//   font-size: 40px;
 //   font-weight: 700;
+//   margin-bottom: 50px;
 // }
 
-// .brand-box p {
-//   opacity: .9;
-//   font-size: 14px;
+// .subtitle {
+//   margin-bottom: 30px;
+//   font-size: 20px;
+//   font-weight: 490;
+//   color: #000000;
+//   margin-left: -5px;
 // }
 
-// /* Form fields */
-// .form-group {
-//     position: relative;      /* needed so label stays inside */
-//     margin-bottom: 20px;
-//     text-align: left;
-//   }
-  
-//   .form-group input {
-//     display: block;
-//     width: 100%;
-//     padding: 14px 14px;       /* equal padding left/right */
-//     border: 1px solid #ccc;
-//     border-radius: 8px;
-//     outline: none;
-//     font-size: 14px;
-//     box-sizing: border-box;   /* padding included in width */
-//   }
-  
-//   .form-group label {
-//     position: absolute;
-//     top: 12px;
-//     left: 12px;
-//     color: #999;
-//     pointer-events: none;
-//     transition: 0.2s ease all;
-//   }
-  
-//   .form-group input:focus + label,
-//   .form-group input:not(:placeholder-shown) + label {
-//     top: -10px;
-//     left: 10px;
-//     font-size: 12px;
-//     color: #007bff;
-//     background: #fff;
-//     padding: 0 4px;
-//   }
-  
-//   /* Forget password */
-//   .forget-pass {
-//     text-align: right;
-//     margin-bottom: 20px;
-//   }
-  
-//   .forget-pass a {
-//     font-size: 13px;
-//     color: #007bff;
-//     text-decoration: none;
-//   }
-  
-//   /* Button */
-//   .btn-login {
-//     width: 100%;
-//     padding: 12px;
-//     border: none;
-//     border-radius: 8px;
-//     background: #007bff; /* Blue button */
-//     color: #fff;
-//     font-size: 16px;
-//     cursor: pointer;
-//     transition: 0.3s ease all;
-//   }
-  
-//   .btn-login:hover {
-//     background: #0056b3;
-//   }
-  
-//   /* Sign up */
-//   .sign-up {
-//     margin-top: 20px;
-//     font-size: 14px;
-//   }
-  
-//   .sign-up a {
-//     color: #007bff;
-//     font-weight: 500;
-//     text-decoration: none;
-//   }
+// .justify-center {
+//   justify-content: center;
+// }
 
+// .mobile-input {
+//   display: flex;
+//   gap: 12px;
+//   margin-bottom: 30px;
+//   justify-content: center; 
+// }
+
+// .mobile-input select {
+//   padding: 12px 14px;
+//   border-radius: 14px;
+//   border: 1px solid #ddd;
+//   background: #fff;
+// }
+
+// .mobile-input input {
+//   width: 260px;
+//   padding: 14px;
+//   border-radius: 14px;
+//   border: 2px solid #3f5b84;
+// }
+
+// .otp-text {
+//   margin-bottom: 15px;
+//   font-size: 20px;
+//   font-weight: 490;
+//   color: #000000;
+//   margin-left: -95px;
+// }
+
+// .otp-box {
+//   display: flex;
+//   gap: 18px; 
+//   justify-content: center;
+//   margin-bottom: 20px;
+//   margin-left: -35px;
+// }
+
+// .otp-box input {
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 14px;
+//   border: 2px solid #3f5b84;
+//   font-size: 20px;
+//   text-align: center;
+// }
+
+// .timer {
+//   margin-bottom: 35px;
+//   font-size: 18px;
+//   font-weight: 490;
+//   color: #6c757d;
+//   margin-left: -35px;
+// }
+
+// .timer span {
+//   color: #3f5b84;
+//   font-weight: 600;
+// }
+
+// .verify-btn {
+//   width: 60%; 
+//   max-width: 350px;
+//   padding: 16px;
+//   border-radius: 14px;
+//   font-size: 26px;
+//   font-weight: 600;
+//   background: #3f5b84;
+//   color: white;
+//   border: none;
+//   margin-left: -30px;
+// }
 
 
 .login-wrapper {
@@ -161,28 +159,41 @@
   height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   background-color: white;
-  // padding-left: 60px;
-  // padding-right: 60px;
 }
 
 /* LEFT PANEL */
 .left-panel {
-  width: 50%;
-  background: #385380;
+  margin-top: 30px;
+  margin-left: 60px;
+  margin-bottom: 30px;
+  width: 40%;
+  // background: #385380;
+  background: url("/assets/images/figma-icons/Login-back.png") center/cover no-repeat;
   color: white;
   display: flex;
-  align-items: top;
+  align-items: center;
   justify-content: center;
-  border-top-right-radius: 120px;
+  border-radius: 20px;
 }
 
 .logo-box {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .logo {
-  width: 350px;
-  margin-bottom: -60px;
+  width: 340px;
+  margin-bottom: 20px;
+  margin-left: 80px;
+}
+
+.company {
+   font-size: 45px;
+   color: white; 
+   font-weight: 700;
+   font-family:Poppins;
+   letter-spacing: -0.5px;
+   margin-bottom: 40px;
 }
 
 
@@ -218,7 +229,7 @@
 
 
 .right-panel {
-  width: 50%;
+  width: 60%;
   background: #ffffff; 
   display: flex;
   // align-items: center;        
@@ -323,4 +334,28 @@
   color: white;
   border: none;
   margin-left: -30px;
+}
+
+
+
+@media(max-width:761px){
+  .login-wrapper {
+   display: flex;
+   flex-direction: column;
+ }
+
+ .left-panel {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+
+ .right-panel {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+
 }
