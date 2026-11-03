@@ -1,71 +1,140 @@
 <div class="container-fluid">
     <div class="head">
-        <h1>Bank Detail</h1>
+        <h1>Bank Details</h1>
         <div class="underline"></div>
     </div>
 
 <div class="bank">
- <div class="bank-card">
-
+ <!-- <div class="bank-card"> -->
   <form [formGroup]="bankKycForm" (ngSubmit)="onSubmit()">
-  <div class="row g-3">
-
-    <div class="col-md-3">
-      <input class="form-control custom-input" placeholder="IFSC" formControlName="ifsc"/>
+   <div class="row g-3">
+     <div class="col-md-6">
+      <div class="input-box">
+       <input class="form-control custom-input" placeholder="" formControlName="ifsc"/>
+       <label for="ifsc">IFSC Code</label>
+        <div style="position: absolute; color: red; font-size: 12px; margin-top: 0px; margin-left: 10px;" *ngIf="bankKycForm.get('ifsc')?.touched">
+          <small *ngIf="bankKycForm.get('ifsc')?.hasError('required')">
+            IFSC Code is required.
+          </small>
+        </div> 
+      </div>
+     </div>
+     <div class="col-md-6">
+      <div class="input-box">
+        <input class="form-control custom-input" placeholder="" formControlName="bankName"/>
+        <label for="ifsc">Bank Name & Branch</label>
+         <div style="position: absolute; color: red; font-size: 12px; margin-top: 0px; margin-left: 10px;" *ngIf="bankKycForm.get('bankName')?.touched">
+          <small *ngIf="bankKycForm.get('bankName')?.hasError('required')">
+            IFSC Code is required.
+          </small>
+         </div>
+       </div>
+     </div>
     </div>
-
-    <div class="col-md"></div>
-
-    <div class="col-md-5">
-       <input class="form-control custom-input" placeholder="Bank Name & Branch" formControlName="bankName"/>
+    <div class="row g-3 mt-2">
+     <div class="col-md-6">
+      <div class="input-box">
+       <input class="form-control custom-input" placeholder="" formControlName="accountNumber"/>
+       <label for="ifsc">Account Number</label>
+         <div style="position: absolute; color: red; font-size: 12px; margin-top: 0px; margin-left: 10px;" *ngIf="bankKycForm.get('accountNumber')?.touched">
+          <small *ngIf="bankKycForm.get('accountNumber')?.hasError('required')">
+            Account Number is required.
+          </small>
+          <small *ngIf="bankKycForm.get('accountNumber')?.hasError('minlength')">
+            Account Number must be at least 10 digits.
+          </small>
+          <small *ngIf="bankKycForm.get('accountNumber')?.hasError('maxlength')">
+            Account Number cannot exceed 16 digits.
+          </small>
+         </div>
+      </div>
+     </div>
+     <div class="col-md-6">
+      <div class="input-box">
+        <input class="form-control custom-input" placeholder="" formControlName="confirmAccountNumber"/>
+        <label for="ifsc">Confirm Account Number</label>
+         <div style="position: absolute; color: red; font-size: 12px; margin-top: 0px; margin-left: 10px;" *ngIf="bankKycForm.get('accountNumber')?.touched">
+            <small *ngIf="bankKycForm.get('confirmAccountNumber')?.value && bankKycForm.get('accountNumber')?.value !== bankKycForm.get('confirmAccountNumber')?.value">
+              Account numbers do not match.
+            </small>
+          </div>
+       </div>
+     </div>
     </div>
-
-    <div class="col-md"></div>
-
-    <div class="col-md-3">
-      <input class="form-control custom-input" placeholder="Account Number" formControlName="accountNumber"/>
-    </div>
+    <div class="row g-3 mt-2">
+     <div class="col-md-6">
+       <div class="input-box">
+        <input class="form-control custom-input" placeholder="" formControlName="accountHolderName" />
+        <label for="ifsc">Account Holder Name</label>
+        <div style="position: absolute; color: red; font-size: 12px; margin-top: 0px; margin-left: 10px;" *ngIf="bankKycForm.get('accountHolderName')?.touched">
+          <small *ngIf="bankKycForm.get('accountHolderName')?.hasError('required')">
+            Account Holder Name is required.
+          </small>
+         </div>
+       </div> 
+     </div>
+     <div class="col-md-6">
+       <!-- <input class="form-control custom-input" placeholder="Account Type : Saving/Current/OD" formControlName="accountType"/> -->
+       <div class="select-wrapper">
+        <select class="form-control custom-input" formControlName="accountType" [class.has-value]="!!bankKycForm.get('accountType')?.value">
+         <!-- <option value="">Account Type : Saving/Current/OD</option> -->
+         <option value="Savings">Savings</option>
+         <option value="Current">Current</option>
+         <option value="OD">OD</option>
+       </select>
+       <label for="ifsc">Account Type : Saving/Current/OD</label>
+        <div style="position: absolute; color: red; font-size: 12px; margin-top: 0px; margin-left: 10px;" *ngIf="bankKycForm.get('accountType')?.touched">
+          <small *ngIf="bankKycForm.get('accountType')?.hasError('required')">
+            Account Type is required.
+          </small>
+         </div>
+      </div> 
+     </div>
    </div>
 
-  <div class="row g-3 mt-2">
-    <div class="col-md-3">
-      <input class="form-control custom-input" placeholder="Confirm Account Number" formControlName="confirmAccountNumber"/>
-    </div>
-    <div class="col-md"></div>
-    <div class="col-md-5">
-      <input class="form-control custom-input" placeholder="Account Holder Name" formControlName="accountHolderName" />
-    </div>
-    <div class="col-md"></div>
-    <div class="col-md-3">
-      <!-- <input class="form-control custom-input" placeholder="Account Type" /> -->
-        <select class="form-control custom-input" formControlName="accountType">
-        <option value="">Select Type</option>
-        <option value="Savings">Savings</option>
-        <option value="Current">Current</option>
-      </select>
-    </div>
-   </div>
+    <!-- <div class="d-flex justify-content-center mt-4">
+     <div class="col-md-12">
+      <input class="form-control custom-input" placeholder="Add Your Passbook/Cheque Photo" />
+          <input type="file" class="form-control custom-input" (change)="onFileChange($event)" />
+     </div>
+    </div> -->
+
+    <!-- <div class="d-flex justify-content-center mt-4">
+      <div class="col-md-12">
+       <div class="input-box">
+        <label class="custom-file-upload">
+           <span>Add Your Passbook/Cheque Photo</span> 
+            <span>{{ selectedFileName}}</span>
+          <input class="form-control custom-input" type="file" (change)="onFileChange($event)" accept="image/*">
+          <label for="ifsc">Add Your Passbook/Cheque Photo</label>
+        </label>
+         </div> 
+      </div>
+    </div> -->
 
    <div class="d-flex justify-content-center mt-4">
-    <div class="col-md-5">
-      <!-- <input class="form-control custom-input" placeholder="Add Your Passbook/Cheque Photo" /> -->
-          <input type="file" class="form-control custom-input" (change)="onFileChange($event)" />
+    <div class="col-md-12">
+      <div class="input-box">
+        <input type="file" hidden #backInput (change)="onFileChange($event)" accept="image/*"/>
+        <input type="text" class="form-control custom-input" placeholder=" " [value]="selectedFileName || ''" (click)="backInput.click()" readonly/>
+        <label for="dob" style="margin-left: 28%;">Add Your Passbook/Cheque Photo</label>
+      </div>
     </div>
    </div>
 
-     <!-- ERROR MESSAGE -->
-   <!-- <div class="text-danger text-center mt-2" *ngIf="bankKycForm.errors?.mismatch">
-    Account numbers do not match
-   </div> -->
 
-  <!-- BUTTON -->
-  <div class="text-center mt-4">
-    <button type="submit" class="btn-validate-final">Save</button>
-  </div>
+    <!-- ERROR MESSAGE -->
+    <!-- <div class="text-danger text-center mt-2" *ngIf="bankKycForm.errors?.mismatch">
+      Account numbers do not match
+    </div> -->
+
+    <!-- BUTTON -->
+    <div class="text-center mt-4">
+      <button type="submit" class="btn-validate-final">Save</button>
+    </div>
 
   </form> 
-
+  <!-- </div> -->
  </div>
-</div>
 
 </div>

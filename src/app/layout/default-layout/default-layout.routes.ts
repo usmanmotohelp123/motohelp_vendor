@@ -13,10 +13,14 @@ import { VahicleDetailsComponent } from "../../views/vehicls/Vehicle-Components/
 import { DiscontinueDriverComponent } from "../../views/driver/Driver-Components/discontinue-driver/discontinue-driver.component";
 import { OnboardDriverComponent } from "../../views/driver/Driver-Components/onboard-driver/onboard-driver.component";
 import { DriverListComponent } from "../../views/driver/Driver-Components/driver-list/driver-list.component";
+import { AddVehicleComponent} from "../../views/vehicls/Vehicle-Components/add-vehicle/add-vehicle.component";
 import { AssignVehicleComponent } from "../../views/vehicls/Vehicle-Components/assign-vehicle/assign-vehicle.component";
 import { VehicleExpiryComponent } from "../../views/vehicls/Vehicle-Components/vehicle-expiry/vehicle-expiry.component";
 import {TrackingComponent } from "../../views/tracking/tracking.component";
 import { DiscontinueVehicleComponent } from "../../views/vehicls/Vehicle-Components/discontinue-vehicle/discontinue-vehicle.component";
+import { AddBankComponent } from "../../views/add-bank/add-bank.component";
+import { PreviewVehicleComponent } from "../../views/vehicls/Vehicle-Components/preview-vehicle/preview-vehicle.component";
+
 
 export const DEFAULT_LAYOUT_ROUTES: Routes = [
 
@@ -72,6 +76,9 @@ export const DEFAULT_LAYOUT_ROUTES: Routes = [
         path:'driverList',component:DriverListComponent
       },
 
+     {
+        path:'addVehicle',component:AddVehicleComponent
+      },
       {
         path:'assignVehicle',component:AssignVehicleComponent
       },
@@ -86,8 +93,15 @@ export const DEFAULT_LAYOUT_ROUTES: Routes = [
       
       {
         path:'discontinueVehicle',component:DiscontinueVehicleComponent
-        
-      }
+      },
+
+      {
+        path:'addBank',component:AddBankComponent
+      },
+
+      {
+        path:'preview',component:PreviewVehicleComponent
+      } 
 
       
        

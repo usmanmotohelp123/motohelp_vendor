@@ -1,6 +1,6 @@
 <div class="container-fluid"><!-- (click)="showPin ? closePopup() : null"-->
     <div class="head">
-        <h1>Discontinue Driver</h1>
+        <h1 class="text-nowrap">Discontinue Driver</h1>
         <div class="underline"></div>
     </div>
    
@@ -11,20 +11,17 @@
         </div>
     </div>
 
-
     <div class="drivers" [class.show-popup]="showPin===true" *ngIf="!showForm">
-
       <div class="row main-row">
         <div class="col-md-6" *ngFor="let driver of drivers">
            <div class="driver-card"  [class.show-popup]="showPin===true" (click)="handleVehicleClick($event, driver)">
-
                <div class="d-flex justify-content-between" style="margin: 12px;">
                 <div class="left1">
                   <div class="driver d-flex justify-content-between">  
                     <img src="assets/images/Driver-D.png">  
-                    <h4>{{driver.full_name}}</h4>
+                    <h4>{{driver.FullName}}</h4>
                   </div>
-                  <p>{{driver.contact_no}}</p>
+                  <p>{{driver.Mobile}}</p>
                  </div>
                  <div class="driver d-flex justify-content-between">
                    <img src="assets/images/License-Icon.png"> 
@@ -42,8 +39,8 @@
                   <span class="icon-check">
                      <i class="fa fa-check"></i>
                    </span>
-                   <span class="status-text">
-                     {{driver.is_verified === false ? "Inactive" : "Active"}}
+                   <span class="status-text" [ngStyle]="{'cursor':driver.OnboardingStatus === 'ACTIVE'?'pointer':'default'}">
+                     {{driver.OnboardingStatus !== 'ACTIVE' ? "Inactive" : "Active"}}
                    </span>
                 </div>
               </div>
@@ -86,22 +83,7 @@
       <textarea class="form-control custom-input textarea" placeholder="Reason" [(ngModel)]="remark"></textarea>
     </div>
     <!-- Rating -->
-    <!-- <div class="rating-box">
-        <span>Rating</span>
-        <div class="stars">
-         <i class="far fa-star" *ngFor="let star of [1,2,3,4,5]; let i=index" [class.active]="i < rating" (click)="rating = i+1"></i>
-        </div>
-        <span class="count">{{rating}} / 5</span>
-    </div> -->
-    <!-- <div class="rating-box">
-       <span>Rating</span>
-       <div class="stars">
-       <i *ngFor="let star of [1,2,3,4,5]; let i=index" class="fa-star" [ngClass]="i < rating ? 'fas active' : 'far'" (click)="rating = i+1"></i>
-       </div>
-       <span class="count">{{rating}} / 5</span>
-    </div> -->
-
-   <div class="rating-box">
+   <!-- <div class="rating-box">
      <span>Rating</span>
         <div class="stars">
             <span *ngFor="let star of [1,2,3,4,5]; let i=index" (click)="setRating(i + 1);$event.stopPropagation()">
@@ -109,6 +91,15 @@
             </span>
         </div>
         <span class="count">{{ rating }} / 5</span>
+    </div> -->
+    <div class="rating-box">
+      <span>Rating</span>
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]; let i = index" (click)="setRating(i + 1); $event.stopPropagation()">
+          <img [src]="i < rating ? 'assets/images/figma-icons/Star-icon-blue.png' : 'assets/images/figma-icons/Star-icon.png'" alt="star" class="star-icon">
+        </span>
+      </div>
+      <span class="count">{{ rating }} / 5</span>
     </div>
 
     <div class="text-center mt-4">

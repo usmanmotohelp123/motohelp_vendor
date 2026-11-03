@@ -17,17 +17,17 @@ export class DiscontinueVehicleComponent implements OnInit {
 
 
 // vehicles = [
-//   { vehicleNo: 'MH 02 JM 2626', permitNo: 'UP5520120009289', ownerMobile: '8262226338', permitExpiry: '07-02-2032', status: 'Inactive' },
+//   { registration_no: 'MH 02 JM 2626', permit_number: 'UP5520120009289', ownerMobile: '8262226338', permit_valid_upto: '07-02-2032', verify_flag: 'N' },
 
-//   { vehicleNo: 'MH 04 AB 4587', permitNo: 'DL3321456789012', ownerMobile: '9876543210', permitExpiry: '15-08-2030', status: 'Active' },
+//   { registration_no: 'MH 04 AB 4587', permit_number: 'DL3321456789012', ownerMobile: '9876543210', permit_valid_upto: '15-08-2030', verify_flag: 'Y' },
 
-//   { vehicleNo: 'MH 01 XY 7788', permitNo: 'GJ7788996655443', ownerMobile: '9123456780', permitExpiry: '21-11-2031', status: 'Inactive' },
+//   { registration_no: 'MH 01 XY 7788', permit_number: 'GJ7788996655443', ownerMobile: '9123456780', permit_valid_upto: '21-11-2031', verify_flag: 'N' },
 
-//   { vehicleNo: 'MH 03 CD 1199', permitNo: 'RJ4455667788990', ownerMobile: '9988776655', permitExpiry: '30-06-2029', status: 'Active' },
+//   { registration_no: 'MH 03 CD 1199', permit_number: 'RJ4455667788990', ownerMobile: '9988776655', permit_valid_upto: '30-06-2029', verify_flag: 'Y' },
 
-//   { vehicleNo: 'MH 05 PQ 5544', permitNo: 'KA2233445566778', ownerMobile: '8899001122', permitExpiry: '12-12-2033', status: 'Inactive' },
+//   { registration_no: 'MH 05 PQ 5544', permit_number: 'KA2233445566778', ownerMobile: '8899001122', permit_valid_upto: '12-12-2033', verify_flag: 'N' },
 
-//   { vehicleNo: 'MH 48 LM 9087', permitNo: 'TN9988776655441', ownerMobile: '7766554433', permitExpiry: '19-03-2031', status: 'Active' }
+//   { registration_no: 'MH 48 LM 9087', permit_number: 'TN9988776655441', ownerMobile: '7766554433', permit_valid_upto: '19-03-2031', verify_flag: 'Y' }
 // ];
 
 vehicles:any[] = []
@@ -69,16 +69,16 @@ getVehicle() {
     "vendorid": this.vendorId
   }
 
-  this.allService.getVehicleByVendor(payload).subscribe({
+  this.allService.getVehicleByVendor().subscribe({
     next: (res: any) => {
       if (res.status === '00') {
           // this.vehicles = res.data[0].vehicleDetails;
           // this.vehicles = res.data.map((item: any) => item.vehicleDetails);
-              this.vehicles = res.data.map((item: any) => ({
-                ...item.vehicleDetails,
-                vehicleId: item.vehicleId
-              }));
-             
+              this.vehicles = res.data
+              // .map((item: any) => ({
+              //   ...item.vehicleDetails,
+              //   vehicleId: item.vehicleId
+              // })); 
           console.log("Test.....",this.vehicles)
       } else {
         this.sharedService.error(res.message);
@@ -133,8 +133,9 @@ showIncativeMessage(){
 
 handleVehicleClick(event: any, vehicle: any) {
 
-  if (vehicle.verify_flag !== 'N') {
-    this.openPopup(event);
+  if (vehicle.IsVerified !== false) {
+    // this.openPopup(event);
+    this.showForm = true;
     this.deleteVehicleData(vehicle);
   } else {
     this.showIncativeMessage();
@@ -143,20 +144,20 @@ handleVehicleClick(event: any, vehicle: any) {
 }
 
 deleteVehicleData(vehicle: any){
-  if(vehicle.verify_flag === 'N'){
+  if(vehicle.IsVerified === false){
      this.sharedService.error("Vehicle is Not Active !");
      return;
   }
   console.log("Vehicle>>>>>",vehicle)
   this.DriverName = ''
-  this.vehicleNumber = vehicle.registration_no;
-  this.vehicleId =  vehicle.vehicleId;
+  this.vehicleNumber = vehicle.VehicleNo;
+  this.vehicleId =  vehicle.VehicleId;
 }
 
 deleteVehicle(){
     const payload = {
-    "vendorid": this.vendorId,
-    "vehicleid":  this.vehicleId,
+    // "vendorid": this.vendorId,
+    "VehicleId":  this.vehicleId,
     "remark": this.remark,
     "RatingValue": this.rating
   }

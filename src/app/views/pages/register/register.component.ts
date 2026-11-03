@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterModule} from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AllServicesService } from '../../all-services.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedService } from '../../Services/shared.service';
 import { LoginComponent } from '../login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AuthService } from '../../Services/auth.service';
 declare var google: any;
 
 @Component({
@@ -80,8 +81,8 @@ export class RegisterComponent implements OnInit {
   backToAuthority: boolean = false;
 
 
-constructor(private fb: FormBuilder,private route: ActivatedRoute,private allServices: AllServicesService,
-  private sharedService: SharedService,private router: Router,private zone: NgZone) 
+constructor(private fb: FormBuilder,private route: ActivatedRoute,private allServices: AllServicesService,private http:HttpClient,
+ private authService:AuthService, private sharedService: SharedService,private router: Router,private zone: NgZone) 
 {
 
 }
@@ -89,10 +90,9 @@ constructor(private fb: FormBuilder,private route: ActivatedRoute,private allSer
   ngOnInit(): void {
 
    this.registerForm = this.fb.group({
-      companyType:['', Validators.required],
-      // fullName: [''],
-      companyName: ['', Validators.required],
-      owenerName: ['',Validators.required],
+      vendorName: ['', Validators.required],
+      organizationType:['', Validators.required],
+      authorizesPerson: ['',Validators.required],
       mobileno: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       address1: ['', Validators.required],
       address2: ['', Validators.required],
@@ -106,7 +106,7 @@ constructor(private fb: FormBuilder,private route: ActivatedRoute,private allSer
         // aadhaar: ['', Validators.required],//Validators.pattern(/^[2-9]{1}[0-9]{11}$/)     
         pan: ['', [Validators.required,Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)]],  
         gst: ['', [Validators.pattern(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/)]],
-        chekMark:[''],
+        chekMark:[false],
         organisation:[''],
         // NoOfVehicle:['',Validators.required],
         // vehicles: this.fb.array([])
@@ -154,51 +154,21 @@ constructor(private fb: FormBuilder,private route: ActivatedRoute,private allSer
       this.googleAddressControl.valueChanges.subscribe((val: string) => {
           this.googleAddressHasValue = !!val;
       });
-
       // this.setValidatorsByType();
-
+      this.getStateData()
   }
 
+  onNoGstChange(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    const gstControl = this.documentsForm.get('gst');
+    if (checked) {
+      gstControl?.setValue('');
+      gstControl?.disable();
+    } else {
+      gstControl?.enable();
+    }
+  }
 
-
-// getPanNo() {
-//   this.documentsForm.get('gst')?.valueChanges.subscribe((gst: string) => {
-//     if (gst && gst.length === 15) {
-//       const pan = gst.substring(2, 12); 
-//       this.documentsForm.patchValue({
-//         pan: pan
-//       });
-//     }
-//   });
-// }
-
-
-  // setValidatorsByType() {
-  //   this.registerForm.get('companyType')?.valueChanges.subscribe((type:string)=>{
-  //       // this.company  = this.registerForm.get('companyType')?.value;
-
-  //       const companyName = this.registerForm.get('companyName');
-  //       const owenerName = this.registerForm.get('owenerName');
-  //       const fullName = this.registerForm.get('fullName');
-
-  //     if (type === 'OWENER/INDIVIDUAL' || type === 'CHALAK MALAK') {
-  //       fullName?.setValidators([Validators.required]);
-  //       companyName?.clearValidators();
-  //       owenerName?.clearValidators();
-  //       companyName?.setValue('');
-  //       owenerName?.setValue('');
-  //     } else {
-  //       companyName?.setValidators([Validators.required]);
-  //       owenerName?.setValidators([Validators.required]);
-  //       fullName?.clearValidators();
-  //       fullName?.setValue('');   
-  //     }
-  //     companyName?.updateValueAndValidity();
-  //     owenerName?.updateValueAndValidity();
-  //     fullName?.updateValueAndValidity();
-  //   })
-     
-  // }
 
 get vehicles(): FormArray {
   return this.documentsForm.get('vehicles') as FormArray;
@@ -225,17 +195,22 @@ addVehicle() {
 
   // this.vehicles.push(this.createVehicleGroup());
    this.vehicles.insert(0, this.createVehicleGroup()); 
-
     this.vehicles.controls.forEach(group => {
     group.get('registrationNumber')?.clearValidators();
     group.get('registrationNumber')?.updateValueAndValidity();
-
     group.get('loadingCapacity')?.clearValidators();
     group.get('loadingCapacity')?.updateValueAndValidity();
   });
-
 }
 
+
+  convertRegistrationToUpperCase(index: number): void {
+    const control = this.vehicles.at(index).get('registrationNumber');
+    if (control) {
+      const value = control.value?.toUpperCase() || '';
+      control.setValue(value, { emitEvent: false});
+    }
+  }
 
 // createVehicleFields() {
 //   this.documentsForm.get('NoOfVehicle')?.valueChanges.subscribe((count: any) => {
@@ -289,92 +264,166 @@ onDistrictChange(event: any) {
 }
 
 
-getPincodeLocation(event:any){
+  // getPincodeLocation(event:any){
+  //     const pincode = String(event.target.value)
+  //   // const payload = {
+  //   //   pincode:String(event.target.value)
+  //   // }
+  // console.log("Pincode Data>>>>>>>>>>>");
+  //   this.allServices.getLoctionPincode(pincode).subscribe({
+  //     next: (res: any) => {
+  //       if (res.status === '00') {
+  //           console.log("Pincode Data>>>>>>>>>>>", res.data);
+  //           this.registerForm.patchValue({
+  //             state: res.data.state,
+  //             district:  res.data.district
+  //           })
+  //       } else {
+  //         this.sharedService.error(res.message);
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //       this.sharedService.error(err);
+  //     }
+  //   });
+  // } 
 
-  const payload = {
-    pincode:event.target.value
-  }
-
-  this.allServices.getLoctionPincode(payload).subscribe({
-    next: (res: any) => {
-      if (res.status === '00') {
-          console.log("Pincode Data>>>>>>>>>>>", res.data);
-          this.registerForm.patchValue({
-            state: res.data.State,
-            district:  res.data.District
-          })
-      } else {
-        // alert(res.message);
-         this.sharedService.error(res.message);
-      }
-    },
-    error: (err) => {
-      console.error(err);
-      // alert(err);
-       this.sharedService.error(err);
+  getPincodeLocation(event: any): void {
+    const pincode = String(event.target.value).trim();
+    if (pincode.length !== 6) {
+      return;
     }
-  });
-} 
-
-getStateData() {
-  if (this.stateList && this.stateList.length > 0) {
-    console.log(" Using cached state list");
-    return;
-  }
-
-  const payload = { state: "" };
-  this.getLocation(payload, "state");
-}
-
-getCityData() {
-  const currentState = this.registerForm.get('state')?.value;
-
-  // No state selected → skip
-  if (!currentState) {
-    console.log("⚠ Select state first");
-    this.sharedService.error("⚠ Select state first");
-    return;
-  }
-
-  // If data already exists for selected state, do not call
-  if (this.lastSelectedState === currentState && this.cityList?.length > 0) {
-    console.log(" Using cached city list");
-    return;
-  }
-
-  // Update state
-  this.lastSelectedState = currentState;
-
-  const payload = { state: currentState };
-  this.getLocation(payload, "city");
-}
-
-
-getLocation(payload: any, type: string) {
-
-  this.allServices.getLocations(payload).subscribe({
-    next: (res: any) => {
-      if (res.status === '00') {
-        if (type === 'state') {
-          this.stateList = res.data;
-          console.log("States2>>>>>>>>>>>", this.stateList);
-        } else if (type === 'city') {
-          this.cityList = res.data;
-        } 
-      } else {
-        this.sharedService.error(res.message);
+    this.allServices.getLoctionPincode(pincode).subscribe({
+      next: (res: any) => {
+        if (res.status !== '00') {
+          this.sharedService.error(res.message);
+          return;
+        }
+        const state = res.data.state?.trim();
+        const district = res.data.district?.trim();
+        this.allServices.getStates().subscribe({
+          next: (stateRes: any) => {
+            if (stateRes.status !== '00') {
+              return;
+            }
+            this.stateList = stateRes.data;
+            const matchedState = this.stateList.find((item: any) =>item.state?.trim().toLowerCase() === state?.toLowerCase());
+            if (!matchedState) {
+              console.log('State not found:', state);
+              return;
+            }
+            this.registerForm.patchValue({
+              state: matchedState.state
+            });
+            this.allServices.getDistricts(matchedState.state).subscribe({
+              next: (districtRes: any) => {
+                if (districtRes.status !== '00') {
+                  return;
+                }
+                this.cityList = districtRes.data;
+                const matchedDistrict = this.cityList.find((item: any) =>(typeof item === 'string' ? item : item.district) ?.trim().toLowerCase() === district?.toLowerCase());
+                this.registerForm.patchValue({
+                  district: matchedDistrict ? (typeof matchedDistrict === 'string' ? matchedDistrict : matchedDistrict.district) : ''
+                });
+              },
+              error: (err: any) => console.error(err)
+            });
+          },
+          error: (err: any) => console.error(err)
+        });
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.sharedService.error('Unable to fetch pincode details');
       }
-    },
-    error: (err) => {
-      console.error(err);
-      this.sharedService.error(err);
-    }
-  });
-}
+    });
+  }
 
- trackByIndex(index: number): number {
-  return index;
-}
+
+  getStateData() {
+    if (this.stateList && this.stateList.length > 0) {
+      console.log(" Using cached state list");
+      return;
+    }
+    // const payload = { state: "" };
+    // this.getLocation(payload, "state");
+    this.allServices.getStates().subscribe({
+      next: (res: any) => {
+        if (res.status === '00') {
+            this.stateList = res.data;
+            console.log("States2>>>>>>>>>>>", this.stateList);
+        } else {
+          this.sharedService.error(res.message);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        this.sharedService.error(err);
+      }
+    });
+  }
+
+  getCityData() {
+    const currentState = this.registerForm.get('state')?.value;
+    // // No state selected → skip
+    if (!currentState) {
+      console.log("⚠ Select state first");
+      this.sharedService.error("⚠ Select state first");
+      return;
+    }
+    // If data already exists for selected state, do not call
+    if (this.lastSelectedState === currentState && this.cityList?.length > 0) {
+      console.log(" Using cached city list");
+      return;
+    }
+    // // Update state
+    this.lastSelectedState = currentState;
+
+    // const payload = { state: currentState };
+    // this.getLocation(payload, "city");
+    this.allServices.getDistricts(currentState).subscribe({
+      next: (res: any) => {
+        if (res.status === '00') {
+            this.cityList = res.data;
+            console.log("States2>>>>>>>>>>>", this.cityList);
+        } else {
+          this.sharedService.error(res.message);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        this.sharedService.error(err);
+      }
+    });
+  }
+
+
+  getLocation(payload: any, type: string) {
+    this.allServices.getLocations(payload).subscribe({
+      next: (res: any) => {
+        if (res.status === '00') {
+          if (type === 'state') {
+            this.stateList = res.data;
+            console.log("States2>>>>>>>>>>>", this.stateList);
+          } else if (type === 'city') {
+            this.cityList = res.data;
+          } 
+        } else {
+          this.sharedService.error(res.message);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        this.sharedService.error(err);
+      }
+    });
+  }
+
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 
   goToVendorRegisterForm(){
      this.isLegalDocumentsForm = false
@@ -401,7 +450,7 @@ submitVendor(){
       return;
      }
       // this.isAuthoritiesForm = true;
-      this.isLegalDocumentsForm = true
+     this.isLegalDocumentsForm = true
      this.registerValue = this.registerForm.value;
      console.log(">>>>Register Value >>", this.registerValue)
 }
@@ -427,9 +476,7 @@ submitVendor(){
 submitDocuments() {
 
   if (this.documentsForm.invalid) {
-
     this.documentsForm.markAllAsTouched();
-    // Mark FormArray controls
     this.vehicles.controls.forEach((vehicle: any) => {
       vehicle.markAllAsTouched();
     });
@@ -438,7 +485,6 @@ submitDocuments() {
   }
   this.docomentsData = this.documentsForm.value;
   console.log(">>>>this.docomentsData>>", this.docomentsData);
-
     // this.isLegalDocumentsForm = true;
     // this.isAuthoritiesForm = false;
    this.submit();
@@ -469,119 +515,154 @@ submitDocuments() {
 
 
 
+// submit() {
+
+//   const payload = {
+//     VendorDetails: {
+//       companyType: this.registerValue.companyType,
+//       companyName: this.registerValue.companyName,
+//       owner_name: this.registerValue.owenerName,
+//       Building: this.registerValue.address1,   
+//       Area: this.registerValue.address2,      
+//       mobileNo: this.registerValue.mobileno,
+//       pincode: String(this.registerValue.pincode),
+//       district: this.registerValue.district,   
+//       Tahsil: this.registerValue.town,
+//       state: this.registerValue.state
+//     },
+
+//     VehicleDetails: this.vehicles.value
+//       .filter((v: any) =>
+//         v.registrationNumber?.trim() &&
+//         v.loadingCapacity?.toString().trim())
+//       .map((v: any) => ({
+//         vehicle_number: v.registrationNumber,
+//         vehicle_weight: v.loadingCapacity  
+//       })),
+
+//     kycDetails: {
+//       gstNo: this.docomentsData.gst || '',
+//       cinNo: '',
+//       panNo: this.docomentsData.pan,
+//       aadharNo: this.docomentsData.aadhaar || ''
+//     }
+// };
+
+//   this.allServices.postVendor(payload).subscribe({
+//     next: (res: any) =>{
+//         if(res.status === '00'){
+//           this.sharedService.success(res.message)
+//           // this.router.navigate(['/dashboard']);
+//               localStorage.setItem('user',res.userDetails);
+//               localStorage.setItem('vendorid', res.userDetails.vendorid);
+//               localStorage.setItem('status', res.userDetails.status);
+//               localStorage.setItem('role', res.userDetails.role);
+//               localStorage.setItem('ownerName', res.userDetails.owner_name);
+//               localStorage.setItem('companyName', res.userDetails.companyName);
+//               localStorage.setItem('ContactNo', res.userDetails.mobileNo);
+//               localStorage.setItem('companyType', res.userDetails.companyType);
+//               localStorage.setItem('flag', res.userDetails.flag);
+//               localStorage.setItem('kycVerify', res.userDetails.kyc_verify);
+//               localStorage.setItem('landMark', res.userDetails.landMark);
+//               localStorage.setItem('Address1', res.userDetails.address1);
+//               localStorage.setItem('Address2', res.userDetails.address2);
+//               localStorage.setItem('City', res.userDetails.City);
+//               localStorage.setItem('Pincode', res.userDetails.pincode);
+//               localStorage.setItem('State', res.userDetails.state);
+//               localStorage.setItem('Tahsil', res.userDetails.Tahsil);
+//           this.router.navigate(['/newRegisterDashboard']);
+//         }else{
+//           this.sharedService.error(res.message)
+//         }
+//       },
+//       error: (err) => {
+//         console.error('OTP API Error:', err);
+//         if (err.status === 500) {
+//           this.sharedService.error('Internal server error. Please try again later.');
+//         } else if (err.status === 0) {
+//           this.sharedService.error('Network error. Please check your internet connection.');
+//         } else {
+//           this.sharedService.error(err.error?.message || 'Something went wrong.');
+//         }
+//       }
+//     })
+//     console.log("Form Submitted", this.registerForm.getRawValue());
+//  }
+
 submit() {
 
-  // const payload = {
-  //   VendorDetails: {
-  //     companyType: this.registerValue.companyType,
-  //     companyName: this.registerValue.companyName,
-  //     owner_name: this.registerValue.owenerName,
-  //     address1: this.registerValue.address1,
-  //     address2: this.registerValue.address2,
-  //     landMark: '',
-  //     mobileNo: this.registerValue.mobileno,
-  //     pincode: String(this.registerValue.pincode),
-  //     destination: '',
-  //     Tahsil: this.registerValue.town,
-  //     state: this.registerValue.state,
-  //     City: this.registerValue.district
-  //   },
-
-  //   VehicleDetails: this.vehicles.value
-  //     .filter((v: any) =>
-  //       v.registrationNumber?.trim() && v.loadingCapacity?.toString().trim())
-  //     .map((v: any) => ({
-  //       vehicle_number: v.registrationNumber,
-  //       capacity: v.loadingCapacity
-  //     })),
-
-  //   // VehicleDetails: this.vehicles.value.map((v:any)=>({
-  //   //     vehicle_number: v.registrationNumber,
-  //   //     capacity: v.loadingCapacity
-  //   //   })),
-
-  //    kycDetails: {
-  //       gstNo: this.docomentsData.gst,
-  //       cinNo: '',
-  //       panNo: this.docomentsData.pan,
-  //       aadharNo: this.docomentsData.aadhaar
-  //     }
-  //   };
+  if (this.registerForm.invalid || this.documentsForm.invalid) {
+    this.registerForm.markAllAsTouched();
+    this.documentsForm.markAllAsTouched();
+    return;
+  }
+  const registerData = this.registerForm.getRawValue();
+  const documentData = this.documentsForm.getRawValue();
 
   const payload = {
-    VendorDetails: {
-      companyType: this.registerValue.companyType,
-      companyName: this.registerValue.companyName,
-      owner_name: this.registerValue.owenerName,
-
-      Building: this.registerValue.address1,   
-      Area: this.registerValue.address2,      
-
-      mobileNo: this.registerValue.mobileno,
-      pincode: String(this.registerValue.pincode),
-
-      district: this.registerValue.district,   
-      Tahsil: this.registerValue.town,
-      state: this.registerValue.state
-    },
-
-    VehicleDetails: this.vehicles.value
+    vendorName: registerData.vendorName,
+    organizationType: registerData.organizationType,
+    authorizedPerson: registerData.authorizesPerson,
+    mobileNo: registerData.mobileno,
+    building: registerData.address1,
+    area: registerData.address2,
+    pincode: String(registerData.pincode),
+    state: registerData.state,
+    district: registerData.district,
+    town: registerData.town,
+    gstNo: documentData.gst || '',
+    panNo: documentData.pan || '',
+    organizationName: documentData.organisation || '',
+    vehicles: (documentData.vehicles || [])
       .filter((v: any) =>
         v.registrationNumber?.trim() &&
-        v.loadingCapacity?.toString().trim())
+        v.loadingCapacity !== null &&
+        v.loadingCapacity !== undefined &&
+        v.loadingCapacity !== '')
       .map((v: any) => ({
-        vehicle_number: v.registrationNumber,
-        vehicle_weight: v.loadingCapacity  
-      })),
+        VehicleNo: v.registrationNumber.trim(),
+        LoadingCapacity: Number(v.loadingCapacity)
+      }))
+  };
 
-    kycDetails: {
-      gstNo: this.docomentsData.gst || '',
-      cinNo: '',
-      panNo: this.docomentsData.pan,
-      aadharNo: this.docomentsData.aadhaar || ''
-    }
-};
-
+  console.log('Vendor Payload:', payload);
   this.allServices.postVendor(payload).subscribe({
-    next: (res: any) =>{
-        if(res.status === '00'){
-          this.sharedService.success(res.message)
-          // this.router.navigate(['/dashboard']);
-              localStorage.setItem('user',res.userDetails);
-              localStorage.setItem('vendorid', res.userDetails.vendorid);
-              localStorage.setItem('status', res.userDetails.status);
-              localStorage.setItem('role', res.userDetails.role);
-              localStorage.setItem('ownerName', res.userDetails.owner_name);
-              localStorage.setItem('companyName', res.userDetails.companyName);
-              localStorage.setItem('ContactNo', res.userDetails.mobileNo);
-              localStorage.setItem('companyType', res.userDetails.companyType);
-              localStorage.setItem('flag', res.userDetails.flag);
-              localStorage.setItem('kycVerify', res.userDetails.kyc_verify);
-              localStorage.setItem('landMark', res.userDetails.landMark);
-              localStorage.setItem('Address1', res.userDetails.address1);
-              localStorage.setItem('Address2', res.userDetails.address2);
-              localStorage.setItem('City', res.userDetails.City);
-              localStorage.setItem('Pincode', res.userDetails.pincode);
-              localStorage.setItem('State', res.userDetails.state);
-              localStorage.setItem('Tahsil', res.userDetails.Tahsil);
-          this.router.navigate(['/newRegisterDashboard']);
-        }else{
-          this.sharedService.error(res.message)
-        }
-      },
-      error: (err) => {
-        console.error('OTP API Error:', err);
-        if (err.status === 500) {
-          this.sharedService.error('Internal server error. Please try again later.');
-        } else if (err.status === 0) {
-          this.sharedService.error('Network error. Please check your internet connection.');
-        } else {
-          this.sharedService.error(err.error?.message || 'Something went wrong.');
-        }
+    next: (res: any) => {
+      if (res.status === '00') {
+         this.sharedService.success(res.message);
+         this.router.navigate(['/newRegisterDashboard']);
+        //  this.authService.setToken(res.data.accessToken);
+         localStorage.setItem('userId',res.data.UserId);
+        //  localStorage.setItem('isProfileCompleted',JSON.stringify(res.data.IsProfileCompleted));
+        //  localStorage.setItem('isVehicleVerified',JSON.stringify(res.data.IsVehicleVerified));
+        //  localStorage.setItem('isKycVerified',JSON.stringify(res.data.IsKycVerified));
+         this.sharedService.updateVerificationStatus(res.data);
+         localStorage.setItem('mobile',res.data.Mobile);
+         localStorage.setItem('vendorId',res.data.VendorId);
+         localStorage.setItem('vendorCode',res.data.VendorCode);
+         localStorage.setItem('vehiclePrefix',res.data.VehiclePrefix);
+      } else {
+        this.sharedService.error(res.message);
       }
-    })
-    console.log("Form Submitted", this.registerForm.getRawValue());
-  }
+    },
+    error: (err) => {
+      console.error('Vendor API Error:', err);
+      if (err.status === 500) {
+        this.sharedService.error('Internal server error. Please try again later.');
+      } else if (err.status === 0) {
+        this.sharedService.error('Network error. Please check your internet connection.');
+      } else {
+        this.sharedService.error(err.error?.message || 'Something went wrong.');
+      }
+    }
+  });
+}
+
+  // submit() {
+  //   this.router.navigate(['/dashboard']);
+  //   this.router.navigate(['/newRegisterDashboard']);
+  //   console.log("Form Submitted", this.registerForm.getRawValue());
+  // }
 
   // Shortcut
   f(field: string) {
@@ -606,12 +687,12 @@ submit() {
     }
     if (this.verifyState[type] !== 'idle') return;
     this.verifyState[type] = 'loading';
-
+  //  27ASVPJ4585G2Z1
     setTimeout(() => {
   
       if (type === 'gst') {
         const payload = {
-          gstin_number:this.documentsForm.get('gst')?.value,
+          gstin:String(this.documentsForm.get('gst')?.value),
         }
 
          this.allServices.gstVerification(payload).subscribe({
@@ -624,7 +705,10 @@ submit() {
                     const pan = gst.substring(2, 12);
                     this.documentsForm.get('pan')?.setValue(pan);
                   }
-                  this.documentsForm.get('organisation')?.setValue(res.data.tradeNam);
+                  this.documentsForm.patchValue({
+                    organisation:res.data.data.tradeNam
+                  })
+                  // this.documentsForm.get('organisation')?.setValue(res.data.tradeNam);
               }else{
                 this.verifyState[type] = 'idle'
                 this.sharedService.error(res.message)
@@ -643,10 +727,10 @@ submit() {
             }
           }) 
        }
-
+   
       if (type === 'pan') {
         const payload = {
-          pan_number:this.documentsForm.get('pan')?.value,
+          pan:String(this.documentsForm.get('pan')?.value),
         }
 
          this.allServices.panVerification(payload).subscribe({
@@ -654,6 +738,9 @@ submit() {
               if(res.status === '00'){
                 this.sharedService.success(res.message)
                 this.verifyState[type] = 'verified';
+                this.documentsForm.patchValue({
+                  organisation:res.data.data.full_name
+                })
               }else{
                 this.verifyState[type] = 'idle'
                 this.sharedService.error(res.message)

@@ -9,14 +9,16 @@ import {
   withViewTransitions
 } from '@angular/router';
 
+
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
+import { interceptorsInterceptor } from './views/Services/interceptors.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +39,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     // provideAnimationsAsync(),
     provideHttpClient(),
+    provideHttpClient(withInterceptors([interceptorsInterceptor])),
     importProvidersFrom(MatDialogModule),
     importProvidersFrom(MatDatepickerModule, MatNativeDateModule),
     { provide: DateAdapter, useClass: NativeDateAdapter }

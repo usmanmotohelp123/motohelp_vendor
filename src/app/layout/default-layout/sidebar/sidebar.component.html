@@ -1,19 +1,13 @@
-<div class="sidebar">
+<!-- <div class="sidebar">
 
-  <!-- LOGO -->
   <div class="logo">
     <img src="assets/images/Vendor-logo-s.png" alt="logo">
   </div>
-
-  <!-- MENU -->
   <div class="menu">
-
-    <!-- HOME(click)="goHomeMenu()" -->
     <div class="menu-item"  routerLink="/vendorDashboard" routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact:true}">
       <img src="assets/images/sidebar-icon/Home-Icon.png">
       <span>Home</span>
     </div>
-
 
     <div class="menu-item" (click)="profile()">
       <img src="assets/images/sidebar-icon/Profile-Icon.png">
@@ -29,13 +23,6 @@
         <img src="assets/images/sidebar-icon/Billing-Icon.png">
         <span>Billing</span>
     </div>
-
-    <!-- <div class="menu-item">
-      <img src="assets/images/sidebar-icon/History-Icon.png">
-      <span>History</span>
-    </div> -->
-
-    <!-- VEHICLE -->
     <div class="menu-item has-submenu" routerLinkActive="active-menu" (click)="toggleMenu('vehicle', $event)">
       <div class="menu-link">
         <img src="assets/images/sidebar-icon/Vehicle-Icon.png">
@@ -52,7 +39,6 @@
       </div>
     </div>
 
-    <!-- DRIVER -->
     <div class="menu-item has-submenu" routerLinkActive="active-menu" (click)="toggleMenu('driver', $event)">
       <div class="menu-link">
         <img src="assets/images/sidebar-icon/Driver-Icon.png">
@@ -79,16 +65,203 @@
       <span>Tracking</span>
     </div>
 
-    <!-- <div class="menu-item">
-      <img src="assets/images/sidebar-icon/NewLoad-Icon.png">
-      <span>New Load</span>
-    </div> -->
-
-    <!-- LOGOUT -->
     <div class="menu-item logout" (click)="logout()">
       <img src="assets/images/sidebar-icon/Logout-Icon.png">
       <span>Logout</span>
     </div>
 
+  </div>
+
+</div> -->
+
+
+
+<div class="sidebar" [class.collapsed]="collapsed">
+  <div class="sidebar-header">
+    <div class="logo">
+      <img src="assets/images/motohelp-logo.png" alt="logo">
+    </div>
+    <!-- <button type="button" class="sidebar-toggle"(click)="toggle()"> ☰</button> -->
+  </div>
+
+  <!-- MENU -->
+  <div class="menu">
+    <div class="menu-item" style="min-height: 70px;"></div>
+    <div class="menu-item" routerLink="/vendorDashboard" routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact:true}" title="Home">
+      <img src="assets/images/sidebar-icon/Home-Icon.png">
+      <span>Home</span>
+    </div>
+    <!-- TRACKING -->
+    <div class="menu-item" routerLinkActive="active-menu" routerLink="/tracking" *ngIf="isProfileCompleted === true"  title="Tracking"><!--*ngIf="isFlageEnable === 'Y'"-->
+      <img src="assets/images/sidebar-icon/Tracking-Icon.png">
+      <span>Tracking History</span>
+    </div>
+    <!-- PROFILE -->
+    <!-- <div class="menu-item" (click)="profile()" title="Profile">
+      <img src="assets/images/sidebar-icon/Profile-Icon.png">
+      <span>Profile</span>
+    </div> -->
+    <!-- OPERATION -->
+    <div class="menu-item" routerLinkActive="active-menu" *ngIf="sharedService.isProfileCompleted() === true"  title="Operation"> <!--*ngIf="isFlageEnable === 'Y'"-->
+      <img src="assets/images/sidebar-icon/Operation-Icon.png">
+      <span>Operation</span>
+    </div>
+    <!-- BILLING -->
+    <div class="menu-item" routerLinkActive="active-menu" *ngIf="sharedService.isProfileCompleted() === true"><!--*ngIf="isFlageEnable === 'Y'" title="Billing"-->
+      <img src="assets/images/sidebar-icon/Billing-Icon.png">
+      <span>Billing</span>
+    </div>
+    <!-- VEHICLE -->
+    <!-- <div class="menu-item has-submenu" routerLinkActive="active-menu" (click)="toggleMenu('vehicle', $event)" title="Vehicle">
+      <div class="menu-link">
+        <img src="assets/images/sidebar-icon/Vehicle-Icon.png">
+        <span>Vehicle</span>
+        <span class="arrow">›</span>
+      </div>
+      <div class="submenu-popup" [class.show]="activeMenu === 'vehicle'">
+        <div class="submenu-item" routerLink="/addVehicle" [queryParams]="{ type: 'sidebar' }">
+          Add/Verify
+        </div>
+        <div class="submenu-item" routerLink="/assignVehicle">
+          Assign Vehicle
+        </div>
+        <div class="submenu-item">
+          Maintenance
+        </div>
+        <div class="submenu-item">
+          Information
+        </div>
+        <div class="submenu-item" routerLink="/vehicleExpiry">
+          Expiry
+        </div>
+        <div class="submenu-item" routerLink="/discontinueVehicle">
+          Discontinue
+        </div>
+      </div>
+    </div> -->
+
+    <div class="menu-item has-submenu" routerLinkActive="active-menu" title="Vehicle">
+      <div class="menu-link" (click)="toggleMenu('vehicle', $event)">
+        <img src="assets/images/sidebar-icon/Vehicle-Icon.png">
+        <span>Vehicle</span>
+        <span class="arrow">
+          <!-- {{ activeMenu === 'vehicle' ? '⌄' : '›' }} -->
+            <img *ngIf="activeMenu === 'vehicle'" src="assets/images/figma-icons/down-arr.png">
+            <img *ngIf="activeMenu !== 'vehicle'" src="assets/images/figma-icons/side-arr.png">
+        </span>
+      </div>
+      <div class="submenu-popup"  [class.show]="activeMenu === 'vehicle'">
+        <div class="submenu-item" routerLinkActive="router-link-active" routerLink="/addVehicle">
+          Add / Verified
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active" routerLink="/assignVehicle">
+          Assign Vehicle
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active">
+          Maintenance
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active">
+          Information
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active" routerLink="/vehicleExpiry">
+          Expiry
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active" routerLink="/discontinueVehicle">
+          Discontinue
+        </div>
+      </div>
+    </div>
+
+    <!-- DRIVER -->
+    <!-- <div class="menu-item has-submenu" routerLinkActive="active-menu" (click)="toggleMenu('driver', $event)" title="Driver">
+      <div class="menu-link">
+        <img src="assets/images/sidebar-icon/Driver-Icon.png">
+        <span>Driver</span>
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="submenu-popup" [class.show]="activeMenu === 'driver'">
+        <div class="submenu-item" routerLink="/onboardDriver">
+          Onboard
+        </div>
+        <div class="submenu-item">
+          Log Details
+        </div>
+        <div class="submenu-item">
+          Payment
+        </div>
+        <div class="submenu-item">
+          Expense
+        </div>
+        <div class="submenu-item">
+          Information
+        </div>
+        <div class="submenu-item" routerLink="/discontinueDriver">
+          Discontinue
+        </div>
+      </div>
+    </div> -->
+
+    <div class="menu-item has-submenu" routerLinkActive="active-menu" title="Driver">
+      <div class="menu-link" (click)="toggleMenu('driver', $event)">
+        <img src="assets/images/sidebar-icon/Driver-Icon.png">
+        <span>Driver</span>
+        <span class="arrow">
+          <!-- {{ activeMenu === 'driver' ? '⌄' : '›' }} -->
+            <img *ngIf="activeMenu === 'driver'" src="assets/images/figma-icons/down-arr.png">
+            <img *ngIf="activeMenu !== 'driver'" src="assets/images/figma-icons/side-arr.png">
+        </span>
+      </div>
+      <div class="submenu-popup"[class.show]="activeMenu === 'driver'">
+        <div class="submenu-item" routerLinkActive="router-link-active"  (click)="sharedService.openOnboardModel()"> <!--routerLink="/onboardDriver"-->
+          Onboard
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active">
+          Log Details
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active">
+          Payment
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active">
+          Expense
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active">
+          Information
+        </div>
+        <div class="submenu-item" routerLinkActive="router-link-active" routerLink="/discontinueDriver">
+          Discontinue
+        </div>
+      </div>
+    </div>
+
+    <!-- WALLET -->
+    <div class="menu-item" routerLinkActive="active-menu" *ngIf="sharedService.isProfileCompleted() === true" title="Wallet">
+      <img src="assets/images/sidebar-icon/Wallet-Icon.png">
+      <span>Wallet</span>
+    </div>
+
+    <!-- LOGOUT -->
+    <div class="menu-item logout" (click)="logout()" title="Logout" style="margin-top: 1px;">
+      <img src="assets/images/sidebar-icon/Logout-Icon.png">
+      <span>Logout</span>
+    </div>
+
+    <div class="menu-item" style="min-height: 100%"></div>
+
+  </div>
+
+</div>
+
+<div *ngIf="sharedService.showOnboardModel()" class="onboard-model">
+  <button type="button" class="onboard-close-btn" (click)="sharedService.closeOnboardModel()" aria-label="Close"> &times;</button>
+  <h5 class="onboard-title">Driver Onboard</h5>
+  <div class="onboard-input-group">
+    <label for="userId" class="onboard-label">User ID :</label>
+    <input id="userId" type="text" class="form-control onboard-input" [(ngModel)]="onBoardId"/>
+  </div>
+  <div class="onboard-actions">
+    <button type="button" class="onboard-verify-btn" (click)="verifyDriver()">
+      Verify
+    </button>
   </div>
 </div>

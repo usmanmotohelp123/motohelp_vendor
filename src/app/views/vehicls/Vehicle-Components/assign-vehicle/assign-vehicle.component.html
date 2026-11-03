@@ -1,22 +1,18 @@
 <div class="container-fluid">
     <div class="head">
-        <h1>Assign/Deassigned </h1>
+        <h1 class="text-nowrap">Assign / Deassigned </h1>
         <div class="underline"></div>
     </div>
    
-
    <div class="assign-container text-center">
-
     <div class="toggle-btns">
-        <button class="btn" [ngClass]="assignEnable===true ? 'active':' outline'" (click)="toggleAssignEnableButton()">Assign Driver</button>
-        <button class="btn" [ngClass]="assignEnable===false ? 'active':' outline'" (click)="toggleAssignEnableButton()">Deassign Driver</button>
-
+        <button class="btn" [ngClass]="assignEnable===true ? 'active':' outline'" (click)="toggleAssignEnableButton()">Assign Driver&nbsp;&nbsp;</button>
+        <button class="btn" [ngClass]="assignEnable===false ? 'active':' outline'" (click)="toggleAssignEnableButton()" style="margin-right: -10px; padding: 10px 60px;">Deassign Driver</button>
     </div>
+    <div class="toggle-btns">
+      <div class="row" style="gap: 58px;">
 
-    <div class="toggle-btns" *ngIf="assignEnable">
-      <div class="row g-4">
-
-        <!-- Vehicle -->
+        <!-- Vehicle  *ngIf="assignEnable"-->
         <!-- <div class="col-6">
           <ng-select
             [items]="vehicles"
@@ -31,14 +27,13 @@
           </ng-select>
         </div> -->
 
-      <div class="col-md-6">
-        <select class="form-control custom-input" [(ngModel)]="selectedVehicle">
-          <i class="fa fa-search"></i>
-          <option selected disabled value="">Search Vehicles</option>
-          <option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleid">{{vehicle.VehicleNumber}} - {{vehicle.VehicleType}}</option>
+      <div class="col-md" style="padding:0;padding-left: 17px;">
+        <select class="form-control custom-input search-img" [(ngModel)]="selectedVehicle">
+           <!-- <img src="assets/images/figma-icons/search-icon.png" alt="Vehicle"> -->
+           <option disabled [ngValue]="null">Search Vehicles</option>
+           <option *ngFor="let vehicle of vehicles" [ngValue]="vehicle">{{vehicle.VehicleNo}} - {{vehicle.VehicleId}}</option>
         </select>
       </div>
-
         <!-- Driver -->
         <!-- <div class="col-6">
           <ng-select
@@ -53,43 +48,41 @@
             appendTo="body">
           </ng-select>
         </div> -->
-        
-      <div class="col-md-6">
-        <select class="form-control custom-input" [(ngModel)]="selectedDriver">
-          <i class="fa fa-search"></i>
+      <!-- <div class="col-md-1"></div> -->
+      <div class="col-md" style="padding:0; margin-right: 10px;">
+        <!-- <select class="form-control custom-input search-img" [(ngModel)]="selectedDriver">
           <option selected disabled value="">Search Driver</option>
-          <option *ngFor="let driver of drivers" [value]="driver.driver_id">{{driver.DriverName}} - {{driver.MobileNo}}</option>
+          <option *ngFor="let driver of drivers" [value]="driver">{{driver.DriverName}} - {{driver.MobileNo}}</option>
+        </select> -->
+        <select class="form-control custom-input search-img" [(ngModel)]="selectedDriver">
+          <option [ngValue]="null" disabled> Search Driver</option>
+          <option *ngFor="let driver of drivers" [ngValue]="driver">{{ driver.DriverName }} - {{ driver.MobileNo }}</option>
         </select>
+
       </div>
 
      </div>
     </div>
-
-      <!-- <button class="verify-btn"  (click)="assignDriver()">Assign</button> -->
-
-    <div class="text-center mb-3">
-      <button class="btn-validate-final" (click)="assignDriver()">Assign</button>
+    <!-- <button class="verify-btn"  (click)="assignDriver()">Assign</button> -->
+    <div *ngIf="assignEnable" class="text-center mb-3 mt-2">
+      <button class="btn-validate-final" (click)="assignDriver()">Submit</button>
     </div>
-
-     <div class="search-box d-flex justify-content-center">
+     <!-- <div class="search-box d-flex justify-content-center">
        <div class="input-box">
          <i class="fa fa-search search-icon"></i>
          <input type="text" placeholder="Search Driver / Vehicle No"/>
        </div>
-     </div>
-
+     </div> -->
      <div class="assign-details mt-1" *ngIf="assignEnable">
         <div class="assign-details-inner">
-          <div class="row gap-3">
-            <div class="col-md" *ngFor="let detail of details">
+          <div class="row">
+            <div class="col-sm-6" *ngFor="let detail of details">
 
-             <div class="assign-card">
-                 
+             <!-- <div class="assign-card">
                 <div class="top-tags d-flex justify-content-center align-items-center gap-4">
                   <span class="tag">{{detail.AssignID}}</span>
                   <span class="tag">{{detail.AssignmentDate | date:'dd-MM-yyyy'}}</span>
                 </div>
-
                 <div class="details text-center mt-3">
                   <div class="row">
                     <div class="col-6">
@@ -108,7 +101,54 @@
                   <button class="btn-delete">Delete</button>
                 </div>
 
+             </div> -->
+
+             <div class="assign-card">
+                <div class="top-tags">
+                  <span class="tag">
+                    Assign {{ detail.AssignmentId }}
+                  </span>
+                  <span class="tag">
+                    <!-- {{ detail.AssignedAt | date:'dd MMM yyyy' }} -->
+                    {{ detail.AssignedAt | date:'dd MMM yyyy / hh.mm a':'UTC' }}
+                  </span>
+                </div>
+                <div class="details">
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <img src="assets/images/Vehicle.png" alt="Vehicle">
+                    </div>
+                    <div class="detail-content">
+                      <p class="label">Vehicle Number</p>
+                      <p class="value">{{ detail.VehicleNo }}</p>
+                      <p class="sub-value">{{detail.VehicleType || 'Tata 407. Goods carrier'}}</p>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon" style="margin-left: 8px;">
+                      <img src="assets/images/sidebar-icon/Profile-Icon.png" alt="Driver">
+                    </div>
+                    <div class="detail-content">
+                      <p class="label">Driver Name</p>
+                      <p class="value">{{ detail.DriverName }}</p>
+                      <p class="sub-value">{{ detail.Mobile }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-actions">
+                  <button class="btn-active">
+                    <!-- <span class="active-dot"></span> -->
+                    <img src="assets/images/figma-icons/clock-active-icon.png" alt="Driver">
+                    Active
+                  </button>
+                  <button class="btn-delete" (click)= "deassignDriver(detail.DriverUserId,detail.DriverProfileId,detail.VehicleId)">
+                    <!-- <i class="fa fa-trash"></i> -->
+                    <img src="assets/images/figma-icons/delete-icon.png" alt="Driver"> 
+                    Delete
+                  </button>
+                </div>
              </div>
+
 
             </div>
           </div>  
@@ -119,47 +159,14 @@
 
      <div class="assign-details d-assign mt-1" *ngIf="!assignEnable">
         <div class="assign-details-inner d-assign">
-          <div class="row gap-3">
-            <div class="col-md" *ngFor="let detail of details">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let detail of unassignedDetails">
 
-             <!-- <div class="assign-card d-assign">
-                 
-                <div class="top-tags d-flex justify-content-center align-items-center gap-4">
-                  <span class="tag">{{detail.assignId}}</span>
-                  <span class="tag">{{detail.date}}</span>
-                </div>
-
-                <div class="details text-center mt-3">
-                  <div class="row">
-                    <div class="col-6">
-                        <p class="label">Vehicle Number</p>
-                        <p class="value">{{detail.vehicleNo}}</p>
-                    </div>
-                     <div class="col-6">
-                        <p class="label">Driver Name</p>
-                        <p class="value">{{detail.driverName}}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="btn-group d-flex justify-content-center gap-4 mt-2" style="padding-left: 10px;">
-                  <button class="btn-active">Active</button>
-                  <button class="btn-delete">Delete</button>
-                   <div class="delete-icon" (click)="deleteItem()">
-                     <i class="fa fa-trash"></i>
-                    </div>
-                </div>
-
-             </div> -->
-
-             
-             <div class="assign-card">
-                 
+             <!-- <div class="assign-card">
                 <div class="top-tags d-flex justify-content-center align-items-center gap-4">
                   <span class="tag">{{detail.AssignID}}</span>
                   <span class="tag">{{detail.AssignmentDate | date:'dd-MM-yyyy'}}</span>
                 </div>
-
                 <div class="details text-center mt-3">
                   <div class="row">
                     <div class="col-6">
@@ -181,7 +188,53 @@
                     </div>
                 </div>
 
+             </div> -->
+
+              <div class="assign-card">
+                <div class="top-tags">
+                  <span class="tag">
+                    Assign {{ detail.AssignmentId }}
+                  </span>
+                  <span class="tag">
+                    <!-- {{ detail.UnassignedAt | date:'dd MMM yyyy' }} -->
+                    {{ detail.UnassignedAt | date:'dd MMM yyyy / hh.mm a':'UTC' }}
+                  </span>
+                </div>
+                <div class="details">
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <img src="assets/images/Vehicle.png" alt="Vehicle">
+                    </div>
+                    <div class="detail-content">
+                      <p class="label">Vehicle Number</p>
+                      <p class="value">{{ detail.VehicleNo }}</p>
+                      <p class="sub-value">{{detail.VehicleType || 'Tata 407. Goods carrier'}}</p>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon" style="margin-left: 8px;">
+                      <img src="assets/images/sidebar-icon/Profile-Icon.png" alt="Driver">
+                    </div>
+                    <div class="detail-content">
+                      <p class="label">Driver Name</p>
+                      <p class="value">{{ detail.DriverName }}</p>
+                      <p class="sub-value">{{ detail.Mobile }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-actions">
+                  <button class="btn-active">
+                    <!-- <span class="active-dot"></span> -->
+                    <img src="assets/images/figma-icons/clock-active-icon.png" alt="Driver">
+                    De-Active
+                  </button>
+                  <!-- <button class="btn-delete">
+                    <img src="assets/images/figma-icons/delete-icon.png" alt="Driver">
+                    Delete
+                  </button> -->
+                </div>
              </div>
+
 
             </div>
           </div>  
